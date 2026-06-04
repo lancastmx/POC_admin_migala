@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "dist/POC_admin_migala/browser",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
