@@ -1,0 +1,13 @@
+/* Estilos base globales y resets del proyecto */
+
+body {
+    background-color: var(--color-background-primary);
+    color: var(--color-text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Tipografía y encabezados globales */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}

@@ -1,0 +1,24 @@
+@theme {
+    /* Colores del Proyecto Migala */
+    --color-migala-light: #ebe9fc;
+    --color-migala: #918be5;
+    --color-migala-dark: #766fd1;
+
+    /* Puedes agregar más extensiones aquí (fuentes, espaciados, etc.) */
+}
+
+/* Configuración de Modo Oscuro nativo con CSS Custom Properties */
+:root {
+    --color-background-primary: #ffffff;
+    --color-text-primary: #1f2937;
+    --color-card-bg: rgba(255, 255, 255, 0.75);
+    --color-card-border: rgba(255, 255, 255, 0.2);
+}
+
+.dark {
+    --color-background-primary: #121212;
+    --color-text-primary: #f9fafb;
+    --color-migala: #a59ff0; /* Variación más clara para mejor contraste en modo oscuro */
+    --color-card-bg: rgba(18, 18, 18, 0.75);
+    --color-card-border: rgba(255, 255, 255, 0.05);
+}

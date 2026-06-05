@@ -80,6 +80,7 @@ La expectativa es que ningún cambio relevante llegue directo a la rama principa
 - [GOVERNANCE.md](./GOVERNANCE.md)
 - [MAINTAINERS.md](./MAINTAINERS.md)
 - [SUPPORT.md](./SUPPORT.md)
+- [STYLING.md](./docs/STYLING.md) — Guía de estilos y optimización CSS (Tailwind v4)
 
 ## Estado actual
 

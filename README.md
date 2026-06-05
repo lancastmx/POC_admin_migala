@@ -70,6 +70,7 @@ Este enfoque permite que el administrador de recursos funcione como un **Zettelk
 - [GOVERNANCE.md](./GOVERNANCE.md) — Esquema de gobernanza
 - [MAINTAINERS.md](./MAINTAINERS.md) — Responsabilidades de mantenimiento
 - [SUPPORT.md](./SUPPORT.md) — Canales de soporte
+- [STYLING.md](./docs/STYLING.md) — Guía de estilos y optimización CSS (Tailwind v4)
 
 ## Licencia
 
