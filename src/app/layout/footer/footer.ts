@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-footer',
+  selector: 'migala-footer',
   templateUrl: './footer.html'
 })
 export class Footer {}

@@ -21,7 +21,7 @@ Componente de layout que renderiza la barra de navegación superior. Incluye:
 ## API / Interfaz pública
 
 ### Selector
-`<app-topbar />`
+`<migala-topbar />`
 
 ### Dependencias
 - `RouterLink` — para navegación declarativa (usado en el template)

@@ -19,7 +19,7 @@ Componente raíz de la aplicación. Define el layout principal con header, hero 
 ## API / Interfaz pública
 
 ### Selector
-`<app-root>`
+`<migala-root>`
 
 ### Señales
 | Señal | Tipo | Descripción |

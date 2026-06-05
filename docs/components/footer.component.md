@@ -22,7 +22,7 @@ Componente de layout que renderiza el pie de página. Incluye:
 ## API / Interfaz pública
 
 ### Selector
-`<app-footer />`
+`<migala-footer />`
 
 ## Grafo de dependencias
 

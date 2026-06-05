@@ -20,6 +20,7 @@ path: docs/
 - [[comp-002]] Topbar — Barra de navegación superior
 - [[comp-003]] Footer — Pie de página
 - [[comp-004]] Home — Página principal
+- [[comp-005]] Transparencia — Página de transparencia y documentos
 
 ## Configs
 

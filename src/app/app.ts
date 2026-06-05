@@ -4,7 +4,7 @@ import { Topbar } from './layout/topbar/topbar';
 import { Footer } from './layout/footer/footer';
 
 @Component({
-  selector: 'app-root',
+  selector: 'migala-root',
   imports: [RouterOutlet, Topbar, Footer],
   templateUrl: './app.html'
 })

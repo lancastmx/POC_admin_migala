@@ -23,6 +23,7 @@ Ubicados en [theme.css](../../src/styles/theme.css).
 ### Colores de Identidad (Migala)
 Generan las clases `bg-migala`, `text-migala`, `border-migala`, etc.
 *   `--color-migala`: `#918be5` (Color primario de la marca)
+*   `--color-migala-sky`: `#a8b5e0` (Color cielo / fondos de banner)
 *   `--color-migala-light`: `#ebe9fc` (Color secundario / fondos claros)
 *   `--color-migala-dark`: `#766fd1` (Variación oscura para hover/acciones)
 

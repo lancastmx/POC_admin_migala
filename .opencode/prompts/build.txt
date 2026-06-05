@@ -17,6 +17,7 @@ Este es un proyecto Angular 21+ con Tailwind CSS v4 que usa Bun como gestor de p
 - Bun v1.3.14 como package manager
 
 ## Convenciones
+- Prefix de componentes: `migala` (no `app`), ej: `migala-root`, `migala-topbar`
 - Prefiere standalone components sobre NgModules
 - Usa signals (signal, computed, effect) sobre Zone.js
 - Cambio de estrategia de detección: OnPush

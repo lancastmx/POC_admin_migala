@@ -10,6 +10,7 @@ graph TD
   comp-002[Topbar]
   comp-003[Footer]
   comp-004[Home]
+  comp-005[Transparencia]
   cfg-001[AppConfig]
   cfg-002[AppRoutes]
   entry-001[Main]
@@ -20,6 +21,7 @@ graph TD
   comp-001 --> cfg-002
   cfg-001 --> cfg-002
   cfg-002 --> comp-004
+  cfg-002 --> comp-005
   entry-001 --> comp-001
   entry-001 --> cfg-001
 ```
@@ -32,8 +34,9 @@ graph TD
 | comp-002 | Topbar | component | 1 | 0 |
 | comp-003 | Footer | component | 1 | 0 |
 | comp-004 | Home | component | 1 | 0 |
+| comp-005 | Transparencia | component | 1 | 0 |
 | cfg-001 | AppConfig | config | 2 | 1 |
-| cfg-002 | AppRoutes | config | 2 | 1 |
+| cfg-002 | AppRoutes | config | 2 | 2 |
 | entry-001 | Main | entry | 0 | 2 |
 
 ## Aristas
@@ -46,5 +49,6 @@ graph TD
 | comp-001 | cfg-002 | import |
 | cfg-001 | cfg-002 | import |
 | cfg-002 | comp-004 | route |
+| cfg-002 | comp-005 | route |
 | entry-001 | comp-001 | import |
 | entry-001 | cfg-001 | import |

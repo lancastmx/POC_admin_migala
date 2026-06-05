@@ -22,7 +22,7 @@ Página de inicio de la aplicación. Muestra:
 ## API / Interfaz pública
 
 ### Selector
-`<app-home />`
+`<migala-home />`
 
 ### Ruta
 `/` (raíz)
