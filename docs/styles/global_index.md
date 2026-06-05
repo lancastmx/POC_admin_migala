@@ -1,3 +1,16 @@
+---
+zk_id: docs-002
+title: Catálogo de Estilos Globales
+description: Registro de tokens de diseño y clases CSS globales del proyecto POC_admin_migala
+type: docs
+tags: [tailwind, css, theme, tokens, design-system, colores, componentes-globales]
+author: equipo
+created: 2025-06-05
+updated: 2025-06-05
+path: docs/styles/global_index.md
+collection: poc-admin-migala
+---
+
 # Catálogo de Estilos Globales (No modificar a la ligera)
 
 Este documento registra los tokens de diseño y clases CSS globales del proyecto `POC_admin_migala`. Estos estilos definen la identidad visual de la aplicación y **no deben ser modificados sin la aprobación del equipo de diseño/arquitectura**, ya que impactan a toda la interfaz.
@@ -44,3 +57,26 @@ Ubicado en [utilities.css](../../src/styles/utilities.css).
 Si necesitas agregar un color corporativo nuevo o extender una tipografía global:
 1.  Agrégalo únicamente dentro del bloque `@theme` de [theme.css](../../src/styles/theme.css).
 2.  Registra la nueva variable en este archivo para que el resto del equipo sepa que existe y evite crear utilidades duplicadas.
+
+---
+
+## Zettelkasten
+
+| Campo | Valor |
+|-------|-------|
+| ID | `docs-002` |
+| Tipo | `docs` (catálogo de estilos) |
+| Tags | tailwind, css, theme, tokens, design-system, colores |
+
+### Enlaces salientes
+- [[docs-001]] → Guía de estilos principal (STYLING.md)
+- [[docs-003]] → Guía de estilos de componentes (component_styles.md)
+
+### Enlaces entrantes
+- [[docs-001]] → STYLING.md referencia este catálogo
+- [[idx-meta]] → INDEX.md referencia este catálogo
+
+## Changelog
+| Fecha | Autor | Cambio |
+|-------|-------|--------|
+| 2025-06-05 | @equipo | documentación inicial - catálogo de estilos globales |

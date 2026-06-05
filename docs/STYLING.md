@@ -1,3 +1,16 @@
+---
+zk_id: docs-001
+title: Guía de Estilos y Optimización Tailwind CSS v4
+description: Convenciones y mejores prácticas para extender el sistema de diseño con Tailwind CSS v4
+type: docs
+tags: [tailwind, css, styling, theme, design-system, optimización]
+author: equipo
+created: 2025-06-05
+updated: 2025-06-05
+path: docs/STYLING.md
+collection: poc-admin-migala
+---
+
 # Guía de Estilos y Optimización (Tailwind CSS v4)
 
 Este documento detalla las convenciones y mejores prácticas para extender el sistema de diseño en `POC_admin_migala` utilizando **Tailwind CSS v4**. El objetivo es mantener el CSS final lo más liviano, rápido y optimizado posible, preparándonos para un crecimiento de más de 1,000 líneas de código.
@@ -134,3 +147,25 @@ Si necesitas un estilo complejo que se repite constantemente en todo el proyecto
     border: 1px solid var(--color-card-border);
 }
 ```
+
+---
+
+## Zettelkasten
+
+| Campo | Valor |
+|-------|-------|
+| ID | `docs-001` |
+| Tipo | `docs` (guía de estilos) |
+| Tags | tailwind, css, styling, theme, design-system, optimización |
+
+### Enlaces salientes
+- [[docs-002]] → Catálogo de Estilos Globales (global_index.md)
+- [[docs-003]] → Guía de Estilos de Componentes (component_styles.md)
+
+### Enlaces entrantes
+- [[idx-meta]] → INDEX.md referencia esta guía
+
+## Changelog
+| Fecha | Autor | Cambio |
+|-------|-------|--------|
+| 2025-06-05 | @equipo | documentación inicial - guía de estilos Tailwind v4 |

@@ -23,3 +23,28 @@ Este es un proyecto Angular 21+ con Tailwind CSS v4 que usa Bun como gestor de p
 - Control flow moderno: @if, @for, @defer
 - Tests junto al componente con extensión .spec.ts
 - Usa bun, nunca npm o yarn
+
+## Reglas de Estilo (Tailwind CSS v4)
+Consulta las guías completas en `docs/`:
+
+### Principios clave
+- **No escribas CSS personalizado si existe utilidad Tailwind.** Usa clases como `flex`, `grid`, `gap-4` directamente en HTML.
+- **Valores arbitrarios sobre la marcha:** usa `h-[120px]` o `bg-[#342159]` para estilos de una sola vez.
+- **Evita `@apply`** porque infla el bundle. Prefiere clases directamente en el template.
+- **Colores corporativos:** `migala` (#918be5), `migala-light` (#ebe9fc), `migala-dark` (#766fd1).
+- **Clase glassmorphism:** `card-glass` para contenedores con blur y transparencia.
+- **Modo oscuro:** usa variables `var(--color-*)` definidas en `:root` y `.dark`.
+- **Estilos locales:** solo para animaciones/layouts únicos del componente. Angular los encapsula automáticamente.
+
+### Dónde va cada cosa
+| Tipo | Ubicación | Ejemplo |
+|------|-----------|---------|
+| Variables de tema | `src/styles/theme.css` | `--color-migala: #918be5` |
+| Resets globales | `src/styles/base.css` | estilos de `body`, tipografía base |
+| Utilidades reusables | `src/styles/utilities.css` | `@utility card-glass { ... }` |
+| Estilos de componente | `*.component.css` | animaciones únicas del componente |
+
+### Documentación de referencia
+- `docs/STYLING.md` — Guía completa de estilos
+- `docs/styles/global_index.md` — Catálogo de tokens y componentes globales
+- `docs/styles/component_styles.md` — Guía de estilos locales de componentes

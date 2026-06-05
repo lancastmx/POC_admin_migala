@@ -1,3 +1,16 @@
+---
+zk_id: docs-003
+title: Guía de Estilos Específicos de Componentes
+description: Directrices sobre cuándo y cómo usar archivos CSS locales en componentes Angular
+type: docs
+tags: [angular, css, component-styles, encapsulation, scoping]
+author: equipo
+created: 2025-06-05
+updated: 2025-06-05
+path: docs/styles/component_styles.md
+collection: poc-admin-migala
+---
+
 # Guía de Estilos Específicos de Componentes (.css local)
 
 En este archivo se definen las directrices sobre cuándo y cómo utilizar archivos de estilo locales (por ejemplo, `mi-componente.component.css`) en lugar de añadir clases a la estructura CSS global.
@@ -38,3 +51,26 @@ Cuando necesites CSS personalizado para un componente Angular, sigue estos pasos
     ```
 3.  **Aprovecha Tailwind v4 en el CSS local:** El motor de compilación procesa las directivas de Tailwind dentro del CSS del componente. Puedes usar variables del tema como `var(--color-migala)` o utilizar `@apply` con moderación si necesitas combinar clases para elementos de uso interno rápido.
 4.  **No uses selectores globales** como `body` o `html` dentro del CSS del componente, ya que debido al encapsulamiento no tendrán efecto, o requerirán el uso de pseudo-selectores como `:host` o `::ng-deep` (los cuales deben usarse con extrema precaución para no romper el aislamiento).
+
+---
+
+## Zettelkasten
+
+| Campo | Valor |
+|-------|-------|
+| ID | `docs-003` |
+| Tipo | `docs` (guía de estilos de componentes) |
+| Tags | angular, css, component-styles, encapsulation, scoping |
+
+### Enlaces salientes
+- [[docs-001]] → Guía de estilos principal (STYLING.md)
+- [[docs-002]] → Catálogo de estilos globales (global_index.md)
+
+### Enlaces entrantes
+- [[docs-001]] → STYLING.md referencia esta guía
+- [[idx-meta]] → INDEX.md referencia esta guía
+
+## Changelog
+| Fecha | Autor | Cambio |
+|-------|-------|--------|
+| 2025-06-05 | @equipo | documentación inicial - guía de estilos de componentes |
