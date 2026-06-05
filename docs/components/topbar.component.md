@@ -1,9 +1,9 @@
 ---
 zk_id: comp-002
 title: Topbar
-description: Barra de navegación superior con logo y enlaces del sitio
+description: Barra de navegación superior con logo, menú escalable y mobile hamburger
 type: component
-tags: [angular, component, layout, navigation, topbar]
+tags: [angular, component, layout, navigation, topbar, mobile]
 author: lanca
 created: 2025-06-05
 updated: 2025-06-05
@@ -16,7 +16,25 @@ collection: poc-admin-migala
 ## Descripción
 Componente de layout que renderiza la barra de navegación superior. Incluye:
 - Logo de Proyecto Migala (izquierda)
-- Enlaces de navegación: Inicio, Transparencia, Archivo, Aviso de privacidad
+- Menú desktop con `@for` sobre `TOP_MENU`
+- Menú mobile con hamburguesa animada (☰ ↔ ✕) y dropdown con `max-height` animado
+
+## Arquitectura
+
+```
+topbar/
+├── menu-item.ts      # Interface MenuItem { label, route, exact?, lines? }
+├── top-menu.ts       # MenuItem[] — fuente única de la navegación
+├── topbar.ts         # Componente con signal isMenuOpen
+└── topbar.html       # @for + [class.opacity-0] + [style.max-height]
+```
+
+### Señales (Signals)
+- `isMenuOpen: signal(false)` — controla apertura del menú mobile
+
+### Métodos
+- `toggleMenu()` — alterna el menú mobile
+- `closeMenu()` — cierra menú (se llama al hacer click en un link)
 
 ## API / Interfaz pública
 
@@ -24,13 +42,20 @@ Componente de layout que renderiza la barra de navegación superior. Incluye:
 `<migala-topbar />`
 
 ### Dependencias
-- `RouterLink` — para navegación declarativa (usado en el template)
+- `RouterLink` — navegación declarativa
+- `RouterLinkActive` — clase activa en link actual
+
+### Uso
+```html
+<migala-topbar />
+```
 
 ## Grafo de dependencias
 
 ```mermaid
 graph LR
-  comp-002(Topbar)
+  comp-002(Topbar) --> menu-item.ts
+  comp-002 --> top-menu.ts
 ```
 
 | Métrica | Valor |
@@ -38,8 +63,9 @@ graph LR
 | Fan-out | 0 |
 | Fan-in | 1 |
 
-### Dependencias
-Ninguna (sin imports relativos)
+### Dependencias locales
+- `menu-item.ts` — interface
+- `top-menu.ts` — datos del menú
 
 ### Dependientes (importado por)
 | Nota | Archivo |
@@ -54,10 +80,12 @@ Ninguna (sin imports relativos)
 | Autor | @lanca |
 | Creado | 2025-06-05 |
 | Actualizado | 2025-06-05 |
-| Tags | angular, component, layout, navigation, topbar |
+| Tags | angular, component, layout, navigation, topbar, mobile |
 
 ### Enlaces salientes
-Ninguno
+- [[comp-006]] — PageNotFound (mismo patrón de componente compartido)
+- [[comp-007]] — EmptyState
+- [[comp-008]] — UnderConstruction
 
 ### Enlaces entrantes
 - [[comp-001]] → App lo usa como parte del layout
@@ -66,3 +94,5 @@ Ninguno
 | Fecha | Autor | Cambio |
 |-------|-------|--------|
 | 2025-06-05 | @lanca | creación del componente Topbar |
+| 2025-06-05 | @lanca | refactor: interface MenuItem + top-menu.ts con @for |
+| 2025-06-05 | @lanca | mobile: hamburguesa SVG + dropdown animado con signal |

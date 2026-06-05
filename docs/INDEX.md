@@ -21,6 +21,9 @@ path: docs/
 - [[comp-003]] Footer — Pie de página
 - [[comp-004]] Home — Página principal
 - [[comp-005]] Transparencia — Página de transparencia y documentos
+- [[comp-006]] PageNotFound — Página 404
+- [[comp-007]] EmptyState — Estado vacío genérico
+- [[comp-008]] UnderConstruction — Página en construcción
 
 ## Configs
 
