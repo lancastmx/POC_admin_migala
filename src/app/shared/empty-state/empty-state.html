@@ -1,0 +1,10 @@
+<section class="flex flex-col items-center justify-center min-h-[40vh] px-4 text-center">
+  @if (icon()) {
+    <span class="text-5xl mb-4 block">{{ icon() }}</span>
+  }
+  <h2 class="text-xl font-bold text-gray-900">{{ title() }}</h2>
+  @if (message()) {
+    <p class="text-gray-500 text-sm mt-2 max-w-md">{{ message() }}</p>
+  }
+  <ng-content />
+</section>
