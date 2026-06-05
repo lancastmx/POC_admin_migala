@@ -1,0 +1,19 @@
+# QMD Collections Configuration for POC_admin_migala
+# Place this file at: docs/qmd-index.yml
+# Then run: qmd collection add ./docs --name poc-admin-migala --mask "**/*.md"
+
+global_context: "Documentación del proyecto POC_admin_migala, una aplicación Angular 21+ con Tailwind CSS v4. Busca aquí información sobre componentes, servicios, directivas, pipes y guards."
+
+collections:
+  poc-admin-migala:
+    path: ./docs
+    pattern: "**/*.md"
+    context:
+      "/": "Documentación del proyecto POC_admin_migala (Angular 21+)"
+      "/components": "Componentes Angular - UI, templates y lógica de presentación"
+      "/services": "Servicios Angular - lógica de negocio, HTTP, estado global"
+      "/directives": "Directivas Angular - comportamiento reusable en el DOM"
+      "/pipes": "Pipes Angular - transformación de datos en templates"
+      "/guards": "Guards Angular - control de acceso a rutas"
+      "/interfaces": "Interfaces TypeScript - definiciones de tipos y contratos"
+      "/models": "Modelos TypeScript - clases de dominio y DTOs"

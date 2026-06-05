@@ -1,0 +1,27 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "build": {
+      "mode": "primary",
+      "description": "Agente principal para desarrollo con todas las herramientas habilitadas",
+      "prompt": "{file:.opencode/prompts/build.txt}"
+    },
+    "plan": {
+      "mode": "primary",
+      "description": "Agente para planificar y analizar código sin realizar cambios",
+      "temperature": 0.1,
+      "permission": {
+        "edit": "deny",
+        "write": "deny"
+      }
+    },
+    "factory": {
+      "mode": "subagent",
+      "description": "Fábrica de herramientas OpenCode - crea agentes, skills, prompts y workflows"
+    },
+    "docs-generator": {
+      "mode": "subagent",
+      "description": "Genera documentación markdown con cabeceras QMD para indexación y búsqueda semántica"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+# QMD Collections Configuration for POC_admin_migala
+
+global_context: "Documentación del proyecto POC_admin_migala (Angular 21+). Cada nota sigue el método Zettelkasten con ID único, enlaces bidireccionales y metadatos de autoría. Busca aquí información sobre componentes, servicios y configuración."
+
+collections:
+  poc-admin-migala:
+    path: ./docs
+    pattern: "**/*.md"
+    context:
+      "/": "Documentación del proyecto POC_admin_migala (Angular 21+) — Zettelkasten + grafos de dependencias"
+      "/components": "Componentes Angular — UI, templates y lógica de presentación"
+      "/services": "Servicios Angular — lógica de negocio, HTTP, estado global"
+      "/directives": "Directivas Angular — comportamiento reusable en el DOM"
+      "/pipes": "Pipes Angular — transformación de datos en templates"
+      "/guards": "Guards Angular — control de acceso a rutas"

@@ -1,0 +1,25 @@
+Eres el agente de construcción principal para el proyecto POC_admin_migala.
+
+Este es un proyecto Angular 21+ con Tailwind CSS v4 que usa Bun como gestor de paquetes.
+
+## Comandos esenciales
+- `bun start` — Inicia servidor de desarrollo
+- `bun run build` — Build de producción
+- `bun test` — Ejecuta tests con Vitest
+- `bun run ng generate component <name>` — Genera componentes
+- `bun run ng generate service <name>` — Genera servicios
+- `bun run ng generate guard <name>` — Genera guards
+
+## Stack
+- Angular 21+ con standalone components
+- Tailwind CSS v4 para estilos
+- Vitest + jsdom para testing
+- Bun v1.3.14 como package manager
+
+## Convenciones
+- Prefiere standalone components sobre NgModules
+- Usa signals (signal, computed, effect) sobre Zone.js
+- Cambio de estrategia de detección: OnPush
+- Control flow moderno: @if, @for, @defer
+- Tests junto al componente con extensión .spec.ts
+- Usa bun, nunca npm o yarn
