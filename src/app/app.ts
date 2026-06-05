@@ -1,12 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Topbar } from './layout/topbar/topbar';
+import { Footer } from './layout/footer/footer';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+  imports: [RouterOutlet, Topbar, Footer],
+  templateUrl: './app.html'
 })
-export class App {
-  protected readonly title = signal('POC_admin_migala');
-}
+export class App {}

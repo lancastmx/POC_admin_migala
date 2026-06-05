@@ -7,44 +7,44 @@ Generado automáticamente el 2025-06-05 por @lanca.
 ```mermaid
 graph TD
   comp-001[App]
+  comp-002[Topbar]
+  comp-003[Footer]
+  comp-004[Home]
   cfg-001[AppConfig]
   cfg-002[AppRoutes]
   entry-001[Main]
-  docs-001[STYLING - Guía Tailwind]
-  docs-002[global_index - Catálogo estilos]
-  docs-003[component_styles - Estilos locales]
 
+  comp-001 --> comp-002
+  comp-001 --> comp-003
   comp-001 --> cfg-001
   comp-001 --> cfg-002
   cfg-001 --> cfg-002
+  cfg-002 --> comp-004
   entry-001 --> comp-001
   entry-001 --> cfg-001
-  docs-001 --> docs-002
-  docs-001 --> docs-003
-  docs-002 --> docs-003
 ```
 
 ## Nodos
 
 | ID | Nombre | Tipo | Fan-in | Fan-out |
 |----|--------|------|--------|---------|
-| comp-001 | App | component | 1 | 2 |
+| comp-001 | App | component | 1 | 4 |
+| comp-002 | Topbar | component | 1 | 0 |
+| comp-003 | Footer | component | 1 | 0 |
+| comp-004 | Home | component | 1 | 0 |
 | cfg-001 | AppConfig | config | 2 | 1 |
-| cfg-002 | AppRoutes | config | 1 | 0 |
+| cfg-002 | AppRoutes | config | 2 | 1 |
 | entry-001 | Main | entry | 0 | 2 |
-| docs-001 | STYLING.md | docs | 0 | 2 |
-| docs-002 | global_index.md | docs | 1 | 1 |
-| docs-003 | component_styles.md | docs | 2 | 0 |
 
 ## Aristas
 
 | Origen | Destino | Tipo |
 |--------|---------|------|
+| comp-001 | comp-002 | import |
+| comp-001 | comp-003 | import |
 | comp-001 | cfg-001 | import |
 | comp-001 | cfg-002 | import |
 | cfg-001 | cfg-002 | import |
+| cfg-002 | comp-004 | route |
 | entry-001 | comp-001 | import |
 | entry-001 | cfg-001 | import |
-| docs-001 | docs-002 | referencia |
-| docs-001 | docs-003 | referencia |
-| docs-002 | docs-003 | referencia |
