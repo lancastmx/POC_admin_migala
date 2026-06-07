@@ -1,0 +1,12 @@
+<section [class]="sectionClass()">
+  <div class="scale-x-[0.95] max-w-3xl mx-auto">
+    <h1 [class]="titleClass()">
+      {{ title() }}
+    </h1>
+    @if (description()) {
+      <p [class]="paragraphClass()">
+        {{ description() }}
+      </p>
+    }
+  </div>
+</section>
