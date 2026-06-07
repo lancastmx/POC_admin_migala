@@ -1,15 +1,25 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Transparencia } from './transparencia';
 import { provideRouter } from '@angular/router';
+import { SeoService } from '../../core/services/seo.service';
+import { vi } from 'vitest';
 
 describe('Transparencia', () => {
   let component: Transparencia;
   let fixture: ComponentFixture<Transparencia>;
+  let mockSeoService: any;
 
   beforeEach(async () => {
+    mockSeoService = {
+      generateTags: vi.fn()
+    };
+
     await TestBed.configureTestingModule({
       imports: [Transparencia],
-      providers: [provideRouter([])]
+      providers: [
+        provideRouter([]),
+        { provide: SeoService, useValue: mockSeoService }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(Transparencia);

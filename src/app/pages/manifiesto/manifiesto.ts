@@ -2,6 +2,7 @@ import { Component, signal, computed, inject } from '@angular/core';
 import { PageBanner } from '../../shared/page-banner/page-banner';
 import { AudioReader } from '../../shared/audio-reader/audio-reader';
 import { TextToSpeechService } from '../../core/services/text-to-speech.service';
+import { SeoService } from '../../core/services/seo.service';
 
 interface Section {
   id: string;
@@ -19,6 +20,14 @@ interface Section {
 })
 export class Manifiesto {
   private readonly ttsService = inject(TextToSpeechService);
+
+  constructor() {
+    inject(SeoService).generateTags({
+      title: 'Manifiesto del Proyecto Migala - Versión Alfa',
+      description: 'Consulta los principios rectores, estatutos ideológicos y la visión de cambio social del Proyecto Migala a nivel nacional.',
+      url: 'https://poc-admin-migala.web.app/manifiesto'
+    });
+  }
 
   // Signal to manage the active section ID
   protected readonly activeSectionId = signal<string>('1');

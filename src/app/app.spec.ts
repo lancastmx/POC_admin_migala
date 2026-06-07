@@ -24,4 +24,14 @@ describe('App', () => {
     expect(compiled.querySelector('migala-footer')).toBeTruthy();
     expect(compiled.querySelector('router-outlet')).toBeTruthy();
   });
+
+  it('should have an accessibility skip-link pointing to main-content', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const skipLink = compiled.querySelector('a.sr-only') as HTMLAnchorElement;
+    expect(skipLink).toBeTruthy();
+    expect(skipLink.getAttribute('href')).toBe('#main-content');
+    expect(compiled.querySelector('main#main-content')).toBeTruthy();
+  });
 });

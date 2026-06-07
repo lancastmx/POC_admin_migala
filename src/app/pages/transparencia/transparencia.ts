@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PageBanner } from '../../shared/page-banner/page-banner';
 import { SOCIAL_NETWORKS } from '../../core/social-networks';
+import { SeoService } from '../../core/services/seo.service';
 
 interface TransparenciaItem {
   name: string;
@@ -27,6 +28,14 @@ export class Transparencia {
 
   // Expose core social networks to template
   protected readonly socialNetworks = SOCIAL_NETWORKS;
+
+  constructor() {
+    inject(SeoService).generateTags({
+      title: 'Transparencia - Proyecto Migala',
+      description: 'Acceso abierto y público a reglamentos, actas de sesiones, conversatorios, finanzas y patrimonio del Proyecto Migala de forma voluntaria y honesta.',
+      url: 'https://poc-admin-migala.web.app/transparencia'
+    });
+  }
 
   // Complete data for the Transparency sections with routes
   protected readonly sections: TransparenciaSection[] = [

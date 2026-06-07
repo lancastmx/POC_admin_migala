@@ -1,11 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { Manifiesto } from './manifiesto';
 import { TextToSpeechService } from '../../core/services/text-to-speech.service';
+import { SeoService } from '../../core/services/seo.service';
 import { signal } from '@angular/core';
 import { vi } from 'vitest';
 
 describe('Manifiesto', () => {
   let mockTtsService: any;
+  let mockSeoService: any;
 
   beforeEach(async () => {
     mockTtsService = {
@@ -18,10 +20,15 @@ describe('Manifiesto', () => {
       stop: vi.fn()
     };
 
+    mockSeoService = {
+      generateTags: vi.fn()
+    };
+
     await TestBed.configureTestingModule({
       imports: [Manifiesto],
       providers: [
-        { provide: TextToSpeechService, useValue: mockTtsService }
+        { provide: TextToSpeechService, useValue: mockTtsService },
+        { provide: SeoService, useValue: mockSeoService }
       ]
     }).compileComponents();
   });

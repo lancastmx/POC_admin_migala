@@ -6,10 +6,10 @@ import { UnderConstruction } from './shared/under-construction/under-constructio
 import { PageNotFound } from './shared/page-not-found/page-not-found';
 
 export const routes: Routes = [
-  { path: '', component: Home },
-  { path: 'manifiesto', component: Manifiesto },
-  { path: 'transparencia', component: Transparencia },
-  { path: 'archivo', component: UnderConstruction },
-  { path: 'privacidad', component: UnderConstruction },
-  { path: '**', component: PageNotFound },
+  { path: '', component: Home, title: 'Inicio - Transparencia Proyecto Migala' },
+  { path: 'manifiesto', component: Manifiesto, title: 'Manifiesto - Proyecto Migala' },
+  { path: 'transparencia', component: Transparencia, title: 'Transparencia - Proyecto Migala' },
+  { path: 'archivo', component: UnderConstruction, title: 'Archivo - Proyecto Migala' },
+  { path: 'privacidad', component: UnderConstruction, title: 'Aviso de Privacidad - Proyecto Migala' },
+  { path: '**', component: PageNotFound, title: 'Página no Encontrada - Proyecto Migala' },
 ];
