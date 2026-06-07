@@ -22,6 +22,16 @@
     "docs-generator": {
       "mode": "subagent",
       "description": "Genera documentación markdown con cabeceras QMD para indexación y búsqueda semántica"
+    },
+    "hexagonal-backend": {
+      "mode": "subagent",
+      "description": "Agente subagent especialista en arquitectura hexagonal y desacoplamiento de backend (Express/Firebase/SQL/NoSQL)",
+      "prompt": "{file:.opencode/agents/hexagonal-backend.md}"
+    },
+    "graphql-adapter": {
+      "mode": "subagent",
+      "description": "Agente subagent especialista en crear e integrar adaptadores primarios GraphQL en arquitecturas hexagonales.",
+      "prompt": "{file:.opencode/agents/graphql-adapter.md}"
     }
   }
 }
