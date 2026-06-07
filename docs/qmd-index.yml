@@ -13,3 +13,5 @@ collections:
       "/directives": "Directivas Angular — comportamiento reusable en el DOM"
       "/pipes": "Pipes Angular — transformación de datos en templates"
       "/guards": "Guards Angular — control de acceso a rutas"
+      "/agents": "Agentes OpenCode — directrices, prompts del sistema y especialidades de subagentes"
+      "/skills": "Skills OpenCode — guías técnicas y estándares de desarrollo para optimizar el uso de tokens"
