@@ -48,13 +48,13 @@
           
           <div class="space-y-2 pt-2">
             <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Documentos y Archivos</h4>
-            @for (item of sec.items; track item) {
+            @for (item of sec.items; track item.name) {
               <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white border border-purple-100/80 rounded-xl px-4 py-3.5 gap-3 shadow-xs hover:border-migala/40 transition duration-200">
                 <div class="flex items-start space-x-3 text-sm font-semibold text-gray-800 tracking-wide">
                   <span class="text-migala mt-0.5">📄</span>
-                  <span class="font-medium text-gray-700">{{ item }}</span>
+                  <span class="font-medium text-gray-700">{{ item.name }}</span>
                 </div>
-                <button class="bg-migala/10 hover:bg-migala hover:text-white text-migala text-xs font-extrabold px-4 py-2 rounded-lg transition duration-200 shadow-2xs self-end sm:self-center">
+                <button [routerLink]="item.route" class="bg-migala/10 hover:bg-migala hover:text-white text-migala text-xs font-extrabold px-4 py-2 rounded-lg transition duration-200 shadow-2xs self-end sm:self-center cursor-pointer">
                   Consultar
                 </button>
               </div>
