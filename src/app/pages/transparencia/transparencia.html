@@ -47,26 +47,24 @@
           </p>
           
           @if (sec.id === 'redes-sociales') {
-            <!-- Grid list of social networks with dynamically fetched favicons -->
-            <div class="space-y-3 pt-2">
-              <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Canales Oficiales</h4>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                @for (net of socialNetworks; track net.name) {
+            <!-- List of social networks with dynamically fetched favicons -->
+            <div class="space-y-2 pt-2">
+              <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Canales Oficiales</h4>
+              @for (net of socialNetworks; track net.name) {
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white border border-purple-100/80 rounded-xl px-4 py-3.5 gap-3 shadow-xs hover:border-migala/40 transition duration-200">
+                  <div class="flex items-center space-x-3 text-sm font-semibold text-gray-800 tracking-wide">
+                    <!-- Dynamic Favicon using high-performance S2 service -->
+                    <img [src]="net.iconUrl" [alt]="net.name" 
+                         class="w-5 h-5 rounded-md object-contain"
+                         onerror="this.src='assets/img/Logo.png'">
+                    <span class="font-medium text-gray-700">{{ net.name }}</span>
+                  </div>
                   <a [href]="net.url" target="_blank" rel="noopener noreferrer" 
-                     class="flex items-center justify-between bg-white border border-purple-100/50 rounded-xl px-4 py-3 hover:border-migala/40 hover:shadow-xs transition duration-200 group cursor-pointer">
-                    <div class="flex items-center space-x-3 text-sm font-semibold text-gray-700">
-                      <!-- Dynamic Favicon using high-performance S2 service -->
-                      <img [src]="net.iconUrl" [alt]="net.name" 
-                           class="w-6 h-6 rounded-md object-contain group-hover:scale-110 transition-transform duration-200"
-                           onerror="this.src='assets/img/Logo.png'">
-                      <span class="font-medium text-gray-700 tracking-wide">{{ net.name }}</span>
-                    </div>
-                    <span class="text-xs font-extrabold text-migala bg-migala/10 group-hover:bg-migala group-hover:text-white px-3 py-1.5 rounded-lg transition duration-200">
-                      Ir al canal
-                    </span>
+                     class="bg-migala/10 hover:bg-migala hover:text-white text-migala text-xs font-extrabold px-4 py-2 rounded-lg transition duration-200 shadow-2xs self-end sm:self-center cursor-pointer text-center">
+                    Ir al canal
                   </a>
-                }
-              </div>
+                </div>
+              }
             </div>
 
             <!-- Directorio and other items under Redes Sociales -->
