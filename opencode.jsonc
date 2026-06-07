@@ -32,6 +32,11 @@
       "mode": "subagent",
       "description": "Agente subagent especialista en crear e integrar adaptadores primarios GraphQL en arquitecturas hexagonales.",
       "prompt": "{file:.opencode/agents/graphql-adapter.md}"
+    },
+    "oauth-expert": {
+      "mode": "subagent",
+      "description": "Agente subagent especialista en seguridad y en el estándar OAuth 2.0 / OpenID Connect.",
+      "prompt": "{file:.opencode/agents/oauth-expert.md}"
     }
   }
 }
