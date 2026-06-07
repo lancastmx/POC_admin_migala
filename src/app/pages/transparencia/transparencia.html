@@ -28,6 +28,9 @@
   @for (sec of sections; track sec.id) {
     <div class="w-full rounded-xl overflow-hidden shadow-xs border border-gray-100 bg-white">
       <button (click)="toggleSection(sec.id)"
+        id="sec-btn-{{ sec.id }}"
+        [attr.aria-expanded]="openSectionId() === sec.id"
+        [attr.aria-controls]="'sec-panel-' + sec.id"
         class="w-full bg-migala text-white px-5 py-4 flex items-center justify-between font-bold tracking-wider text-sm md:text-base transition hover:bg-migala-dark cursor-pointer">
         <div class="flex items-center space-x-3.5">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300" 
@@ -41,7 +44,10 @@
       </button>
 
       @if (openSectionId() === sec.id) {
-        <div class="bg-purple-50/50 p-6 border-x border-b border-purple-100/50 space-y-5 animate-fade-in">
+        <div id="sec-panel-{{ sec.id }}" 
+             role="region" 
+             [attr.aria-labelledby]="'sec-btn-' + sec.id"
+             class="bg-purple-50/50 p-6 border-x border-b border-purple-100/50 space-y-5 animate-fade-in">
           <p class="text-gray-700 text-sm leading-relaxed text-justify font-light whitespace-pre-line">
             {{ sec.description }}
           </p>

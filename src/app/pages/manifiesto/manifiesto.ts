@@ -1,5 +1,7 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, inject } from '@angular/core';
 import { PageBanner } from '../../shared/page-banner/page-banner';
+import { AudioReader } from '../../shared/audio-reader/audio-reader';
+import { TextToSpeechService } from '../../core/services/text-to-speech.service';
 
 interface Section {
   id: string;
@@ -12,10 +14,12 @@ interface Section {
 
 @Component({
   selector: 'migala-manifiesto',
-  imports: [PageBanner],
+  imports: [PageBanner, AudioReader],
   templateUrl: './manifiesto.html'
 })
 export class Manifiesto {
+  private readonly ttsService = inject(TextToSpeechService);
+
   // Signal to manage the active section ID
   protected readonly activeSectionId = signal<string>('1');
 
@@ -286,8 +290,20 @@ export class Manifiesto {
     return this.sections.find(s => s.id === id) || this.sections[0];
   });
 
+  // Computed signal to expose the text or paragraphs to be read aloud
+  protected readonly textToRead = computed<string | string[]>(() => {
+    const sec = this.activeSection();
+    if (sec.isDraft) {
+      return sec.summary || '';
+    }
+    return sec.paragraphs || [];
+  });
+
   // Action method to switch the active section
   protected setActiveSection(id: string): void {
+    // Stop ongoing voice synthesis when changing sections
+    this.ttsService.stop();
+
     this.activeSectionId.set(id);
     
     // Smooth scroll the content view on mobile

@@ -96,6 +96,11 @@
           </div>
         </div>
 
+        <!-- Audio Reader Widget -->
+        <div class="pt-1">
+          <migala-audio-reader [textToRead]="textToRead()"></migala-audio-reader>
+        </div>
+        
         <!-- Section Content Area -->
         <div class="pt-4 animate-fade-in">
           @if (!activeSection().isDraft) {

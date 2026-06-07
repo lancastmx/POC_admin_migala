@@ -1,10 +1,28 @@
 import { TestBed } from '@angular/core/testing';
 import { Manifiesto } from './manifiesto';
+import { TextToSpeechService } from '../../core/services/text-to-speech.service';
+import { signal } from '@angular/core';
+import { vi } from 'vitest';
 
 describe('Manifiesto', () => {
+  let mockTtsService: any;
+
   beforeEach(async () => {
+    mockTtsService = {
+      isPlaying: signal(false),
+      isPaused: signal(false),
+      currentText: signal(''),
+      speak: vi.fn(),
+      pause: vi.fn(),
+      resume: vi.fn(),
+      stop: vi.fn()
+    };
+
     await TestBed.configureTestingModule({
       imports: [Manifiesto],
+      providers: [
+        { provide: TextToSpeechService, useValue: mockTtsService }
+      ]
     }).compileComponents();
   });
 
