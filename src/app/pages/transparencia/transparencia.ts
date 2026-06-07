@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PageBanner } from '../../shared/page-banner/page-banner';
+import { SOCIAL_NETWORKS } from '../../core/social-networks';
 
 interface TransparenciaItem {
   name: string;
@@ -24,16 +25,18 @@ export class Transparencia {
   // Signal to track the currently open section ID in the accordion
   protected readonly openSectionId = signal<string | null>(null);
 
+  // Expose core social networks to template
+  protected readonly socialNetworks = SOCIAL_NETWORKS;
+
   // Complete data for the Transparency sections with routes
   protected readonly sections: TransparenciaSection[] = [
     {
       id: 'redes-sociales',
       title: 'Redes Sociales',
       icon: '👥',
-      description: 'Aquí podrás encontrar las redes sociales oficiales del Proyecto Migala. Mantente al tanto de comunicados, actividades y eventos a través de nuestras plataformas nacionales y estatales.',
+      description: 'Aquí podrás encontrar las redes oficiales del Proyecto Migala a nivel nacional, cualquier otra red social que no sea éstas no son oficiales. Sin embargo cabe aclarar que los diferentes grupos y Comisiones Estatales pueden tener sus propias redes para diversos fines pero esas las podrás encontrar en el encabezado "Directorio".',
       items: [
-        { name: 'I.- Redes Sociales Nacionales', route: '/archivo' },
-        { name: 'II.- Directorio de Redes de Comisiones Estatales', route: '/archivo' }
+        { name: 'Directorio de Redes de Comisiones Estatales', route: '/archivo' }
       ]
     },
     {
