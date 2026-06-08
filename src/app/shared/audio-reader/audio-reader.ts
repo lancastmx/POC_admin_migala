@@ -4,7 +4,13 @@ import { TextToSpeechService } from '../../core/services/text-to-speech.service'
 @Component({
   selector: 'migala-audio-reader',
   templateUrl: './audio-reader.html',
-  standalone: true
+  standalone: true,
+  styles: `
+    :host {
+      display: block;
+      width: 100%;
+    }
+  `
 })
 export class AudioReader implements OnDestroy {
   private readonly ttsService = inject(TextToSpeechService);

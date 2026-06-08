@@ -1,5 +1,10 @@
 /* Estilos base globales y resets del proyecto */
 
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 body {
     background-color: var(--color-background-primary);
     color: var(--color-text-primary);

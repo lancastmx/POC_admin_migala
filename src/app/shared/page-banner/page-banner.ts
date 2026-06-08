@@ -3,7 +3,14 @@ import { Component, input, computed } from '@angular/core';
 @Component({
   selector: 'migala-page-banner',
   imports: [],
-  templateUrl: './page-banner.html'
+  templateUrl: './page-banner.html',
+  styles: `
+    :host {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+    }
+  `
 })
 export class PageBanner {
   // Signal inputs for title, description and variant theme
