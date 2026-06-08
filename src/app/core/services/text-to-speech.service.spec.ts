@@ -66,16 +66,24 @@ describe('TextToSpeechService', () => {
 
   it('should pause speech and update paused state', () => {
     service.speak('Hola Mundo');
+    
+    // Clear mock call count
+    mockSpeechSynthesis.cancel.mockClear();
+    
     service.pause();
-    expect(mockSpeechSynthesis.pause).toHaveBeenCalled();
+    expect(mockSpeechSynthesis.cancel).toHaveBeenCalled();
     expect(service.isPaused()).toBe(true);
   });
 
   it('should resume speech and update paused state', () => {
     service.speak('Hola Mundo');
     service.pause();
+    
+    // Clear mock speak count
+    mockSpeechSynthesis.speak.mockClear();
+    
     service.resume();
-    expect(mockSpeechSynthesis.resume).toHaveBeenCalled();
+    expect(mockSpeechSynthesis.speak).toHaveBeenCalled();
     expect(service.isPaused()).toBe(false);
   });
 
@@ -85,5 +93,39 @@ describe('TextToSpeechService', () => {
     expect(mockSpeechSynthesis.cancel).toHaveBeenCalled();
     expect(service.isPlaying()).toBe(false);
     expect(service.currentText()).toBe('');
+  });
+
+  it('should filter Spanish voices and auto-select the first one', () => {
+    const voices = service.voices();
+    expect(voices.length).toBe(1);
+    expect(voices[0].lang).toBe('es-MX');
+    expect(service.selectedVoice()).toEqual({ lang: 'es-MX', name: 'Mexican Spanish' });
+  });
+
+  it('should allow setting a new voice and restart speech if active', () => {
+    const spanishVoice = { lang: 'es-ES', name: 'Spain Spanish' } as any;
+    service.speak('Hola');
+    
+    // Reset mock counts to track new calls
+    mockSpeechSynthesis.speak.mockClear();
+    mockSpeechSynthesis.cancel.mockClear();
+    
+    service.setVoice(spanishVoice);
+    expect(service.selectedVoice()).toBe(spanishVoice);
+    expect(mockSpeechSynthesis.cancel).toHaveBeenCalled();
+    expect(mockSpeechSynthesis.speak).toHaveBeenCalled();
+  });
+
+  it('should allow setting a rate and restart speech if active', () => {
+    service.speak('Hola');
+    
+    // Reset mock counts
+    mockSpeechSynthesis.speak.mockClear();
+    mockSpeechSynthesis.cancel.mockClear();
+    
+    service.setRate(1.75);
+    expect(service.rate()).toBe(1.75);
+    expect(mockSpeechSynthesis.cancel).toHaveBeenCalled();
+    expect(mockSpeechSynthesis.speak).toHaveBeenCalled();
   });
 });

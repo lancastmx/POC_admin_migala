@@ -15,6 +15,11 @@ export class AudioReader implements OnDestroy {
   protected readonly isPlaying = this.ttsService.isPlaying;
   protected readonly isPaused = this.ttsService.isPaused;
 
+  // Expose voice list, active voice, and active rate
+  protected readonly voices = this.ttsService.voices;
+  protected readonly selectedVoice = this.ttsService.selectedVoice;
+  protected readonly rate = this.ttsService.rate;
+
   protected play(): void {
     this.ttsService.speak(this.textToRead());
   }
@@ -29,6 +34,21 @@ export class AudioReader implements OnDestroy {
 
   protected stop(): void {
     this.ttsService.stop();
+  }
+
+  protected changeVoice(event: Event): void {
+    const select = event.target as HTMLSelectElement;
+    const name = select.value;
+    const voice = this.voices().find(v => v.name === name);
+    if (voice) {
+      this.ttsService.setVoice(voice);
+    }
+  }
+
+  protected changeRate(event: Event): void {
+    const select = event.target as HTMLSelectElement;
+    const speed = parseFloat(select.value);
+    this.ttsService.setRate(speed);
   }
 
   ngOnDestroy(): void {
