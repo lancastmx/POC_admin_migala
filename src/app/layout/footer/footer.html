@@ -1,18 +1,18 @@
-<footer class="w-full bg-white border-t border-gray-200 py-8 mt-12">
+<footer class="w-full bg-surface border-t border-sub py-8 mt-12">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
     <div class="flex items-center space-x-3">
       <img src="assets/img/Logo1.png" alt="Proyecto Migala Completo" class="h-16 w-auto object-contain">
-      <div class="flex flex-col text-xs text-gray-500 font-medium tracking-wider">
+      <div class="flex flex-col text-xs text-dim font-medium tracking-wider">
         <span>Ciencia, Tierra y Libertad</span>
       </div>
     </div>
     <div class="flex flex-col items-center sm:items-end space-y-2">
-      <span class="text-xs font-bold text-gray-700 tracking-wider">Síguenos en</span>
+      <span class="text-xs font-bold text-sub tracking-wider">Síguenos en</span>
       <div class="flex items-center space-x-3">
         @for (net of socialNetworks; track net.name) {
           <a [href]="net.url" target="_blank" rel="noopener noreferrer" 
              [title]="net.name"
-             class="w-8 h-8 rounded-full bg-gray-50 hover:bg-migala/10 border border-gray-100 flex items-center justify-center transition duration-200 group cursor-pointer">
+             class="w-8 h-8 rounded-full bg-sub hover:bg-migala/10 border border-default flex items-center justify-center transition duration-200 group cursor-pointer">
             <img [src]="net.iconUrl" [alt]="net.name" 
                  class="w-4.5 h-4.5 rounded-sm object-contain group-hover:scale-115 transition-transform duration-200"
                  onerror="this.src='assets/img/Logo.png'">

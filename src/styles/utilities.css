@@ -5,3 +5,68 @@
     backdrop-filter: blur(12px);
     border: 1px solid var(--color-card-border);
 }
+
+/* ===========================================
+   Utilitarias semánticas para Modo Oscuro
+   -------------------------------------------
+   Se mapean a CSS Custom Properties que
+   cambian según la clase .dark en <html>.
+   Así un solo class toggle actualiza todo.
+   =========================================== */
+
+/* Surfaces */
+@utility bg-surface {
+    background-color: var(--color-surface);
+}
+@utility bg-sub {
+    background-color: var(--color-surface-secondary);
+}
+@utility bg-muted {
+    background-color: var(--color-surface-tertiary);
+}
+@utility bg-inverse {
+    background-color: var(--color-surface-inverse);
+}
+@utility bg-brand-soft {
+    background-color: var(--color-brand-soft);
+}
+@utility bg-danger-soft {
+    background-color: var(--color-danger-soft);
+}
+@utility bg-danger {
+    background-color: var(--color-danger);
+}
+
+/* Text */
+@utility text-default {
+    color: var(--color-text-primary);
+}
+@utility text-sub {
+    color: var(--color-text-secondary);
+}
+@utility text-muted {
+    color: var(--color-text-tertiary);
+}
+@utility text-dim {
+    color: var(--color-text-muted);
+}
+@utility text-faint {
+    color: var(--color-text-faint);
+}
+@utility text-danger {
+    color: var(--color-text-danger);
+}
+
+/* Borders */
+@utility border-default {
+    border-color: var(--color-border);
+}
+@utility border-sub {
+    border-color: var(--color-border-secondary);
+}
+@utility border-brand-soft {
+    border-color: var(--color-border-brand-soft);
+}
+@utility border-danger-soft {
+    border-color: var(--color-border-danger-soft);
+}

@@ -8,7 +8,7 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
   <!-- Mobile & Tablet Index Navigation (Horizontal scrollable pills) -->
   <div class="block lg:hidden mb-8">
-    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 px-1">Temario</h3>
+    <h3 class="text-xs font-bold text-faint uppercase tracking-wider mb-3 px-1">Temario</h3>
     <div class="flex overflow-x-auto pb-3 gap-2 scrollbar-none snap-x snap-mandatory mask-image">
       @for (sec of sections; track sec.id) {
         <button (click)="setActiveSection(sec.id)"
@@ -16,9 +16,9 @@
                 [class.bg-migala]="activeSectionId() === sec.id"
                 [class.text-white]="activeSectionId() === sec.id"
                 [class.border-migala]="activeSectionId() === sec.id"
-                [class.bg-white]="activeSectionId() !== sec.id"
-                [class.text-gray-600]="activeSectionId() !== sec.id"
-                [class.border-gray-200]="activeSectionId() !== sec.id"
+                [class.bg-surface]="activeSectionId() !== sec.id"
+                [class.text-muted]="activeSectionId() !== sec.id"
+                [class.border-sub]="activeSectionId() !== sec.id"
                 [class.hover:border-migala/40]="activeSectionId() !== sec.id">
           <span class="text-xs opacity-75 mr-1.5 font-mono">{{ sec.page }}</span>
           {{ sec.title }}
@@ -30,9 +30,9 @@
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
     
     <!-- Desktop Index Navigation (Sticky Left Sidebar) -->
-    <aside class="hidden lg:block lg:col-span-4 sticky top-6 bg-white border border-gray-100 rounded-2xl p-5 shadow-sm max-h-[80vh] overflow-y-auto scrollbar-thin">
-      <div class="flex items-center justify-between mb-5 pb-3 border-b border-gray-100">
-        <h2 class="text-sm font-extrabold text-gray-900 tracking-wider uppercase">Índice del Contenido</h2>
+    <aside class="hidden lg:block lg:col-span-4 sticky top-6 bg-surface border border-default rounded-2xl p-5 shadow-sm max-h-[80vh] overflow-y-auto scrollbar-thin">
+      <div class="flex items-center justify-between mb-5 pb-3 border-b border-default">
+        <h2 class="text-sm font-extrabold text-default tracking-wider uppercase">Índice del Contenido</h2>
         <span class="bg-migala-light text-migala-dark text-xs font-mono font-bold px-2.5 py-1 rounded-full">
           18 Temas
         </span>
@@ -42,25 +42,25 @@
         @for (sec of sections; track sec.id) {
           <button (click)="setActiveSection(sec.id)"
                   class="w-full flex items-center justify-between text-left px-3.5 py-3 rounded-xl transition-all duration-200 group relative overflow-hidden"
-                  [class.bg-migala-light/40]="activeSectionId() === sec.id"
-                  [class.text-migala-dark]="activeSectionId() === sec.id"
+                  [class.bg-sub]="activeSectionId() === sec.id"
+                  [class.text-default]="activeSectionId() === sec.id"
                   [class.font-bold]="activeSectionId() === sec.id"
                   [class.border-l-4]="activeSectionId() === sec.id"
                   [class.border-migala]="activeSectionId() === sec.id"
-                  [class.text-gray-600]="activeSectionId() !== sec.id"
-                  [class.hover:bg-gray-50]="activeSectionId() !== sec.id"
-                  [class.hover:text-gray-950]="activeSectionId() !== sec.id">
+                  [class.text-muted]="activeSectionId() !== sec.id"
+                  [class.hover:bg-sub]="activeSectionId() !== sec.id"
+                  [class.hover:text-default]="activeSectionId() !== sec.id">
             
             <div class="flex items-center space-x-3 truncate">
               <span class="text-xs font-mono opacity-50 font-medium group-hover:opacity-80 transition-opacity"
-                    [class.text-migala-dark]="activeSectionId() === sec.id">
+                    [class.text-default]="activeSectionId() === sec.id">
                 {{ sec.page }}
               </span>
               <span class="truncate text-sm tracking-wide">{{ sec.title }}</span>
             </div>
             
             @if (sec.isDraft) {
-              <span class="text-[10px] bg-gray-100 text-gray-500 font-medium px-2 py-0.5 rounded-full shrink-0 group-hover:bg-migala-light group-hover:text-migala-dark transition-colors">
+              <span class="text-[10px] bg-muted text-dim font-medium px-2 py-0.5 rounded-full shrink-0 group-hover:bg-migala-light group-hover:text-migala-dark transition-colors">
                 Resumen
               </span>
             } @else {
@@ -77,21 +77,21 @@
     </aside>
 
     <!-- Reading Pane (Right Column) -->
-    <main id="manifesto-content" class="col-span-1 lg:col-span-8 bg-white border border-gray-100 rounded-3xl p-6 md:p-10 shadow-sm min-h-[60vh] flex flex-col justify-between">
+    <main id="manifesto-content" class="col-span-1 lg:col-span-8 bg-surface border border-default rounded-3xl p-6 md:p-10 shadow-sm min-h-[60vh] flex flex-col justify-between">
       
       <!-- Section Header -->
       <div class="space-y-4">
-        <div class="flex items-center justify-between border-b border-gray-100 pb-5">
+        <div class="flex items-center justify-between border-b border-default pb-5">
           <div class="space-y-1">
             <span class="text-xs font-mono font-bold text-migala uppercase tracking-widest">
               Tema {{ activeSection().id }} de 18
             </span>
-            <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight leading-tight">
+            <h2 class="text-2xl md:text-3xl font-extrabold text-default tracking-tight leading-tight">
               {{ activeSection().title }}
             </h2>
           </div>
           <div class="text-right">
-            <span class="block text-xs font-mono text-gray-400 uppercase">Página</span>
+            <span class="block text-xs font-mono text-faint uppercase">Página</span>
             <span class="text-2xl font-bold font-mono text-migala-dark">{{ activeSection().page }}</span>
           </div>
         </div>
@@ -105,20 +105,19 @@
         <div class="pt-4 animate-fade-in">
           @if (!activeSection().isDraft) {
             <!-- Full Text Reading Section -->
-            <div class="prose max-w-none text-gray-700 leading-relaxed space-y-5">
+            <div class="prose max-w-none text-sub leading-relaxed space-y-5">
               @for (paragraph of activeSection().paragraphs; track $index) {
-                <!-- Treat markdown headers formatted with '**' inside paragraphs dynamically -->
                 @if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
-                  <h3 class="text-lg font-bold text-gray-900 pt-3">{{ paragraph.replace(/\*\*/g, '') }}</h3>
+                  <h3 class="text-lg font-bold text-default pt-3">{{ paragraph.replace(/\*\*/g, '') }}</h3>
                 } @else if (paragraph.startsWith('•') || paragraph.startsWith('-')) {
                   <div class="flex items-start space-x-3 pl-3">
                     <span class="text-migala mt-1.5 shrink-0">•</span>
-                    <p class="text-sm md:text-base text-justify text-gray-700 leading-relaxed">
+                    <p class="text-sm md:text-base text-justify text-sub leading-relaxed">
                       {{ paragraph.substring(1).trim() }}
                     </p>
                   </div>
                 } @else {
-                  <p class="text-sm md:text-base text-justify text-gray-700 leading-relaxed font-light first-letter:text-xl first-letter:font-bold first-letter:text-migala-dark">
+                  <p class="text-sm md:text-base text-justify text-sub leading-relaxed font-light first-letter:text-xl first-letter:font-bold first-letter:text-migala-dark">
                     {{ paragraph }}
                   </p>
                 }
@@ -127,21 +126,21 @@
           } @else {
             <!-- Draft / Scaffold Section Placeholder -->
             <div class="space-y-6">
-              <div class="bg-gradient-to-r from-migala-light/30 to-purple-50/40 border border-migala/20 rounded-2xl p-6 md:p-8 flex items-start space-x-4 shadow-inner">
-                <div class="bg-white p-3 rounded-xl shadow-sm text-2xl shrink-0 border border-migala/10">
+              <div class="bg-gradient-to-r from-migala-light/30 to-brand-soft/40 border border-migala/20 rounded-2xl p-6 md:p-8 flex items-start space-x-4 shadow-inner">
+                <div class="bg-surface p-3 rounded-xl shadow-sm text-2xl shrink-0 border border-migala/10">
                   📋
                 </div>
                 <div class="space-y-2">
-                  <h4 class="text-base font-bold text-gray-900">Apartado en fase de redacción web</h4>
-                  <p class="text-xs md:text-sm text-gray-500 leading-relaxed">
+                  <h4 class="text-base font-bold text-default">Apartado en fase de redacción web</h4>
+                  <p class="text-xs md:text-sm text-dim leading-relaxed">
                     Esta sección del Manifiesto Alfa de Proyecto Migala está configurada y lista en la estructura de la aplicación. Se muestra un resumen a continuación mientras se realiza la integración completa del texto.
                   </p>
                 </div>
               </div>
 
               <div class="space-y-3 px-1">
-                <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Resumen del Tema</h4>
-                <p class="text-sm md:text-base text-gray-700 leading-relaxed italic border-l-4 border-migala/40 pl-4 py-1 text-justify font-light">
+                <h4 class="text-xs font-bold text-faint uppercase tracking-widest">Resumen del Tema</h4>
+                <p class="text-sm md:text-base text-sub leading-relaxed italic border-l-4 border-migala/40 pl-4 py-1 text-justify font-light">
                   {{ activeSection().summary }}
                 </p>
               </div>
@@ -151,18 +150,17 @@
       </div>
 
       <!-- Footer Action Links Inside Pane -->
-      <div class="mt-12 pt-6 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div class="flex items-center space-x-2 text-xs text-gray-400 font-medium">
+      <div class="mt-12 pt-6 border-t border-default flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div class="flex items-center space-x-2 text-xs text-faint font-medium">
           <span>Proyecto Migala</span>
           <span>•</span>
           <span>Versión Alfa</span>
         </div>
         
         <div class="flex items-center space-x-3">
-          <!-- Navigation buttons to go Next/Prev -->
           @if (+activeSection().id > 1) {
             <button (click)="setActiveSection((+activeSection().id - 1).toString())"
-                    class="px-3 py-2 text-xs font-bold text-gray-600 bg-gray-50 hover:bg-migala-light/30 hover:text-migala-dark border border-gray-200 rounded-lg transition-all flex items-center gap-1.5 shadow-sm">
+                    class="px-3 py-2 text-xs font-bold text-muted bg-sub hover:bg-migala-light/30 hover:text-migala-dark border border-sub rounded-lg transition-all flex items-center gap-1.5 shadow-sm">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
               </svg>

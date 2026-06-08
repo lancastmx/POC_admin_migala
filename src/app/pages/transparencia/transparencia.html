@@ -7,13 +7,13 @@
 <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
     <div class="space-y-4">
-      <h2 class="text-xl md:text-2xl font-bold text-gray-900 tracking-tight">
+      <h2 class="text-xl md:text-2xl font-bold text-default tracking-tight">
         ¿Sabes para qué sirve la transparencia?
       </h2>
-      <p class="text-gray-600 text-sm leading-relaxed text-justify font-light">
+      <p class="text-muted text-sm leading-relaxed text-justify font-light">
         La transparencia sirve para informar a las personas sobre todas las acciones de un ente público. Existen diferentes tipos de información y normas que obligan a publicar información, señalando ¿Qué publicar?, ¿Cuándo publicarla? y ¿Cómo?.
       </p>
-      <p class="text-gray-600 text-sm leading-relaxed text-justify font-light">
+      <p class="text-muted text-sm leading-relaxed text-justify font-light">
         Aunque nosotros no estamos obligados a hacerlo por ley debido a que no estamos registrados como partido político, de forma voluntaria publicaremos la información esencial. Así, todas y todos, dentro y fuera del Proyecto Migala, podrán consultar la información oficial, facilitando el trabajo, la organización y sirviendo sobre todo como archivo público.
       </p>
     </div>
@@ -26,7 +26,7 @@
 
 <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 space-y-3">
   @for (sec of sections; track sec.id) {
-    <div class="w-full rounded-xl overflow-hidden shadow-xs border border-gray-100 bg-white">
+    <div class="w-full rounded-xl overflow-hidden shadow-xs border border-default bg-surface">
       <button (click)="toggleSection(sec.id)"
         id="sec-btn-{{ sec.id }}"
         [attr.aria-expanded]="openSectionId() === sec.id"
@@ -47,23 +47,21 @@
         <div id="sec-panel-{{ sec.id }}" 
              role="region" 
              [attr.aria-labelledby]="'sec-btn-' + sec.id"
-             class="bg-purple-50/50 p-6 border-x border-b border-purple-100/50 space-y-5 animate-fade-in">
-          <p class="text-gray-700 text-sm leading-relaxed text-justify font-light whitespace-pre-line">
+             class="bg-brand-soft/50 p-6 border-x border-b border-brand-soft/50 space-y-5 animate-fade-in">
+          <p class="text-sub text-sm leading-relaxed text-justify font-light whitespace-pre-line">
             {{ sec.description }}
           </p>
           
           @if (sec.id === 'redes-sociales') {
-            <!-- List of social networks with dynamically fetched favicons -->
             <div class="space-y-2 pt-2">
-              <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Canales Oficiales</h4>
+              <h4 class="text-xs font-bold text-faint uppercase tracking-widest mb-3">Canales Oficiales</h4>
               @for (net of socialNetworks; track net.name) {
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white border border-purple-100/80 rounded-xl px-4 py-3.5 gap-3 shadow-xs hover:border-migala/40 transition duration-200">
-                  <div class="flex items-center space-x-3 text-sm font-semibold text-gray-800 tracking-wide">
-                    <!-- Dynamic Favicon using high-performance S2 service -->
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-surface border border-brand-soft/80 rounded-xl px-4 py-3.5 gap-3 shadow-xs hover:border-migala/40 transition duration-200">
+                  <div class="flex items-center space-x-3 text-sm font-semibold text-sub tracking-wide">
                     <img [src]="net.iconUrl" [alt]="net.name" 
                          class="w-5 h-5 rounded-md object-contain"
                          onerror="this.src='assets/img/Logo.png'">
-                    <span class="font-medium text-gray-700">{{ net.name }}</span>
+                    <span class="font-medium text-sub">{{ net.name }}</span>
                   </div>
                   <a [href]="net.url" target="_blank" rel="noopener noreferrer" 
                      class="bg-migala/10 hover:bg-migala hover:text-white text-migala text-xs font-extrabold px-4 py-2 rounded-lg transition duration-200 shadow-2xs self-end sm:self-center cursor-pointer text-center">
@@ -73,14 +71,13 @@
               }
             </div>
 
-            <!-- Directorio and other items under Redes Sociales -->
-            <div class="space-y-2 pt-4 border-t border-purple-100/50">
-              <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Otros Enlaces</h4>
+            <div class="space-y-2 pt-4 border-t border-brand-soft/50">
+              <h4 class="text-xs font-bold text-faint uppercase tracking-widest mb-3">Otros Enlaces</h4>
               @for (item of sec.items; track item.name) {
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white border border-purple-100/80 rounded-xl px-4 py-3.5 gap-3 shadow-xs hover:border-migala/40 transition duration-200">
-                  <div class="flex items-start space-x-3 text-sm font-semibold text-gray-800 tracking-wide">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-surface border border-brand-soft/80 rounded-xl px-4 py-3.5 gap-3 shadow-xs hover:border-migala/40 transition duration-200">
+                  <div class="flex items-start space-x-3 text-sm font-semibold text-sub tracking-wide">
                     <span class="text-migala mt-0.5">📄</span>
-                    <span class="font-medium text-gray-700">{{ item.name }}</span>
+                    <span class="font-medium text-sub">{{ item.name }}</span>
                   </div>
                   <a [routerLink]="item.route" class="bg-migala/10 hover:bg-migala hover:text-white text-migala text-xs font-extrabold px-4 py-2 rounded-lg transition duration-200 shadow-2xs self-end sm:self-center cursor-pointer text-center">
                     Consultar
@@ -90,12 +87,12 @@
             </div>
           } @else {
             <div class="space-y-2 pt-2">
-              <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Documentos y Archivos</h4>
+              <h4 class="text-xs font-bold text-faint uppercase tracking-widest mb-3">Documentos y Archivos</h4>
               @for (item of sec.items; track item.name) {
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white border border-purple-100/80 rounded-xl px-4 py-3.5 gap-3 shadow-xs hover:border-migala/40 transition duration-200">
-                  <div class="flex items-start space-x-3 text-sm font-semibold text-gray-800 tracking-wide">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-surface border border-brand-soft/80 rounded-xl px-4 py-3.5 gap-3 shadow-xs hover:border-migala/40 transition duration-200">
+                  <div class="flex items-start space-x-3 text-sm font-semibold text-sub tracking-wide">
                     <span class="text-migala mt-0.5">📄</span>
-                    <span class="font-medium text-gray-700">{{ item.name }}</span>
+                    <span class="font-medium text-sub">{{ item.name }}</span>
                   </div>
                   <a [routerLink]="item.route" class="bg-migala/10 hover:bg-migala hover:text-white text-migala text-xs font-extrabold px-4 py-2 rounded-lg transition duration-200 shadow-2xs self-end sm:self-center cursor-pointer text-center">
                     Consultar

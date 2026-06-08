@@ -8,18 +8,74 @@
     /* Puedes agregar más extensiones aquí (fuentes, espaciados, etc.) */
 }
 
-/* Configuración de Modo Oscuro nativo con CSS Custom Properties */
+/* ===========================================
+   Modo Oscuro: CSS Custom Properties
+   ===========================================
+   Cambia la clase .dark en <html> para alternar.
+   Las @utility en utilities.css referencian
+   estas variables para adaptar las templates.
+   =========================================== */
+
 :root {
+    /* Backgrounds / Surfaces */
     --color-background-primary: #ffffff;
-    --color-text-primary: #1f2937;
+    --color-surface: #ffffff;
+    --color-surface-secondary: #f9fafb;
+    --color-surface-tertiary: #f3f4f6;
+    --color-surface-inverse: #000000;
     --color-card-bg: rgba(255, 255, 255, 0.75);
     --color-card-border: rgba(255, 255, 255, 0.2);
+
+    /* Text */
+    --color-text-primary: #1f2937;
+    --color-text-secondary: #374151;
+    --color-text-tertiary: #4b5563;
+    --color-text-muted: #6b7280;
+    --color-text-faint: #9ca3af;
+
+    /* Borders */
+    --color-border: #f3f4f6;
+    --color-border-secondary: #e5e7eb;
+
+    /* State: Brand (purple tones) */
+    --color-brand-soft: #faf5ff;
+    --color-border-brand-soft: #f3e8ff;
+
+    /* State: Danger / Error */
+    --color-danger-soft: #fef2f2;
+    --color-danger: #fee2e2;
+    --color-text-danger: #dc2626;
+    --color-border-danger-soft: #fecaca;
 }
 
 .dark {
-    --color-background-primary: #121212;
-    --color-text-primary: #f9fafb;
-    --color-migala: #a59ff0; /* Variación más clara para mejor contraste en modo oscuro */
-    --color-card-bg: rgba(18, 18, 18, 0.75);
-    --color-card-border: rgba(255, 255, 255, 0.05);
+    --color-background-primary: #0f172a;
+    --color-surface: #0f172a;
+    --color-surface-secondary: #1e293b;
+    --color-surface-tertiary: #334155;
+    --color-surface-inverse: #000000;
+    --color-card-bg: rgba(15, 23, 42, 0.75);
+    --color-card-border: rgba(255, 255, 255, 0.06);
+
+    /* Text */
+    --color-text-primary: #f1f5f9;
+    --color-text-secondary: #cbd5e1;
+    --color-text-tertiary: #94a3b8;
+    --color-text-muted: #64748b;
+    --color-text-faint: #475569;
+
+    /* Borders */
+    --color-border: #1e293b;
+    --color-border-secondary: #334155;
+
+    /* State: Brand (purple tones) */
+    --color-migala: #a59ff0; /* Variación más clara para mejor contraste */
+    --color-brand-soft: #1e1b4b;
+    --color-border-brand-soft: #2e1065;
+
+    /* State: Danger / Error */
+    --color-danger-soft: #450a0a;
+    --color-danger: #7f1d1d;
+    --color-text-danger: #fca5a5;
+    --color-border-danger-soft: #450a0a;
 }

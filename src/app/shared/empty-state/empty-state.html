@@ -2,9 +2,9 @@
   @if (icon()) {
     <span class="text-5xl mb-4 block">{{ icon() }}</span>
   }
-  <h2 class="text-xl font-bold text-gray-900">{{ title() }}</h2>
+  <h2 class="text-xl font-bold text-default">{{ title() }}</h2>
   @if (message()) {
-    <p class="text-gray-500 text-sm mt-2 max-w-md">{{ message() }}</p>
+    <p class="text-dim text-sm mt-2 max-w-md">{{ message() }}</p>
   }
   <ng-content />
 </section>
