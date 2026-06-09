@@ -1,0 +1,83 @@
+<main class="min-h-screen bg-neutral-950 text-neutral-200 py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden font-sans">
+  <!-- Decorative background blobs -->
+  <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-emerald-600/20 blur-[100px] pointer-events-none"></div>
+  <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-blue-600/20 blur-[100px] pointer-events-none"></div>
+
+  <div class="max-w-5xl mx-auto relative z-10">
+    
+    <!-- Header -->
+    <header class="text-center mb-12 animate-fade-in-up">
+      <h1 class="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 mb-4 tracking-tight drop-shadow-sm">
+        Reglamentos
+      </h1>
+      <p class="text-neutral-400 text-lg md:text-xl font-medium tracking-wide max-w-3xl mx-auto">
+        Consulta los documentos que regulan la estructura, los procedimientos y la conducta dentro del Proyecto Migala.
+      </p>
+      <div class="mt-8 h-1 w-24 bg-gradient-to-r from-emerald-400 to-cyan-400 mx-auto rounded-full"></div>
+    </header>
+
+    <!-- Tabs -->
+    <div class="flex overflow-x-auto gap-2 mb-12 pb-2 scrollbar-hide border-b border-neutral-800/80">
+      @for (tab of tabs; track tab.id) {
+        <button 
+          (click)="setTab(tab.id)"
+          class="whitespace-nowrap px-6 py-3 font-semibold text-sm md:text-base transition-all duration-300 border-b-2"
+          [class]="activeTab() === tab.id ? 'border-emerald-400 text-emerald-400' : 'border-transparent text-neutral-400 hover:text-neutral-200 hover:border-neutral-600'">
+          {{ tab.name }}
+        </button>
+      }
+    </div>
+
+    <!-- Content -->
+    @if (activeTab() === 'nacional') {
+      <div class="space-y-16 animate-fade-in-up">
+        <div class="text-center mb-10">
+          <h2 class="text-3xl font-bold text-white mb-2">{{ reglamento().title }}</h2>
+          <p class="text-emerald-400 text-sm">Última modificación: {{ reglamento().lastModified }}</p>
+        </div>
+
+        @for (titulo of reglamento().titulos; track titulo.name) {
+          <section class="bg-neutral-900/60 backdrop-blur-xl border border-neutral-800 rounded-3xl p-8 shadow-2xl transition-all hover:border-emerald-500/30">
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-10 pb-4 border-b border-neutral-800 tracking-tight">
+              {{ titulo.name }}
+            </h2>
+
+            <div class="space-y-12">
+              @for (capitulo of titulo.capitulos; track capitulo.name) {
+                <div class="pl-0 md:pl-6">
+                  <h3 class="text-xl md:text-2xl font-semibold text-emerald-300 mb-6 flex items-center gap-3">
+                    <div class="w-2 h-8 bg-emerald-500 rounded-full"></div>
+                    {{ capitulo.name }}
+                  </h3>
+
+                  <div class="space-y-6">
+                    @for (articulo of capitulo.articulos; track articulo.number) {
+                      <article class="bg-neutral-950/50 rounded-2xl p-6 border border-neutral-800/50 hover:bg-neutral-800/40 transition-colors">
+                        <h4 class="text-lg font-bold text-cyan-400 mb-3">{{ articulo.number }}</h4>
+                        <div class="text-neutral-300 leading-relaxed space-y-4 whitespace-pre-wrap font-medium text-base">{{ articulo.content }}</div>
+                      </article>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          </section>
+        }
+      </div>
+    } @else {
+      <div class="flex flex-col items-center justify-center py-20 bg-neutral-900/60 backdrop-blur-xl border border-neutral-800 rounded-3xl animate-fade-in">
+        <span class="text-6xl mb-6">🚧</span>
+        <h3 class="text-2xl font-bold text-white mb-2">Próximamente</h3>
+        <p class="text-neutral-400 text-center max-w-md">
+          El reglamento de esta sección se encuentra en construcción o no ha sido publicado aún.
+        </p>
+      </div>
+    }
+
+    <!-- Footer Note -->
+    <footer class="mt-20 text-center text-neutral-500 border-t border-neutral-800/50 pt-8">
+      <p class="text-sm">Proyecto Migala &copy; 2024</p>
+    </footer>
+
+  </div>
+</main>

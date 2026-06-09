@@ -63,11 +63,11 @@ export class Transparencia {
       icon: '🏛️',
       description: 'Aquí podrás encontrar el Reglamento Nacional, al igual que los reglamentos de los diferentes ejes que componen el Proyecto Migala. El Reglamento es uno de tres documentos básicos del Proyecto Migala, el cual sirve para regular la conducta de los miembros y simpatizantes del Proyecto Migala, señalar cual es la estructura organizacional, además de procedimientos del PM.',
       items: [
-        { name: 'I.- Reglamento Nacional', route: '/archivo' },
-        { name: 'II.- Reglamentos de Comisiones Estatales', route: '/archivo' },
-        { name: 'III.- Reglamentos de Grupos Operativos', route: '/archivo' },
-        { name: 'IV.- Reglamentos de Comisiones Temáticas', route: '/archivo' },
-        { name: 'V.- Reglamentos de Grupo de Transversalidad', route: '/archivo' }
+        { name: 'I.- Reglamento Nacional', route: '/reglamento' },
+        { name: 'II.- Reglamentos de Comisiones Estatales', route: '/reglamento' },
+        { name: 'III.- Reglamentos de Grupos Operativos', route: '/reglamento' },
+        { name: 'IV.- Reglamentos de Comisiones Temáticas', route: '/reglamento' },
+        { name: 'V.- Reglamentos de Grupo de Transversalidad', route: '/reglamento' }
       ]
     },
     {
