@@ -1,0 +1,53 @@
+/* ─── Animaciones ─────────────────────────────── */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.5s ease-out both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out both;
+}
+
+/* Stagger children for sequential appearance */
+.animate-fade-in-up:nth-child(1) { animation-delay: 0.05s; }
+.animate-fade-in-up:nth-child(2) { animation-delay: 0.10s; }
+.animate-fade-in-up:nth-child(3) { animation-delay: 0.15s; }
+.animate-fade-in-up:nth-child(4) { animation-delay: 0.20s; }
+.animate-fade-in-up:nth-child(5) { animation-delay: 0.25s; }
+
+/* ─── Scrollbar personalizada ─────────────────── */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ─── Animación de hover en artículos ──────────── */
+article {
+  transition: all 0.2s ease;
+}
+
+article:hover {
+  border-color: rgba(52, 211, 153, 0.3); /* emerald-400 a 30% */
+}
+
+/* ─── Badge pulse para tipo filter activo ─────── */
+@keyframes pulse-badge {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.3); }
+  50%      { box-shadow: 0 0 0 4px rgba(52, 211, 153, 0); }
+}
+
+.badge-active {
+  animation: pulse-badge 2s infinite;
+}
