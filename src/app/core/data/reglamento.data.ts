@@ -1,6 +1,21 @@
 import { Reglamento } from '../models/reglamento';
+import type { ReglamentoCobertura, ReglamentoMetadata } from '../models/reglamento-trazable';
+
+/** UUID v4 determinístico a partir de un seed (para IDs estables) */
+function uuidFromSeed(seed: string): string {
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    const chr = seed.charCodeAt(i);
+    hash = ((hash << 5) - hash) + chr;
+    hash |= 0;
+  }
+  const h = Math.abs(hash).toString(16).padStart(8, '0');
+  return `${h.slice(0, 8)}-${h.slice(4, 8)}-4${h.slice(0, 3)}-a${h.slice(2, 5)}-${h.slice(0, 12).padEnd(12, '0')}`;
+}
 
 export const REGLAMENTO_DATA: Reglamento = {
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "ambito": "nacional",
   "title": "PROYECTO MIGALA REGLAMENTO NACIONAL",
   "lastModified": "16-09-2023",
   "titulos": [
@@ -9817,6 +9832,31 @@ export const REGLAMENTO_DATA: Reglamento = {
       "totalPalabras": 1012
     }
   ],
+  "metadata": {
+    "estatus": "vigente",
+    "version": "1.0.0",
+    "creado": "2023-09-16",
+    "ultimaActualizacion": "2023-09-16",
+    "autor": "Coordinación General Proyecto Migala",
+    "revisores": ["Coordinación General", "Consejo Consultivo"],
+    "aprobadoPor": "Asamblea General",
+    "actaOficial": "/archivo/acta-constitutiva",
+    "zkId": "reglamento-nacional-1.0.0",
+    "tags": ["reglamento", "nacional", "estructura", "gobernanza"],
+    "conexiones": [
+      "constitucion-migala",
+      "codigo-etica",
+      "manual-operativo"
+    ]
+  },
+  "cobertura": {
+    "tieneIndice": true,
+    "tienePreambulo": false,
+    "tieneArticulado": true,
+    "tieneRegimenTransitorio": true,
+    "tieneFirmas": false,
+    "progreso": 80
+  },
   "metrics": {
     "totalTitulos": 8,
     "totalCapitulos": 36,

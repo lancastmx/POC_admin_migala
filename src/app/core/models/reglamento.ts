@@ -3,7 +3,14 @@
  *  Versión enriquecida con metadatos semánticos,
  *  tipificación de artículos, fragmentación interna,
  *  referencias cruzadas y cuantificación.
+ *
+ *  EXTENDIDO: soporte para trazabilidad, ciclo de
+ *  vida, relaciones de grafo y auditoría.
  *  ─────────────────────────────────────────────── */
+
+// ═══════════════════════════════════════════════
+//  TIPOS SEMÁNTICOS (sin cambios)
+// ═══════════════════════════════════════════════
 
 /** Tipos semánticos de artículo detectables por el parser */
 export type ArticuloType =
@@ -44,9 +51,31 @@ export interface Referencia {
   context: string;  // texto circundante
 }
 
+// ─── Nuevos tipos importados desde trazabilidad ───
+import type {
+  RelacionArticulo,
+  AuditoriaArticulo,
+  EstatusReglamento,
+  ReglamentoMetadata,
+  ReglamentoCobertura,
+} from './reglamento-trazable';
+export type {
+  RelacionArticulo,
+  AuditoriaArticulo,
+  EstatusReglamento,
+  ReglamentoMetadata,
+  ReglamentoCobertura,
+};
+
+// ═══════════════════════════════════════════════
+//  ARTÍCULO (extendido)
+// ═══════════════════════════════════════════════
+
 /** Artículo individual */
 export interface Articulo {
+  /** Número editorial: "Artículo 1.-" */
   number: string;
+  /** Contenido textual */
   content: string;
   // --- Metadatos semánticos (enriquecidos por el parser) ---
   type: ArticuloType;
@@ -59,6 +88,16 @@ export interface Articulo {
   wordCount: number;
   hasList: boolean;
   hasConditions: boolean;
+
+  // ─── TRAZABILIDAD (opcional, para reglamentos trazables) ───
+  /** UUID único para identificar el artículo en el grafo */
+  id?: string;
+  /** Aristas hacia otros artículos (grafo) */
+  relaciones?: RelacionArticulo[];
+  /** Peso/importancia relativa (0-1) */
+  peso?: number;
+  /** Auditoría del artículo */
+  auditoria?: AuditoriaArticulo;
 }
 
 /** Capítulo que agrupa artículos */
@@ -76,15 +115,6 @@ export interface Titulo {
   totalPalabras?: number;
 }
 
-/** Documento raíz del reglamento */
-export interface Reglamento {
-  title: string;
-  lastModified: string;
-  titulos: Titulo[];
-  /** Métricas globales (calculadas) */
-  metrics?: ReglamentoMetrics;
-}
-
 /** Métricas cuantitativas globales */
 export interface ReglamentoMetrics {
   totalTitulos: number;
@@ -94,4 +124,42 @@ export interface ReglamentoMetrics {
   distribucionTipo: Partial<Record<ArticuloType, number>>;
   distribucionCluster: Record<ArticuloCluster, number>;
   averageWordsPerArticle: number;
+}
+
+// ═══════════════════════════════════════════════
+//  REGLAMENTO (extendido)
+// ═══════════════════════════════════════════════
+
+/** Documento raíz del reglamento */
+export interface Reglamento {
+  /** Título del reglamento */
+  title: string;
+  /** Fecha de última modificación */
+  lastModified: string;
+  /** Estructura de títulos, capítulos y artículos */
+  titulos: Titulo[];
+  /** Métricas globales (calculadas) */
+  metrics?: ReglamentoMetrics;
+
+  // ─── TRAZABILIDAD (opcional) ───
+  /** UUID único del reglamento */
+  id?: string;
+  /** Ámbito de aplicación */
+  ambito?: 'nacional' | 'estatal' | 'municipal';
+  /** Clave INEGI para reglamentos estatales */
+  entidadId?: string;
+  /** Metadatos de trazabilidad y ciclo de vida */
+  metadata?: ReglamentoMetadata;
+  /** Inventario de completitud */
+  cobertura?: ReglamentoCobertura;
+}
+
+// ═══════════════════════════════════════════════
+//  TIPO PLANO PARA RENDER (sin cambios)
+// ═══════════════════════════════════════════════
+
+/** Artículo aplanado con metadata de título/capítulo para render */
+export interface ArticuloConMeta extends Articulo {
+  tituloName: string;
+  capituloName: string;
 }

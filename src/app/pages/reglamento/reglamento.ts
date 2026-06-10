@@ -1,60 +1,12 @@
-import { Component, computed, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, computed, signal, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { REGLAMENTO_DATA } from '../../core/data/reglamento.data';
+import { ReglamentoService } from '../../core/services/reglamento.service';
 import { MEXICO } from '../../core/data/entidades.data';
+import { ESTATUS_REGLAMENTO_MAP, REGION_INFO, REGION_ORDER } from '../../core/constants/reglamento.constants';
 import type { Estado } from '../../core/models/entidad';
-
-// ─── Tipos locales (duplicados del modelo para evitar dependencias del Language Service) ───
-type ArticuloType =
-  | 'principio' | 'definicion' | 'requisito' | 'procedimiento'
-  | 'sancion' | 'estructura' | 'derecho' | 'obligacion'
-  | 'transitorio' | 'glosario';
-
-type ArticuloCluster =
-  | 'nacional' | 'operativo' | 'territorial' | 'especializado'
-  | 'transversal' | 'procedimental' | 'disciplinario' | 'normativo';
-
-interface Fragment {
-  type: 'paragraph' | 'listItem' | 'condition' | 'exception' | 'quote';
-  content: string;
-  level: number;
-  listType?: 'roman' | 'letter' | 'number' | 'bullet';
-  listMarker?: string;
-}
-
-interface Referencia {
-  articleNum: string;
-  context: string;
-}
-
-interface ReglamentoMetrics {
-  totalTitulos: number;
-  totalCapitulos: number;
-  totalArticulos: number;
-  totalPalabras: number;
-  distribucionTipo: Partial<Record<ArticuloType, number>>;
-  distribucionCluster: Record<ArticuloCluster, number>;
-  averageWordsPerArticle: number;
-}
-
-/** Artículo aplanado con metadata de título/capítulo */
-interface ArticuloConMeta {
-  number: string;
-  content: string;
-  type: ArticuloType;
-  cluster: ArticuloCluster;
-  tags: string[];
-  keyConcepts: string[];
-  references: Referencia[];
-  fragments: Fragment[];
-  wordCount: number;
-  hasList: boolean;
-  hasConditions: boolean;
-  tituloName: string;
-  capituloName: string;
-}
+import type { ArticuloType } from '../../core/models/reglamento';
 
 @Component({
   selector: 'migala-reglamento',
@@ -64,11 +16,35 @@ interface ArticuloConMeta {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Reglamento {
-  // ─── Datos fuente ──────────────────────────────
-  reglamento = signal(REGLAMENTO_DATA);
-  metrics = computed<ReglamentoMetrics | null>(() => this.reglamento().metrics ?? null);
+  // ─── Servicios ──────────────────────────────
+  private readonly regSvc = inject(ReglamentoService);
 
-  // ─── Datos de entidades federativas ────────────
+  // ═══════════════════════════════════════════════
+  //  DATOS DEL SERVICIO
+  // ═══════════════════════════════════════════════
+
+  /** Reglamento nacional (datos completos) */
+  readonly reglamento = this.regSvc.nacional;
+
+  /** Artículos aplanados del nacional */
+  readonly allArticles = this.regSvc.allArticles;
+
+  /** Métricas del nacional */
+  readonly metrics = this.regSvc.nacionalMetrics;
+
+  /** Catálogo global (nacional + estatales) */
+  readonly catalogo = this.regSvc.catalogo;
+
+  /** Estadísticas del catálogo */
+  readonly catalogoStats = this.regSvc.catalogoStats;
+
+  /** Referencia al mapa de estatus para el template */
+  readonly estatusMap = ESTATUS_REGLAMENTO_MAP;
+
+  // ═══════════════════════════════════════════════
+  //  DATOS DE ENTIDADES FEDERATIVAS
+  // ═══════════════════════════════════════════════
+
   readonly estados = MEXICO.estados;
   readonly isEstatalTab = computed(() => this.activeTab() === 'estatales');
   readonly totalMunicipios = computed(() =>
@@ -76,14 +52,8 @@ export class Reglamento {
   );
 
   /** Regiones de México con metadata visual */
-  readonly regionInfo: Record<string, { label: string; color: string; icon: string }> = {
-    'noroeste':  { label: 'Noroeste',  color: 'border-blue-500/40 bg-blue-500/5',   icon: '🏔️' },
-    'noreste':   { label: 'Noreste',   color: 'border-cyan-500/40 bg-cyan-500/5',   icon: '🌵' },
-    'occidente': { label: 'Occidente', color: 'border-amber-500/40 bg-amber-500/5', icon: '🌋' },
-    'centro':    { label: 'Centro',    color: 'border-emerald-500/40 bg-emerald-500/5', icon: '🏛️' },
-    'sur':       { label: 'Sur',       color: 'border-rose-500/40 bg-rose-500/5',   icon: '🌴' },
-    'sureste':   { label: 'Sureste',   color: 'border-purple-500/40 bg-purple-500/5', icon: '🏝️' },
-  };
+  readonly regionInfo = REGION_INFO;
+  readonly regionOrder = REGION_ORDER;
 
   /** Estados agrupados por región */
   readonly estadosPorRegion = computed(() => {
@@ -108,12 +78,43 @@ export class Reglamento {
     );
   });
 
-  /** Orden de regiones para mostrar en el grid */
-  readonly regionOrder: string[] = [
-    'noroeste', 'noreste', 'occidente', 'centro', 'sur', 'sureste',
-  ];
+  /**
+   * Estados enriquecidos con metadata del reglamento.
+   * Cada entrada tiene: estado + reglamento + estatusConfig + progreso.
+   */
+  readonly estadosEnriquecidos = computed(() => {
+    const map = this.estatalesMap();
+    return this.filteredEstados().map(e => {
+      const reglamento = map.get(e.id) ?? null;
+      const estatusCfg = reglamento
+        ? this.getEstatusConfig(reglamento.metadata.estatus)
+        : null;
+      const progreso = reglamento?.cobertura.progreso ?? 0;
+      const progresoBarClass = 'h-full rounded-full transition-all duration-500 ' + (progreso === 100
+        ? 'bg-emerald-500'
+        : progreso > 0
+          ? 'bg-amber-500'
+          : 'bg-neutral-700');
+      return { estado: e, reglamento, estatusCfg, progreso, progresoBarClass };
+    });
+  });
 
-  // ─── Tabs ──────────────────────────────────────
+  /** Estados enriquecidos agrupados por región (para iterar por región) */
+  readonly estadosPorRegionEnriquecidos = computed(() => {
+    const enriched = this.estadosEnriquecidos();
+    const map = new Map<string, typeof enriched>();
+    for (const item of enriched) {
+      const region = item.estado.region;
+      if (!map.has(region)) map.set(region, []);
+      map.get(region)!.push(item);
+    }
+    return map;
+  });
+
+  // ═══════════════════════════════════════════════
+  //  TABS
+  // ═══════════════════════════════════════════════
+
   tabs = [
     { id: 'nacional',      name: 'Nacional',           icon: '📜' },
     { id: 'estatales',     name: 'Comisiones Estatales', icon: '🗺️' },
@@ -135,186 +136,117 @@ export class Reglamento {
     this.searchEstado.set('');
   }
 
-  // ─── Búsqueda y filtros ────────────────────────
+  // ═══════════════════════════════════════════════
+  //  BÚSQUEDA Y FILTROS
+  // ═══════════════════════════════════════════════
+
   searchQuery = signal('');
   typeFilter = signal<ArticuloType | null>(null);
   showToc = signal(false);
 
-  /** Todos los artículos aplanados con su metadata de título/capítulo */
-  allArticles = computed<ArticuloConMeta[]>(() => {
-    const arts: ArticuloConMeta[] = [];
-    for (const t of this.reglamento().titulos) {
-      for (const c of t.capitulos) {
-        for (const a of c.articulos) {
-          arts.push({ ...a, tituloName: t.name, capituloName: c.name });
-        }
-      }
-    }
-    return arts;
-  });
-
   /** Artículos filtrados por tab + búsqueda + tipo */
-  filteredArticles = computed(() => {
-    const tab = this.activeTab();
-    const query = this.searchQuery().toLowerCase().trim();
-    const typeFilter = this.typeFilter();
-
-    return this.allArticles().filter(a => {
-      // Filtro por cluster (tab)
-      if (tab !== 'nacional' && a.cluster !== tab) return false;
-
-      // Filtro por texto
-      if (query) {
-        const inContent = a.content.toLowerCase().includes(query);
-        const inNumber = a.number.toLowerCase().includes(query);
-        const inTags = a.tags.some(t => t.includes(query));
-        const inTitle = a.tituloName.toLowerCase().includes(query);
-        const inChapter = a.capituloName.toLowerCase().includes(query);
-        if (!(inContent || inNumber || inTags || inTitle || inChapter)) return false;
-      }
-
-      // Filtro por tipo semántico
-      if (typeFilter && a.type !== typeFilter) return false;
-
-      return true;
-    });
-  });
+  readonly filteredArticles = computed(() =>
+    this.regSvc.filterArticles(
+      this.allArticles(),
+      this.activeTab(),
+      this.searchQuery(),
+      this.typeFilter(),
+    )
+  );
 
   /** Stats visibles para el tab activo */
-  tabMetrics = computed(() => {
-    const arts = this.filteredArticles();
-    const total = arts.length;
-    const byType = {} as Record<string, number>;
-    for (const a of arts) {
-      byType[a.type] = (byType[a.type] || 0) + 1;
+  readonly tabMetrics = computed(() =>
+    this.regSvc.calcTabMetrics(this.filteredArticles())
+  );
+
+  /** Tipos disponibles para filtrar */
+  readonly availableTypes = computed(() =>
+    this.regSvc.calcAvailableTypes(this.filteredArticles())
+  );
+
+  // ═══════════════════════════════════════════════
+  //  TOC (TABLE OF CONTENTS)
+  // ═══════════════════════════════════════════════
+
+  readonly toc = computed(() =>
+    this.regSvc.generateToc(
+      this.regSvc.nacional(),
+      this.filteredArticles(),
+      this.activeTab(),
+    )
+  );
+
+  // ═══════════════════════════════════════════════
+  //  AGRUPACIÓN PARA RENDER
+  // ═══════════════════════════════════════════════
+
+  readonly groupedArticles = computed(() =>
+    this.regSvc.groupArticles(this.filteredArticles())
+  );
+
+  // ═══════════════════════════════════════════════
+  //  HELPERS DE VISUALIZACIÓN (delegados al servicio)
+  // ═══════════════════════════════════════════════
+
+  typeLabel = this.regSvc.typeLabel.bind(this.regSvc);
+  typeColor = this.regSvc.typeColor.bind(this.regSvc);
+  formatReferences = this.regSvc.formatReferences.bind(this.regSvc);
+
+  // ═══════════════════════════════════════════════
+  //  HELPERS DE PLANTILLA
+  // ═══════════════════════════════════════════════
+
+  /** Mapa rápido: entidadId → ReglamentoTrazable */
+  readonly estatalesMap = computed(() => {
+    const map = new Map<string, (typeof this.catalogo)['prototype']['estatales'][number]>();
+    for (const r of this.catalogo().estatales) {
+      if (r.entidadId) map.set(r.entidadId, r);
     }
-    const totalWords = arts.reduce((s, a) => s + a.wordCount, 0);
-    return { total, byType, totalWords, avgWords: total ? Math.round(totalWords / total) : 0 };
+    return map;
   });
 
-  // ─── TOC (Table of Contents) ───────────────────
-  toc = computed(() => {
-    const tab = this.activeTab();
-    const filtered = this.filteredArticles();
-
-    const findFirst = (predicate: (a: ArticuloConMeta) => boolean): string | null => {
-      return filtered.find(predicate)?.number ?? null;
-    };
-
-    return this.reglamento().titulos
-      .map(t => {
-        const tituloFirst = findFirst(a => a.tituloName === t.name);
-        return {
-          name: t.name,
-          firstArticleNumber: tituloFirst,
-          totalArticulos: t.totalArticulos ?? 0,
-          capitulos: t.capitulos
-            .filter(c => tab === 'nacional' || c.articulos.some(a => a.cluster === tab))
-            .map(c => ({
-              name: c.name,
-              count: tab === 'nacional'
-                ? c.articulos.length
-                : c.articulos.filter(a => a.cluster === tab).length,
-              firstArticleNumber: findFirst(a => a.capituloName === c.name),
-            }))
-            .filter(c => c.count > 0),
-        };
-      })
-      .filter(t => t.capitulos.length > 0);
-  });
-
-  // ─── Tipos disponibles para filtrar ────────────
-  availableTypes = computed<{ type: ArticuloType; label: string; count: number }[]>(() => {
-    const counts: Partial<Record<ArticuloType, number>> = {};
-    for (const a of this.filteredArticles()) {
-      counts[a.type] = (counts[a.type] || 0) + 1;
-    }
-    return (Object.entries(counts) as [ArticuloType, number][])
-      .map(([type, count]) => ({ type, label: this.typeLabel(type), count }))
-      .sort((a, b) => b.count - a.count);
-  });
-
-  typeLabel(type: ArticuloType): string {
-    const labels: Record<ArticuloType, string> = {
-      principio: 'Principio',
-      definicion: 'Definición',
-      requisito: 'Requisito',
-      procedimiento: 'Procedimiento',
-      sancion: 'Sanción',
-      estructura: 'Estructura',
-      derecho: 'Derecho',
-      obligacion: 'Obligación',
-      transitorio: 'Transitorio',
-      glosario: 'Glosario',
-    };
-    return labels[type] ?? type;
+  /** Busca el reglamento trazable de un estado por clave INEGI */
+  getReglamentoEstatal(entidadId: string) {
+    return this.estatalesMap().get(entidadId) ?? null;
   }
 
-  typeColor(type: ArticuloType): string {
-    const colors: Record<ArticuloType, string> = {
-      principio: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
-      definicion: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
-      requisito: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
-      procedimiento: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',
-      sancion: 'bg-red-500/20 text-red-300 border-red-500/30',
-      estructura: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
-      derecho: 'bg-green-500/20 text-green-300 border-green-500/30',
-      obligacion: 'bg-orange-500/20 text-orange-300 border-orange-500/30',
-      transitorio: 'bg-slate-500/20 text-slate-300 border-slate-500/30',
-      glosario: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30',
-    };
-    return colors[type] ?? 'bg-neutral-500/20 text-neutral-300 border-neutral-500/30';
+  /** Obtiene la configuración visual de un estatus */
+  getEstatusConfig(estatus: string) {
+    return this.estatusMap[estatus as keyof typeof this.estatusMap] ?? null;
   }
 
-  // ─── Formateo de referencias cruzadas ──────────
-  formatReferences(refs: Referencia[]): string[] {
-    return [...new Set(refs.map(r => r.articleNum))];
+  // ═══════════════════════════════════════════════
+  //  GRAFO: CONSULTAS
+  // ═══════════════════════════════════════════════
+
+  /** Obtiene relaciones de grafo para un artículo */
+  getGraphRelations(articleId: string) {
+    return this.regSvc.getGraphRelations(articleId);
   }
+
+  /** PageRank simplificado de los artículos */
+  readonly pageRank = computed(() => this.regSvc.calcPageRank());
+
+  // ═══════════════════════════════════════════════
+  //  ACCIONES DE UI
+  // ═══════════════════════════════════════════════
 
   toggleToc() {
     this.showToc.update(v => !v);
   }
 
-  // ─── Agrupación de artículos para render ───────
-  readonly groupedArticles = computed(() => this.groupArticles(this.filteredArticles()));
-
-  private groupArticles(articles: ArticuloConMeta[]) {
-    const groups: { titulo: string; tituloIcono: string; articulos: ArticuloConMeta[] }[] = [];
-    const tituloMap = new Map<string, ArticuloConMeta[]>();
-
-    for (const a of articles) {
-      const key = a.tituloName;
-      if (!tituloMap.has(key)) {
-        tituloMap.set(key, []);
-      }
-      tituloMap.get(key)!.push(a);
-    }
-
-    const iconos: Record<string, string> = {
-      'primero': '📜',
-      'segundo': '📚',
-      'tercero': '🏗️',
-      'cuarto': '📅',
-      'quinto': '🗳️',
-      'sexto': '📁',
-      'séptimo': '⚖️',
-      'septimo': '⚖️',
-      'octavo': '📝',
-    };
-
-    for (const [titulo, arts] of tituloMap) {
-      const lower = titulo.toLowerCase();
-      const icono = Object.entries(iconos).find(([k]) => lower.includes(k))?.[1] ?? '📄';
-      groups.push({ titulo, tituloIcono: icono, articulos: arts });
-    }
-
-    return groups;
-  }
-
-  // ─── Scroll a artículo ─────────────────────────
+  /** Scroll suave a un artículo dentro del contenedor scrolleable */
   scrollToArticle(articleNumber: string) {
     const el = document.getElementById('art-' + articleNumber.replace(/\s+/g, '-'));
-    el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const container = document.getElementById('reglamento-content');
+    if (el && container) {
+      const containerRect = container.getBoundingClientRect();
+      const elRect = el.getBoundingClientRect();
+      const top = elRect.top - containerRect.top + container.scrollTop - 16;
+      container.scrollTo({ top, behavior: 'smooth' });
+    } else {
+      el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
     this.showToc.set(false);
   }
 }
