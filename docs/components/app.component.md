@@ -1,12 +1,12 @@
 ---
 zk_id: comp-001
 title: App
-description: Componente raíz de la aplicación POC_admin_migala con header, hero, secciones y footer
+description: Componente raíz de la aplicación POC_admin_migala con topbar, router outlet y footer
 type: component
 tags: [angular, component, root, layout]
-author: lanca
-created: 2025-06-05
-updated: 2025-06-05
+author: lancast
+created: 2026-06-10
+updated: 2026-06-10
 path: src/app/app.ts
 collection: poc-admin-migala
 ---
@@ -14,36 +14,37 @@ collection: poc-admin-migala
 # App
 
 ## Descripción
-Componente raíz de la aplicación. Define el layout principal con header, hero section con buscador, banner informativo, secciones de contenido en zig-zag (Directorio, Censo, Área Financiera) y footer.
+Componente raíz de la aplicación. Define el layout principal:
+- [[comp-002]] Topbar (barra de navegación superior)
+- `<router-outlet />` para renderizado de páginas
+- [[comp-003]] Footer (pie de página)
+- Inicializa [[serv-002]] DarkModeService
 
 ## API / Interfaz pública
 
 ### Selector
 `<migala-root>`
 
-### Señales
-| Señal | Tipo | Descripción |
-|-------|------|-------------|
-| `title` | `WritableSignal<string>` | Título de la aplicación |
-
 ## Grafo de dependencias
 
 ```mermaid
 graph LR
-  comp-001(App) --> cfg-001(AppConfig)
-  comp-001(App) --> cfg-002(AppRoutes)
+  comp-001(App) --> comp-002(Topbar)
+  comp-001(App) --> comp-003(Footer)
+  comp-001(App) --> serv-002(DarkModeService)
 ```
 
 | Métrica | Valor |
 |---------|-------|
-| Fan-out | 2 |
+| Fan-out | 3 |
 | Fan-in | 1 |
 
 ### Dependencias (importa)
-| Nota | Archivo | Tipo |
-|------|---------|------|
-| [[cfg-001]] | src/app/app.config.ts | config |
-| [[cfg-002]] | src/app/app.routes.ts | config |
+| Nota | Archivo | Propósito |
+|------|---------|-----------|
+| [[comp-002]] | src/app/layout/topbar/topbar.ts | Barra de navegación superior |
+| [[comp-003]] | src/app/layout/footer/footer.ts | Pie de página |
+| [[serv-002]] | src/app/core/services/dark-mode.service.ts | Servicio de modo oscuro |
 
 ### Dependientes (importado por)
 | Nota | Archivo |
@@ -55,14 +56,15 @@ graph LR
 | Campo | Valor |
 |-------|-------|
 | ID | `comp-001` |
-| Autor | @lanca |
-| Creado | 2025-06-05 |
-| Actualizado | 2025-06-05 |
+| Autor | @lancast |
+| Creado | 2026-06-10 |
+| Actualizado | 2026-06-10 |
 | Tags | angular, component, root, layout |
 
 ### Enlaces salientes
-- [[cfg-001]] → AppConfig usa el router provider
-- [[cfg-002]] → AppRoutes define las rutas del router-outlet
+- [[comp-002]] → Topbar como parte del layout
+- [[comp-003]] → Footer como parte del layout
+- [[serv-002]] → DarkModeService se inicializa al instanciarse
 
 ### Enlaces entrantes
 - [[entry-001]] → Main bootstrapea este componente
@@ -70,4 +72,4 @@ graph LR
 ## Changelog
 | Fecha | Autor | Cambio |
 |-------|-------|--------|
-| 2025-06-05 | @lanca | documentación inicial |
+| 2026-06-10 | @lancast | actualización de dependencias con Topbar, Footer, DarkModeService |

@@ -1,11 +1,13 @@
 {
-  "comp": 9,
-  "serv": 1,
+  "comp": 13,
+  "serv": 4,
   "dir": 1,
   "pipe": 1,
   "guard": 1,
   "cfg": 3,
   "entry": 2,
   "idx": 2,
-  "docs": 4
+  "docs": 4,
+  "model": 3,
+  "data": 6
 }

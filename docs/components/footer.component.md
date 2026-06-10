@@ -1,12 +1,12 @@
 ---
 zk_id: comp-003
 title: Footer
-description: Pie de página con logo, eslogan y enlaces a redes sociales
+description: Pie de página con logo, eslogan y redes sociales oficiales
 type: component
-tags: [angular, component, layout, footer]
-author: lanca
-created: 2025-06-05
-updated: 2025-06-05
+tags: [angular, component, layout, footer, social]
+author: lancast
+created: 2026-06-10
+updated: 2026-06-10
 path: src/app/layout/footer/footer.ts
 collection: poc-admin-migala
 ---
@@ -17,7 +17,7 @@ collection: poc-admin-migala
 Componente de layout que renderiza el pie de página. Incluye:
 - Logo completo de Proyecto Migala
 - Eslogan: "Ciencia, Tierra y Libertad"
-- Sección de redes sociales (placeholder)
+- Iconos de redes sociales desde [[data-003]] SOCIAL_NETWORKS
 
 ## API / Interfaz pública
 
@@ -28,16 +28,18 @@ Componente de layout que renderiza el pie de página. Incluye:
 
 ```mermaid
 graph LR
-  comp-003(Footer)
+  comp-003(Footer) --> data-003(SOCIAL_NETWORKS)
 ```
 
 | Métrica | Valor |
 |---------|-------|
-| Fan-out | 0 |
+| Fan-out | 1 |
 | Fan-in | 1 |
 
-### Dependencias
-Ninguna (sin imports relativos)
+### Dependencias (importa)
+| Nota | Archivo | Propósito |
+|------|---------|-----------|
+| [[data-003]] | src/app/core/social-networks.ts | Constante con redes sociales oficiales |
 
 ### Dependientes (importado por)
 | Nota | Archivo |
@@ -49,13 +51,13 @@ Ninguna (sin imports relativos)
 | Campo | Valor |
 |-------|-------|
 | ID | `comp-003` |
-| Autor | @lanca |
-| Creado | 2025-06-05 |
-| Actualizado | 2025-06-05 |
-| Tags | angular, component, layout, footer |
+| Autor | @lancast |
+| Creado | 2026-06-10 |
+| Actualizado | 2026-06-10 |
+| Tags | angular, component, layout, footer, social |
 
 ### Enlaces salientes
-Ninguno
+- [[data-003]] → SOCIAL_NETWORKS para renderizar iconos de redes
 
 ### Enlaces entrantes
 - [[comp-001]] → App lo usa como parte del layout
@@ -63,4 +65,4 @@ Ninguno
 ## Changelog
 | Fecha | Autor | Cambio |
 |-------|-------|--------|
-| 2025-06-05 | @lanca | creación del componente Footer |
+| 2026-06-10 | @lancast | actualización con SOCIAL_NETWORKS |

@@ -1,8 +1,11 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, computed, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { PageBanner } from '../../shared/page-banner/page-banner';
 import { SOCIAL_NETWORKS } from '../../core/social-networks';
 import { SeoService } from '../../core/services/seo.service';
+import { MEXICO } from '../../core/data/entidades.data';
+import type { Estado } from '../../core/models/entidad';
 
 interface TransparenciaItem {
   name: string;
@@ -19,8 +22,9 @@ interface TransparenciaSection {
 
 @Component({
   selector: 'migala-transparencia',
-  imports: [PageBanner, RouterLink],
-  templateUrl: './transparencia.html'
+  imports: [PageBanner, RouterLink, FormsModule],
+  templateUrl: './transparencia.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Transparencia {
   // Signal to track the currently open section ID in the accordion
@@ -28,6 +32,50 @@ export class Transparencia {
 
   // Expose core social networks to template
   protected readonly socialNetworks = SOCIAL_NETWORKS;
+
+  // ─── Datos de entidades federativas ────────────
+  readonly estados = MEXICO.estados;
+  readonly totalMunicipios = computed(() =>
+    this.estados.reduce((sum, e) => sum + e.municipios.length, 0)
+  );
+
+  /** Regiones de México con metadata visual */
+  readonly regionInfo: Record<string, { label: string; color: string; icon: string }> = {
+    'noroeste':  { label: 'Noroeste',  color: 'border-blue-500/40 bg-blue-500/5',   icon: '🏔️' },
+    'noreste':   { label: 'Noreste',   color: 'border-cyan-500/40 bg-cyan-500/5',   icon: '🌵' },
+    'occidente': { label: 'Occidente', color: 'border-amber-500/40 bg-amber-500/5', icon: '🌋' },
+    'centro':    { label: 'Centro',    color: 'border-emerald-500/40 bg-emerald-500/5', icon: '🏛️' },
+    'sur':       { label: 'Sur',       color: 'border-rose-500/40 bg-rose-500/5',   icon: '🌴' },
+    'sureste':   { label: 'Sureste',   color: 'border-purple-500/40 bg-purple-500/5', icon: '🏝️' },
+  };
+
+  /** Estados agrupados por región */
+  readonly estadosPorRegion = computed(() => {
+    const map = new Map<string, Estado[]>();
+    for (const e of this.estados) {
+      const region = e.region;
+      if (!map.has(region)) map.set(region, []);
+      map.get(region)!.push(e);
+    }
+    return map;
+  });
+
+  /** Buscador de estados */
+  searchEstado = signal('');
+  readonly filteredEstados = computed(() => {
+    const q = this.searchEstado().toLowerCase().trim();
+    if (!q) return this.estados;
+    return this.estados.filter(e =>
+      e.nombre.toLowerCase().includes(q) ||
+      e.capital.toLowerCase().includes(q) ||
+      e.abreviatura.toLowerCase().includes(q)
+    );
+  });
+
+  /** Orden de regiones */
+  readonly regionOrder: string[] = [
+    'noroeste', 'noreste', 'occidente', 'centro', 'sur', 'sureste',
+  ];
 
   constructor() {
     inject(SeoService).generateTags({
@@ -69,6 +117,13 @@ export class Transparencia {
         { name: 'IV.- Reglamentos de Comisiones Temáticas', route: '/reglamento' },
         { name: 'V.- Reglamentos de Grupo de Transversalidad', route: '/reglamento' }
       ]
+    },
+    {
+      id: 'comisiones-estatales',
+      title: 'Comisiones Estatales',
+      icon: '🗺️',
+      description: 'Aquí podrás encontrar el directorio completo de las 32 Comisiones Estatales del Proyecto Migala, una por cada entidad federativa. Cada comisión cuenta con su propia estructura organizativa, reglamento, y puede ser contactada de forma independiente para coordinar los trabajos del proyecto en su estado.',
+      items: [] // los estados se renderizan dinámicamente en el template
     },
     {
       id: 'ruta-critica',
@@ -188,5 +243,11 @@ export class Transparencia {
   // Action method to toggle sections open/close
   protected toggleSection(id: string): void {
     this.openSectionId.set(this.openSectionId() === id ? null : id);
+  }
+
+  /** Fallback para imágenes que no cargan */
+  protected onImgError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img) img.src = 'assets/img/Logo.png';
   }
 }

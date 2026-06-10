@@ -1,7 +1,10 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { REGLAMENTO_DATA } from '../../core/data/reglamento.data';
+import { MEXICO } from '../../core/data/entidades.data';
+import type { Estado } from '../../core/models/entidad';
 
 // ─── Tipos locales (duplicados del modelo para evitar dependencias del Language Service) ───
 type ArticuloType =
@@ -55,14 +58,60 @@ interface ArticuloConMeta {
 
 @Component({
   selector: 'migala-reglamento',
-  imports: [FormsModule, DecimalPipe],
+  imports: [FormsModule, DecimalPipe, RouterLink],
   templateUrl: './reglamento.html',
   styleUrl: './reglamento.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Reglamento {
   // ─── Datos fuente ──────────────────────────────
   reglamento = signal(REGLAMENTO_DATA);
   metrics = computed<ReglamentoMetrics | null>(() => this.reglamento().metrics ?? null);
+
+  // ─── Datos de entidades federativas ────────────
+  readonly estados = MEXICO.estados;
+  readonly isEstatalTab = computed(() => this.activeTab() === 'estatales');
+  readonly totalMunicipios = computed(() =>
+    this.estados.reduce((sum, e) => sum + e.municipios.length, 0)
+  );
+
+  /** Regiones de México con metadata visual */
+  readonly regionInfo: Record<string, { label: string; color: string; icon: string }> = {
+    'noroeste':  { label: 'Noroeste',  color: 'border-blue-500/40 bg-blue-500/5',   icon: '🏔️' },
+    'noreste':   { label: 'Noreste',   color: 'border-cyan-500/40 bg-cyan-500/5',   icon: '🌵' },
+    'occidente': { label: 'Occidente', color: 'border-amber-500/40 bg-amber-500/5', icon: '🌋' },
+    'centro':    { label: 'Centro',    color: 'border-emerald-500/40 bg-emerald-500/5', icon: '🏛️' },
+    'sur':       { label: 'Sur',       color: 'border-rose-500/40 bg-rose-500/5',   icon: '🌴' },
+    'sureste':   { label: 'Sureste',   color: 'border-purple-500/40 bg-purple-500/5', icon: '🏝️' },
+  };
+
+  /** Estados agrupados por región */
+  readonly estadosPorRegion = computed(() => {
+    const map = new Map<string, Estado[]>();
+    for (const e of this.estados) {
+      const region = e.region;
+      if (!map.has(region)) map.set(region, []);
+      map.get(region)!.push(e);
+    }
+    return map;
+  });
+
+  /** Buscador de estados (para el tab estatales) */
+  searchEstado = signal('');
+  readonly filteredEstados = computed(() => {
+    const q = this.searchEstado().toLowerCase().trim();
+    if (!q) return this.estados;
+    return this.estados.filter(e =>
+      e.nombre.toLowerCase().includes(q) ||
+      e.capital.toLowerCase().includes(q) ||
+      e.abreviatura.toLowerCase().includes(q)
+    );
+  });
+
+  /** Orden de regiones para mostrar en el grid */
+  readonly regionOrder: string[] = [
+    'noroeste', 'noreste', 'occidente', 'centro', 'sur', 'sureste',
+  ];
 
   // ─── Tabs ──────────────────────────────────────
   tabs = [
@@ -83,6 +132,7 @@ export class Reglamento {
     this.activeTab.set(tabId);
     this.searchQuery.set('');
     this.typeFilter.set(null);
+    this.searchEstado.set('');
   }
 
   // ─── Búsqueda y filtros ────────────────────────
@@ -226,7 +276,9 @@ export class Reglamento {
   }
 
   // ─── Agrupación de artículos para render ───────
-  groupArticles(articles: ArticuloConMeta[]) {
+  readonly groupedArticles = computed(() => this.groupArticles(this.filteredArticles()));
+
+  private groupArticles(articles: ArticuloConMeta[]) {
     const groups: { titulo: string; tituloIcono: string; articulos: ArticuloConMeta[] }[] = [];
     const tituloMap = new Map<string, ArticuloConMeta[]>();
 

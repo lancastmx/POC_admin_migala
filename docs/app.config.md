@@ -37,7 +37,7 @@ graph LR
 | Métrica | Valor |
 |---------|-------|
 | Fan-out | 1 |
-| Fan-in | 1 |
+| Fan-in | 2 |
 
 ### Dependencias (importa)
 | Nota | Archivo | Tipo |
