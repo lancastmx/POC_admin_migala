@@ -132,7 +132,7 @@ export const TIPO_RELACION_MAP: Record<TipoRelacion, RelacionConfig> = {
 //  REGIONES DE MÉXICO (compartido con entidades)
 // ═══════════════════════════════════════════════
 
-export const REGION_INFO: Record<string, { label: string; color: string; icon: string }> = {
+export const REGION_INFO: Record<string, { label: string; color: string; icon: string } | undefined> = {
   noroeste:  { label: 'Noroeste',  color: 'border-blue-500/40 bg-blue-500/5',   icon: '🏔️' },
   noreste:   { label: 'Noreste',   color: 'border-cyan-500/40 bg-cyan-500/5',   icon: '🌵' },
   occidente: { label: 'Occidente', color: 'border-amber-500/40 bg-amber-500/5', icon: '🌋' },

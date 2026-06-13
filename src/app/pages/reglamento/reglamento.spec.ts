@@ -65,8 +65,7 @@ describe('Reglamento', () => {
   });
 
   it('should group articles', () => {
-    const all = component.filteredArticles();
-    const groups = component.groupArticles(all);
+    const groups = component.groupedArticles();
     expect(groups.length).toBeGreaterThan(0);
     expect(groups[0].articulos.length).toBeGreaterThan(0);
   });

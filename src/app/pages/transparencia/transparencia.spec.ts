@@ -31,8 +31,8 @@ describe('Transparencia', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have all 13 transparency sections', () => {
-    expect(component['sections'].length).toBe(13);
+  it('should have all 14 transparency sections', () => {
+    expect(component['sections'].length).toBe(14);
   });
 
   it('should have no open section initially', () => {
