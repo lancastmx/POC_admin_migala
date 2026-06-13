@@ -11,6 +11,7 @@ export const routes: Routes = [
   { path: 'transparencia', component: Transparencia, title: 'Transparencia - Proyecto Migala' },
   { path: 'reglamento', loadComponent: () => import('./pages/reglamento/reglamento').then(m => m.Reglamento), title: 'Reglamento Nacional - Proyecto Migala' },
   { path: 'reglamento/estatal/:id', loadComponent: () => import('./pages/reglamento/reglamento').then(m => m.Reglamento), title: 'Reglamento Estatal - Proyecto Migala' },
+  { path: 'estructura', loadComponent: () => import('./pages/estructura/estructura').then(m => m.Estructura), title: 'Estructura y Gobernanza - Proyecto Migala' },
   { path: 'archivo', component: UnderConstruction, title: 'Archivo - Proyecto Migala' },
   { path: 'privacidad', component: UnderConstruction, title: 'Aviso de Privacidad - Proyecto Migala' },
   { path: '**', component: PageNotFound, title: 'Página no Encontrada - Proyecto Migala' },
