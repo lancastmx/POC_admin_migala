@@ -1,0 +1,161 @@
+<migala-page-banner
+  title="Propuesta de Proyecto"
+  description="Presentación formal del Portal de Transparencia de acuerdo con el Artículo 159 del Reglamento Nacional."
+  variant="migala">
+</migala-page-banner>
+
+<!-- Main Container -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  
+  <!-- Info Introductoria -->
+  <div class="bg-surface border border-default rounded-3xl p-6 md:p-8 mb-10 space-y-4 shadow-2xs">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="space-y-1.5 flex-1">
+        <div class="inline-flex items-center space-x-2 bg-migala/10 text-migala border border-migala/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
+          📋 Artículo 159
+        </div>
+        <h2 class="text-lg md:text-xl font-extrabold text-default tracking-tight">
+          Estructura de Presentación de Proyectos
+        </h2>
+        <p class="text-muted text-xs leading-relaxed text-justify font-light">
+          El Reglamento del Proyecto Migala establece que cualquier propuesta para generar o modificar puntos en la ruta crítica, planes o actividades, debe cumplir con un formato de 10 puntos esenciales. A continuación se detalla la propuesta formal para **este mismo sistema de código (POC_admin_migala)**.
+        </p>
+      </div>
+      <a href="PROPUESTA_POC_TRANSPARENCIA.md" target="_blank"
+         class="bg-migala hover:bg-migala-dark text-white text-xs font-bold py-3 px-6 rounded-xl transition duration-200 cursor-pointer shadow-xs self-start md:self-center flex items-center gap-1.5 shrink-0">
+        <span>📄</span>
+        <span>Ver archivo Markdown</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Mobile index pills (horizontal scrollable) -->
+  <div class="block lg:hidden mb-6">
+    <h3 class="text-[10px] font-bold text-faint uppercase tracking-wider mb-2 px-1">Los 10 Puntos Básicos</h3>
+    <div class="flex overflow-x-auto pb-3 gap-2 scrollbar-none snap-x snap-mandatory">
+      @for (item of items; track item.id) {
+        <button (click)="selectTab(item.id)"
+                class="snap-start shrink-0 px-4 py-2.5 rounded-full text-xs font-bold border transition-all duration-300 shadow-2xs"
+                [class.bg-migala]="activeTabId() === item.id"
+                [class.text-white]="activeTabId() === item.id"
+                [class.border-migala]="activeTabId() === item.id"
+                [class.bg-surface]="activeTabId() !== item.id"
+                [class.text-sub]="activeTabId() !== item.id"
+                [class.border-default]="activeTabId() !== item.id"
+                [class.hover:border-migala/40]="activeTabId() !== item.id">
+          <span class="mr-1 opacity-70 font-mono">{{ item.id }}</span>
+          {{ item.seccion }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    
+    <!-- Desktop Index Sidebar -->
+    <aside class="hidden lg:block lg:col-span-4 bg-surface border border-default rounded-3xl p-5 shadow-2xs sticky top-6">
+      <div class="mb-4 pb-3 border-b border-default">
+        <h3 class="text-xs font-extrabold text-default tracking-wider uppercase">Índice de Requisitos</h3>
+      </div>
+      
+      <nav class="space-y-1">
+        @for (item of items; track item.id) {
+          <button (click)="selectTab(item.id)"
+                  class="w-full flex items-center justify-between text-left px-3.5 py-3 rounded-2xl transition duration-150 group"
+                  [class.bg-brand-soft]="activeTabId() === item.id"
+                  [class.text-migala]="activeTabId() === item.id"
+                  [class.font-bold]="activeTabId() === item.id"
+                  [class.border-l-4]="activeTabId() === item.id"
+                  [class.border-migala]="activeTabId() === item.id"
+                  [class.text-sub]="activeTabId() !== item.id"
+                  [class.hover:bg-neutral-500/5]="activeTabId() !== item.id">
+            
+            <div class="flex items-center space-x-3">
+              <span class="text-xs font-mono opacity-50 font-bold"
+                    [class.text-migala]="activeTabId() === item.id">
+                {{ item.id }}
+              </span>
+              <span class="text-xs tracking-wide select-none">{{ item.nombre }}</span>
+            </div>
+            
+            <span class="text-sm select-none opacity-80 group-hover:scale-110 transition-transform">{{ item.icon }}</span>
+          </button>
+        }
+      </nav>
+    </aside>
+
+    <!-- Detailed Reading Pane -->
+    <main class="col-span-1 lg:col-span-8 bg-surface border border-default rounded-3xl p-6 md:p-8 shadow-2xs min-h-[50vh] flex flex-col justify-between">
+      
+      <!-- Content Header -->
+      <div class="space-y-6">
+        <div class="flex items-start justify-between border-b border-default pb-5 gap-4">
+          <div class="space-y-1">
+            <span class="text-[10px] font-mono font-bold text-migala uppercase tracking-widest">
+              Requisito {{ activeItem().id }} de 10
+            </span>
+            <h2 class="text-base md:text-xl font-extrabold text-default tracking-tight leading-snug">
+              {{ activeItem().nombre }}
+            </h2>
+          </div>
+          <span class="text-3xl p-3 bg-neutral-500/5 border border-default/50 rounded-2xl select-none shrink-0 shadow-3xs">
+            {{ activeItem().icon }}
+          </span>
+        </div>
+
+        <!-- Detail text -->
+        <div class="space-y-6 animate-fade-in">
+          <p class="text-sub text-xs sm:text-sm leading-relaxed text-justify font-light first-letter:text-lg first-letter:font-bold first-letter:text-migala-dark whitespace-pre-line">
+            {{ activeItem().detalle }}
+          </p>
+
+          <!-- Extra details metadata grid if available -->
+          @if (activeItem().detallesExtra; as extras) {
+            <div class="pt-4 border-t border-default space-y-3">
+              <h4 class="text-[10px] font-bold text-faint uppercase tracking-widest">Detalles del Requisito</h4>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                @for (ext of extras; track ext.key) {
+                  <div class="bg-neutral-500/5 border border-default/50 rounded-xl p-3 flex flex-col gap-0.5">
+                    <span class="text-[10px] text-muted font-semibold">{{ ext.key }}</span>
+                    <span class="text-xs text-default font-medium leading-normal">{{ ext.val }}</span>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Navigation Actions -->
+      <div class="mt-12 pt-6 border-t border-default flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div class="text-[10px] text-faint font-medium">
+          Artículo 159 • Propuesta Oficial
+        </div>
+        
+        <div class="flex items-center space-x-3 self-end sm:self-center">
+          @if (+activeItem().id > 1) {
+            <button (click)="selectTab((+activeItem().id - 1).toString().padStart(2, '0'))"
+                    class="px-3 py-2 text-xs font-bold text-sub bg-sub hover:bg-brand-soft hover:text-migala border border-default rounded-xl transition duration-150 flex items-center gap-1.5 shadow-3xs cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+              </svg>
+              Anterior
+            </button>
+          }
+          
+          @if (+activeItem().id < 10) {
+            <button (click)="selectTab((+activeItem().id + 1).toString().padStart(2, '0'))"
+                    class="px-3 py-2 text-xs font-bold text-white bg-migala hover:bg-migala-dark rounded-xl transition duration-150 flex items-center gap-1.5 shadow-2xs cursor-pointer">
+              Siguiente
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          }
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+</div>

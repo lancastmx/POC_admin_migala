@@ -13,6 +13,7 @@ export const routes: Routes = [
   { path: 'reglamento/estatal/:id', loadComponent: () => import('./pages/reglamento/reglamento').then(m => m.Reglamento), title: 'Reglamento Estatal - Proyecto Migala' },
   { path: 'estructura', loadComponent: () => import('./pages/estructura/estructura').then(m => m.Estructura), title: 'Estructura y Gobernanza - Proyecto Migala' },
   { path: 'archivo', loadComponent: () => import('./pages/archivo/archivo').then(m => m.Archivo), title: 'Archivo - Proyecto Migala' },
+  { path: 'propuesta', loadComponent: () => import('./pages/propuesta/propuesta').then(m => m.Propuesta), title: 'Propuesta de Proyecto - Proyecto Migala' },
   { path: 'privacidad', component: UnderConstruction, title: 'Aviso de Privacidad - Proyecto Migala' },
   { path: '**', component: PageNotFound, title: 'Página no Encontrada - Proyecto Migala' },
 ];
