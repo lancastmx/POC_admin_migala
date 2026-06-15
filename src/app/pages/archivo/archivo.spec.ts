@@ -82,7 +82,9 @@ describe('Archivo Component', () => {
     fixture.detectChanges();
     expect(component['selectedCategory']()).toBe('ruta-critica');
     expect(component['searchQuery']()).toBe('Nacional');
+    expect(component['viewMode']()).toBe('tabla');
   });
+
 
   it('debe limpiar todos los filtros', () => {
     component['selectedCategory'].set('ruta-critica');
@@ -182,6 +184,61 @@ describe('Archivo Component', () => {
     expect(component['rutaCritica']).toBeDefined();
     expect(component['rutaCritica'].titulo).toBe('RUTA CRÍTICA');
     expect(component['rutaCritica'].objetivos.length).toBe(5);
+  });
+
+  it('debe cargar la lista de organizaciones', () => {
+    expect(component['organizaciones']().length).toBeGreaterThan(0);
+  });
+
+  it('debe retornar vacio en filteredOrganizaciones si la categoria no es directorios', () => {
+    component['selectedCategory'].set('inicio');
+    expect(component['filteredOrganizaciones']().length).toBe(0);
+  });
+
+  it('debe filtrar organizaciones por categoria directorios', () => {
+    component['selectedCategory'].set('directorios');
+    expect(component['filteredOrganizaciones']().length).toBeGreaterThan(0);
+  });
+
+  it('debe filtrar organizaciones por eje', () => {
+    component['selectedCategory'].set('directorios');
+    component['selectedEje'].set('operativo');
+    const filtered = component['filteredOrganizaciones']();
+    expect(filtered.every(org => org.eje === 'operativo')).toBe(true);
+    expect(filtered.length).toBeGreaterThan(0);
+  });
+
+  it('debe filtrar organizaciones por subseccion', () => {
+    component['selectedCategory'].set('directorios');
+    component['selectSubseccion']('FOR', 'operativo');
+    const filtered = component['filteredOrganizaciones']();
+    expect(filtered.length).toBeGreaterThan(0);
+    // El Comité Nacional de Formación y Utopía (CONFU) o Área de Formación deben estar presentes
+    const names = filtered.map(o => o.nombre.toLowerCase());
+    const matches = names.some(n => n.includes('formación') || n.includes('confu') || n.includes('utopía'));
+    expect(matches).toBe(true);
+  });
+
+  it('debe filtrar organizaciones por estado', () => {
+    component['selectedCategory'].set('directorios');
+    component['selectEstado']('09'); // CDMX
+    const filtered = component['filteredOrganizaciones']();
+    expect(filtered.length).toBe(1);
+    expect(filtered[0].nombre).toContain('Ciudad de México');
+  });
+
+  it('debe filtrar organizaciones por query de busqueda', () => {
+    component['selectedCategory'].set('directorios');
+    component['searchQuery'].set('CONFU');
+    const filtered = component['filteredOrganizaciones']();
+    expect(filtered.length).toBe(1);
+    expect(filtered[0].nombre).toContain('Comité Nacional de Formación y Utopía');
+  });
+
+  it('debe proveer badges y nombres correctos para los organos', () => {
+    expect(component['getTipoOrganoLabel']('area')).toBe('Área');
+    expect(component['getTipoOrganoBadgeClass']('area')).toContain('bg-blue-500');
+    expect(component['getTipoOrganoIcon']('area')).toBe('📁');
   });
 });
 

@@ -11,6 +11,24 @@ import { MEXICO } from '../../core/data/entidades.data';
 import type { Estado } from '../../core/models/entidad';
 import { SOCIAL_NETWORKS } from '../../core/social-networks';
 import { RUTA_CRITICA_DATA } from '../../core/data/ruta-critica.data';
+import { ORGANIZACIONES_DATA } from '../../core/data/organizaciones.data';
+import { Organizacion } from '../../core/models/organizacion';
+import { TELEGRAM_LINKS } from '../../core/data/telegram-links';
+
+// ─── Interfaces del Organigrama ───────────────────────────────────
+export interface OrganigramaNode {
+  org: Organizacion;
+  children: OrganigramaNode[];
+}
+
+export interface OrganigramaGroup {
+  ejeId: string;
+  ejeName: string;
+  ejeIcon: string;
+  ejeColor: string;
+  nodos: OrganigramaNode[];
+}
+// ───────────────────────────────────────────────────────────────────
 
 interface CategoriaFiltro {
   id: string;
@@ -24,6 +42,7 @@ interface PortalInfo {
   acronimo: string;
   logoIcon: string;
   nivel: 'Sin Archivo' | 'Mínimo' | 'Básico' | 'Avanzado' | 'Consolidado';
+  telegramUrl?: string;
 }
 
 interface EjesExpansionState {
@@ -60,34 +79,34 @@ export class Archivo implements OnInit, OnDestroy {
   });
 
   protected readonly portalesOperativos: PortalInfo[] = [
-    { seccion: 'Contraloría', acronimo: 'CON', logoIcon: '⚖️', nivel: 'Sin Archivo' },
-    { seccion: 'Comunicación y Propaganda', acronimo: 'CYP', logoIcon: '📢', nivel: 'Mínimo' },
-    { seccion: 'Dirección', acronimo: 'DIR', logoIcon: '🧭', nivel: 'Sin Archivo' },
-    { seccion: 'Diálogo y Arbitraje', acronimo: 'DYA', logoIcon: '🤝', nivel: 'Sin Archivo' },
-    { seccion: 'Financiera', acronimo: 'FIN', logoIcon: '💳', nivel: 'Sin Archivo' },
-    { seccion: 'Formación', acronimo: 'FOR', logoIcon: '⚡', nivel: 'Básico' },
-    { seccion: 'Informática', acronimo: 'INF', logoIcon: '💻', nivel: 'Mínimo' },
-    { seccion: 'Legal', acronimo: 'LEG', logoIcon: '💼', nivel: 'Sin Archivo' },
+    { seccion: 'Contraloría', acronimo: 'CON', logoIcon: '⚖️', nivel: 'Sin Archivo', telegramUrl: TELEGRAM_LINKS['area-contraloria'] },
+    { seccion: 'Comunicación y Propaganda', acronimo: 'CYP', logoIcon: '📢', nivel: 'Mínimo', telegramUrl: TELEGRAM_LINKS['area-comunicacion'] },
+    { seccion: 'Dirección', acronimo: 'DIR', logoIcon: '🧭', nivel: 'Sin Archivo', telegramUrl: TELEGRAM_LINKS['area-direccion'] },
+    { seccion: 'Diálogo y Arbitraje', acronimo: 'DYA', logoIcon: '🤝', nivel: 'Sin Archivo', telegramUrl: TELEGRAM_LINKS['area-dialogo'] },
+    { seccion: 'Financiera', acronimo: 'FIN', logoIcon: '💳', nivel: 'Sin Archivo', telegramUrl: TELEGRAM_LINKS['area-financiera'] },
+    { seccion: 'Formación', acronimo: 'FOR', logoIcon: '⚡', nivel: 'Básico', telegramUrl: TELEGRAM_LINKS['area-formacion'] },
+    { seccion: 'Informática', acronimo: 'INF', logoIcon: '💻', nivel: 'Mínimo', telegramUrl: TELEGRAM_LINKS['area-informatica'] },
+    { seccion: 'Legal', acronimo: 'LEG', logoIcon: '💼', nivel: 'Sin Archivo', telegramUrl: TELEGRAM_LINKS['area-legal'] },
     { seccion: 'Político Electoral', acronimo: 'POL', logoIcon: '🗳️', nivel: 'Mínimo' },
-    { seccion: 'Transparencia', acronimo: 'TRA', logoIcon: '🔎', nivel: 'Mínimo' }
+    { seccion: 'Transparencia', acronimo: 'TRA', logoIcon: '🔎', nivel: 'Mínimo', telegramUrl: TELEGRAM_LINKS['area-transparencia'] }
   ];
 
   protected readonly portalesTematicos: PortalInfo[] = [
-    { seccion: 'Arte y cultura', acronimo: 'AYC', logoIcon: '🎨', nivel: 'Sin Archivo' },
-    { seccion: 'Ciencia y Tecnología', acronimo: 'CYT', logoIcon: '🧬', nivel: 'Sin Archivo' },
-    { seccion: 'Derechos Humanos', acronimo: 'DHU', logoIcon: '⚔️', nivel: 'Mínimo' },
-    { seccion: 'Estudios Económicos', acronimo: 'EEC', logoIcon: '💸', nivel: 'Sin Archivo' },
-    { seccion: 'Geopolítica e Historia', acronimo: 'GEH', logoIcon: '📖', nivel: 'Sin Archivo' },
-    { seccion: 'Sustentabilidad', acronimo: 'SUS', logoIcon: '☀️', nivel: 'Básico' }
+    { seccion: 'Arte y cultura', acronimo: 'AYC', logoIcon: '🎨', nivel: 'Sin Archivo', telegramUrl: TELEGRAM_LINKS['esp-arte-cultura'] },
+    { seccion: 'Ciencia y Tecnología', acronimo: 'CYT', logoIcon: '🧬', nivel: 'Sin Archivo', telegramUrl: TELEGRAM_LINKS['esp-ciencia-tecnologia'] },
+    { seccion: 'Derechos Humanos', acronimo: 'DHU', logoIcon: '⚔️', nivel: 'Mínimo', telegramUrl: TELEGRAM_LINKS['esp-derechos-humanos'] },
+    { seccion: 'Estudios Económicos', acronimo: 'EEC', logoIcon: '💸', nivel: 'Sin Archivo', telegramUrl: TELEGRAM_LINKS['esp-estudios-economicos'] },
+    { seccion: 'Geopolítica e Historia', acronimo: 'GEH', logoIcon: '📖', nivel: 'Sin Archivo', telegramUrl: TELEGRAM_LINKS['esp-geopolitica-historia'] },
+    { seccion: 'Sustentabilidad', acronimo: 'SUS', logoIcon: '☀️', nivel: 'Básico', telegramUrl: TELEGRAM_LINKS['esp-sustentabilidad'] }
   ];
 
   protected readonly portalesTransversales: PortalInfo[] = [
-    { seccion: 'Personas con Funcionalidad Diversa', acronimo: 'DIS', logoIcon: '🪖', nivel: 'Sin Archivo' },
-    { seccion: 'Diversidad', acronimo: 'DIV', logoIcon: '🏳️‍🌈', nivel: 'Sin Archivo' },
-    { seccion: 'Masculinidades', acronimo: 'MAS', logoIcon: '🚹', nivel: 'Sin Archivo' },
-    { seccion: 'Mujeres', acronimo: 'MUJ', logoIcon: '🚺', nivel: 'Sin Archivo' },
-    { seccion: 'Paisanos', acronimo: 'PAI', logoIcon: '🌎', nivel: 'Sin Archivo' },
-    { seccion: 'Pueblos Originarios', acronimo: 'POR', logoIcon: '🛖', nivel: 'Sin Archivo' }
+    { seccion: 'Personas con Funcionalidad Diversa', acronimo: 'DIS', logoIcon: '🪖', nivel: 'Sin Archivo', telegramUrl: TELEGRAM_LINKS['tran-funcionalidad-diversa'] },
+    { seccion: 'Diversidad', acronimo: 'DIV', logoIcon: '🏳️‍🌈', nivel: 'Sin Archivo', telegramUrl: TELEGRAM_LINKS['tran-diversidad'] },
+    { seccion: 'Masculinidades', acronimo: 'MAS', logoIcon: '🚹', nivel: 'Sin Archivo', telegramUrl: TELEGRAM_LINKS['tran-masculinidades'] },
+    { seccion: 'Mujeres', acronimo: 'MUJ', logoIcon: '🚺', nivel: 'Sin Archivo', telegramUrl: TELEGRAM_LINKS['tran-mujeres'] },
+    { seccion: 'Paisanos', acronimo: 'PAI', logoIcon: '🌎', nivel: 'Sin Archivo', telegramUrl: TELEGRAM_LINKS['tran-paisanos'] },
+    { seccion: 'Pueblos Originarios', acronimo: 'POR', logoIcon: '🛖', nivel: 'Sin Archivo', telegramUrl: TELEGRAM_LINKS['tran-pueblos-originarios'] }
   ];
 
   protected readonly portalesTerritoriales: PortalInfo[] = [
@@ -109,18 +128,27 @@ export class Archivo implements OnInit, OnDestroy {
       else if (e.id === '21') { nivel = 'Mínimo'; logoIcon = '⛪'; }
       else if (e.id === '30') { nivel = 'Mínimo'; logoIcon = '🌴'; }
 
+      // Map state ID to org ID format used in TELEGRAM_LINKS: est-[nombre-limpio]
+      // This is slightly complex, so let's just lookup from ORGANIZACIONES_DATA
+      // Actually we have an easier way: finding the organizacion by name match
+      // Or just hardcoding the match based on `e.id` if we need to, but wait.
+      // Better yet, just find the org with tipo='comision_estatal' matching the state name
+      const stateOrg = this.organizaciones().find(org => org.tipo === 'comision_estatal' && org.nombre.toLowerCase().includes(e.nombre.toLowerCase()));
+
       return {
         id: e.id,
         seccion: e.nombre,
         acronimo: e.abreviatura.replace('.', ''),
         logoIcon,
-        nivel
+        nivel,
+        telegramUrl: stateOrg?.telegramUrl
       };
     });
   });
 
   // ─── Fuente de Datos ─────────────────────────
   protected readonly documentos = signal<ArchivoDocumento[]>(ARCHIVOS_DATA);
+  protected readonly organizaciones = signal<Organizacion[]>(ORGANIZACIONES_DATA);
   protected readonly estados = MEXICO.estados;
 
   // ─── Señales de Filtro ───────────────────────
@@ -239,6 +267,210 @@ export class Archivo implements OnInit, OnDestroy {
       });
   });
 
+  protected readonly filteredOrganizaciones = computed(() => {
+    const list = this.organizaciones();
+    const cat = this.selectedCategory();
+    const eje = this.selectedEje();
+    const query = this.searchQuery().toLowerCase().trim();
+    const sub = this.selectedSubseccion();
+    const estadoId = this.selectedEstado();
+
+    if (cat !== 'directorios') {
+      return [];
+    }
+
+    return list.filter(org => {
+      // 1. Filtrado por Eje / Ámbito
+      if (eje !== 'todos') {
+        if (eje === 'operativo' && org.eje !== 'operativo') return false;
+        if (eje === 'tematico' && org.eje !== 'ideologico') return false;
+        if (eje === 'transversal' && org.eje !== 'transversal') return false;
+        if (eje === 'territorial' && (org.eje !== 'territorial' || org.tipo === 'comision_estatal')) return false;
+        if (eje === 'estatal' && org.tipo !== 'comision_estatal') return false;
+      }
+
+      // 2. Filtrado por Subsección (Acrónimo o ID)
+      if (sub !== 'todos') {
+        const info = this.getComisionInfo(sub);
+        if (info) {
+          const matchesIdOrParent = org.id.includes(info.acronimo.toLowerCase()) || 
+                                     (org.parentId && org.parentId.includes(info.acronimo.toLowerCase())) ||
+                                     (org.siglas && org.siglas.toLowerCase() === info.acronimo.toLowerCase());
+          
+          const matchesSpecial = 
+            (sub === 'CON' && (org.id === 'area-contraloria' || org.parentId === 'area-contraloria')) ||
+            (sub === 'CYP' && (org.id === 'area-comunicacion' || org.parentId === 'area-comunicacion')) ||
+            (sub === 'DIR' && (org.id === 'area-direccion' || org.parentId === 'area-direccion')) ||
+            (sub === 'DYA' && (org.id === 'area-dialogo' || org.parentId === 'area-dialogo')) ||
+            (sub === 'FIN' && (org.id === 'area-financiera' || org.parentId === 'area-financiera')) ||
+            (sub === 'FOR' && (org.id === 'area-formacion' || org.parentId === 'area-formacion')) ||
+            (sub === 'INF' && (org.id === 'area-informatica' || org.parentId === 'area-informatica')) ||
+            (sub === 'LEG' && (org.id === 'area-legal' || org.parentId === 'area-legal')) ||
+            (sub === 'POL' && (org.id === 'area-politico-electoral' || org.parentId === 'area-politico-electoral')) ||
+            (sub === 'TRA' && (org.id === 'area-transparencia' || org.parentId === 'area-transparencia')) ||
+            
+            (sub === 'AYC' && (org.id === 'esp-arte-cultura' || org.parentId === 'esp-arte-cultura')) ||
+            (sub === 'CYT' && (org.id === 'esp-ciencia-tecnologia' || org.parentId === 'esp-ciencia-tecnologia')) ||
+            (sub === 'DHU' && (org.id === 'esp-derechos-humanos' || org.parentId === 'esp-derechos-humanos')) ||
+            (sub === 'EEC' && (org.id === 'esp-estudios-economicos' || org.parentId === 'esp-estudios-economicos')) ||
+            (sub === 'GEH' && (org.id === 'esp-geopolitica-historia' || org.parentId === 'esp-geopolitica-historia')) ||
+            (sub === 'SUS' && (org.id === 'esp-sustentabilidad' || org.parentId === 'esp-sustentabilidad')) ||
+            
+            (sub === 'DIS' && (org.id === 'tran-funcionalidad-diversa' || org.parentId === 'tran-funcionalidad-diversa')) ||
+            (sub === 'DIV' && (org.id === 'tran-diversidad' || org.parentId === 'tran-diversidad')) ||
+            (sub === 'MAS' && (org.id === 'tran-masculinidades' || org.parentId === 'tran-masculinidades')) ||
+            (sub === 'MUJ' && (org.id === 'tran-mujeres' || org.parentId === 'tran-mujeres')) ||
+            (sub === 'PAI' && (org.id === 'tran-paisanos' || org.parentId === 'tran-paisanos')) ||
+            (sub === 'POR' && (org.id === 'tran-pueblos-originarios' || org.parentId === 'tran-pueblos-originarios')) ||
+            
+            (sub === 'VC1' && (org.id === 'circunscripcion-1' || org.parentId === 'circunscripcion-1')) ||
+            (sub === 'VC2' && (org.id === 'circunscripcion-2' || org.parentId === 'circunscripcion-2')) ||
+            (sub === 'VC3' && (org.id === 'circunscripcion-3' || org.parentId === 'circunscripcion-3')) ||
+            (sub === 'VC4' && (org.id === 'circunscripcion-4' || org.parentId === 'circunscripcion-4')) ||
+            (sub === 'VC5' && (org.id === 'circunscripcion-5' || org.parentId === 'circunscripcion-5'));
+
+          if (!matchesIdOrParent && !matchesSpecial) return false;
+        }
+      }
+
+      // 3. Filtrado por Estado
+      if (estadoId !== 'todos') {
+        const estadoObj = MEXICO.estados.find(e => e.id === estadoId);
+        if (estadoObj) {
+          const nameMatches = org.nombre.toLowerCase().includes(estadoObj.nombre.toLowerCase()) && org.tipo === 'comision_estatal';
+          if (!nameMatches) return false;
+        }
+      }
+
+      // 4. Filtrado por Búsqueda de Texto
+      if (query) {
+        const matchesName = org.nombre.toLowerCase().includes(query);
+        const matchesDesc = org.descripcion.toLowerCase().includes(query);
+        const matchesSiglas = org.siglas ? org.siglas.toLowerCase().includes(query) : false;
+        const matchesTipo = org.tipo.toLowerCase().includes(query);
+        return matchesName || matchesDesc || matchesSiglas || matchesTipo;
+      }
+
+      return true;
+    });
+  });
+
+  // ─── Árbol Jerárquico del Organigrama ────────
+  // NO reacciona a filtros: siempre muestra la estructura completa
+  protected readonly organigramaAgrupado = computed<OrganigramaGroup[]>(() => {
+    const orgs = this.organizaciones(); // ← datos crudos, sin filtros
+    const map = new Map<string, OrganigramaNode>();
+
+    // Crear nodos para TODAS las organizaciones
+    orgs.forEach(org => {
+      map.set(org.id, { org, children: [] });
+    });
+
+    // Construir el árbol en base al parentId
+    map.forEach(node => {
+      if (node.org.parentId && map.has(node.org.parentId)) {
+        map.get(node.org.parentId)!.children.push(node);
+      }
+      // Los nodos sin parentId (eje-* y horizontalidad) se quedan sin padre → los manejamos aparte
+    });
+
+    // Separar en 4 grupos fijos
+    const grupos: OrganigramaGroup[] = [
+      { ejeId: 'operativo',   ejeName: 'EJE OPERATIVO',         ejeIcon: '⚙️', ejeColor: 'text-cyan-500',     nodos: [] },
+      { ejeId: 'territorial', ejeName: 'EJE TERRITORIAL',       ejeIcon: '🗺️', ejeColor: 'text-green-500',    nodos: [] },
+      { ejeId: 'ideologico',  ejeName: 'EJE ESPECIALIZADO',     ejeIcon: '💡', ejeColor: 'text-amber-500',    nodos: [] },
+      { ejeId: 'transversal', ejeName: 'EJE DE TRANSVERSALIDAD', ejeIcon: '🤝', ejeColor: 'text-purple-500', nodos: [] }
+    ];
+
+    // Para cada grupo: tomar los hijos del nodo `eje-{id}` como raíces del grupo
+    grupos.forEach(g => {
+      const ejeNode = map.get(`eje-${g.ejeId}`);
+      if (ejeNode && ejeNode.children.length > 0) {
+        g.nodos.push(...ejeNode.children);
+      }
+    });
+
+    // horizontalidad (tipo: asamblea, eje: transversal) es un nodo suelto sin parentId
+    const hNode = map.get('horizontalidad');
+    if (hNode) {
+      const gT = grupos.find(gx => gx.ejeId === 'transversal');
+      if (gT) gT.nodos.push(hNode);
+    }
+
+    // Filtrar grupos vacíos
+    return grupos.filter(g => g.nodos.length > 0);
+  });
+
+  // ─── Estado de expansión de nodos en el árbol ───
+  protected readonly expandedTreeNodes = signal<Set<string>>(new Set());
+
+  protected toggleTreeNode(nodeId: string): void {
+    this.expandedTreeNodes.update(s => {
+      const next = new Set(s);
+      if (next.has(nodeId)) {
+        next.delete(nodeId);
+      } else {
+        next.add(nodeId);
+      }
+      return next;
+    });
+  }
+
+  protected isTreeNodeExpanded(nodeId: string): boolean {
+    return this.expandedTreeNodes().has(nodeId);
+  }
+
+  protected getTipoOrganoLabel(tipo: string): string {
+    switch (tipo) {
+      case 'area': return 'Área';
+      case 'coordinacion': return 'Coordinación';
+      case 'comite': return 'Comité';
+      case 'mesa': return 'Mesa de Trabajo';
+      case 'comision_estatal': return 'Comisión Estatal';
+      case 'comision_tematica': return 'Comisión Temática';
+      case 'grupo_operativo': return 'Grupo Operativo';
+      case 'asamblea': return 'Asamblea';
+      default: return tipo;
+    }
+  }
+
+  protected getTipoOrganoBadgeClass(tipo: string): string {
+    switch (tipo) {
+      case 'area':
+        return 'bg-blue-500/10 text-blue-400 border-blue-500/20';
+      case 'coordinacion':
+        return 'bg-purple-500/10 text-purple-400 border-purple-500/20';
+      case 'comite':
+        return 'bg-amber-500/10 text-amber-400 border-amber-500/20';
+      case 'mesa':
+        return 'bg-pink-500/10 text-pink-400 border-pink-500/20';
+      case 'comision_estatal':
+        return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
+      case 'comision_tematica':
+        return 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20';
+      case 'grupo_operativo':
+        return 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20';
+      case 'asamblea':
+        return 'bg-teal-500/10 text-teal-400 border-teal-500/20';
+      default:
+        return 'bg-neutral-500/10 text-neutral-400 border-neutral-500/20';
+    }
+  }
+
+  protected getTipoOrganoIcon(tipo: string): string {
+    switch (tipo) {
+      case 'area': return '📁';
+      case 'coordinacion': return '🧭';
+      case 'comite': return '👥';
+      case 'mesa': return '📥';
+      case 'comision_estatal': return '📍';
+      case 'comision_tematica': return '🧬';
+      case 'grupo_operativo': return '💜';
+      case 'asamblea': return '🏛️';
+      default: return '📇';
+    }
+  }
+
   constructor() {
     this.seoService.generateTags({
       title: 'Archivo de Documentos - Proyecto Migala',
@@ -258,29 +490,39 @@ export class Archivo implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Escuchar parámetros de consulta de la ruta
     this.routeSub = this.route.queryParams.subscribe(params => {
+      let hasParams = false;
       if (params['categoria']) {
         const catExists = this.categorias.some(c => c.id === params['categoria']);
         if (catExists) {
           this.selectedCategory.set(params['categoria']);
+          hasParams = true;
         }
       }
       if (params['eje']) {
         const ejeExists = this.ejes.some(e => e.id === params['eje']);
         if (ejeExists) {
           this.selectedEje.set(params['eje']);
+          hasParams = true;
         }
       }
       if (params['subseccion']) {
         this.selectedSubseccion.set(params['subseccion']);
+        hasParams = true;
       }
       if (params['estado']) {
         const estExists = MEXICO.estados.some(e => e.id === params['estado']);
         if (estExists) {
           this.selectedEstado.set(params['estado']);
+          hasParams = true;
         }
       }
       if (params['buscar']) {
         this.searchQuery.set(params['buscar']);
+        hasParams = true;
+      }
+      
+      if (hasParams) {
+        this.viewMode.set('tabla');
       }
     });
   }
