@@ -1,15 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { Estructura } from './estructura';
 
 describe('Estructura Component', () => {
   let component: Estructura;
   let fixture: ComponentFixture<Estructura>;
+  let queryParamsSubject: BehaviorSubject<any>;
 
   beforeEach(async () => {
+    queryParamsSubject = new BehaviorSubject<any>({});
+
     await TestBed.configureTestingModule({
       imports: [Estructura],
-      providers: [provideRouter([])]
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            queryParams: queryParamsSubject.asObservable()
+          }
+        }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(Estructura);
@@ -88,5 +99,13 @@ describe('Estructura Component', () => {
     const segments = component['parseXmlDescription'](text);
     expect(segments.length).toBe(1);
     expect(segments[0]).toEqual({ type: 'text', content: text });
+  });
+
+  it('debe actualizar los filtros y seleccion de organos cuando cambien los queryParams de la ruta', () => {
+    queryParamsSubject.next({ eje: 'territorial', id: 'eje-territorial' });
+    fixture.detectChanges();
+    expect(component['ejeFilter']()).toBe('territorial');
+    expect(component['selectedOrganId']()).toBe('eje-territorial');
+    expect(component['currentLevelOrganId']()).toBe('eje-territorial');
   });
 });

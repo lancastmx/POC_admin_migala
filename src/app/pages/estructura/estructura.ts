@@ -1,7 +1,8 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, signal, inject, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { RouterLink, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ORGANIZACIONES_DATA } from '../../core/data/organizaciones.data';
 import { PROCEDIMIENTOS_DATA } from '../../core/data/procedimientos.data';
 import { Organizacion, EjeEstructural } from '../../core/models/organizacion';
@@ -22,7 +23,10 @@ export interface TextSegment {
   templateUrl: './estructura.html',
   styleUrl: './estructura.css'
 })
-export class Estructura {
+export class Estructura implements OnInit, OnDestroy {
+  private readonly route = inject(ActivatedRoute);
+  private routeSub?: Subscription;
+
   // ─── Fuentes de Datos ────────────────────────
   protected readonly organizaciones = signal<Organizacion[]>(ORGANIZACIONES_DATA);
   protected readonly procedimientos = signal<Procedimiento[]>(PROCEDIMIENTOS_DATA);
@@ -36,6 +40,26 @@ export class Estructura {
   
   // Navegación visual del organigrama
   protected readonly currentLevelOrganId = signal<string>('root');
+
+  ngOnInit(): void {
+    this.routeSub = this.route.queryParams.subscribe(params => {
+      if (params['eje']) {
+        const val = params['eje'];
+        if (val === 'operativo' || val === 'territorial' || val === 'ideologico' || val === 'transversal' || val === 'todos') {
+          this.ejeFilter.set(val as EjeEstructural | 'todos');
+        }
+      }
+      if (params['id']) {
+        this.selectOrgan(params['id']);
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.routeSub) {
+      this.routeSub.unsubscribe();
+    }
+  }
 
   // ─── Querys Computadas ───────────────────────
 

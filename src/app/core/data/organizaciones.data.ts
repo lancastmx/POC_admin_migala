@@ -1,6 +1,7 @@
 import { Organizacion } from '../models/organizacion';
+import { TELEGRAM_LINKS } from './telegram-links';
 
-export const ORGANIZACIONES_DATA: Organizacion[] = [
+const ORGANIZACIONES_RAW: Organizacion[] = [
   // ─── NIVEL 1: EJES ESTRUCTURALES Y HORIZONTALIDAD ─────────────────
   {
     id: 'eje-operativo',
@@ -96,7 +97,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: ['org-coordinacion-nacional', 'dir-mesa-voceros', 'dir-mesa-recaudacion'],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+KmugAXpjchEwMTAx'
   },
   {
     id: 'area-administrativa',
@@ -115,7 +115,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     ],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+mgqa4uV6rQw3MzMx'
   },
   {
     id: 'area-financiera',
@@ -134,7 +133,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     ],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+IeUm4GK6yMoyODRh'
   },
   {
     id: 'area-formacion',
@@ -151,7 +149,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     ],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+VtI_UcdH1gRiMjQx'
   },
   {
     id: 'area-politico-electoral',
@@ -174,7 +171,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: ['trans-comite', 'trans-lupa-ciudadana'],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+4W4Lps5MU1M2MjZh'
   },
   {
     id: 'area-informatica',
@@ -186,7 +182,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: ['inf-estrategia-digital', 'inf-programadores'],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+UQRme_q48z1hMTEx'
   },
   {
     id: 'area-comunicacion',
@@ -203,7 +198,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     ],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+vnQzFhIVk1cwNTgx'
   },
   {
     id: 'area-contraloria',
@@ -215,7 +209,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: ['cont-comite-sancionador', 'cont-auditoria', 'cont-investigacion'],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+ifBOnQwRXBtkODgx'
   },
   {
     id: 'area-legal',
@@ -227,7 +220,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: ['leg-comite-juridico', 'leg-comite-sociedades', 'leg-grupo-estatutos'],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+34Wp_6s3B88wMGMx'
   },
   {
     id: 'area-dialogo',
@@ -239,7 +231,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: ['dial-conciliacion-mediacion', 'dial-grupo-investigacion', 'dial-arbitraje-sanciones'],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+IQKiAQ3S4Tc5ODdh'
   },
 
   // ─── EJE OPERATIVO: COMITÉS Y MESAS DE TERCER NIVEL ──────────────────
@@ -837,7 +828,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+6OtETdTE2k02MTFh'
   },
   {
     id: 'est-baja-california-sur',
@@ -849,7 +839,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+BqQfVvx7OY80Yzk5'
   },
   {
     id: 'est-sonora',
@@ -861,7 +850,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+CeYdHuuI-B8zODJh'
   },
   {
     id: 'est-chihuahua',
@@ -873,7 +861,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+MrkkHkquOwI1NTI5'
   },
   {
     id: 'est-sinaloa',
@@ -885,7 +872,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+YBkGPcCXbvFmMGNh'
   },
   {
     id: 'est-durango',
@@ -897,7 +883,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+_PpXlp3RZtkzZTQ5'
   },
   {
     id: 'est-jalisco',
@@ -909,7 +894,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+iXwYSCyHyHw1NTgx'
   },
   {
     id: 'est-nayarit',
@@ -921,7 +905,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+l7tR50yTtfFmYTEx'
   },
 
   // Segunda Circunscripción
@@ -935,7 +918,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+1RqYKJhhv4Y4MjI5'
   },
   {
     id: 'est-coahuila',
@@ -947,7 +929,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+8VRcWDS1J_VmZTRh'
   },
   {
     id: 'est-guanajuato',
@@ -959,7 +940,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+B5pUR8ufYKlkNWUx'
   },
   {
     id: 'est-nuevo-leon',
@@ -971,7 +951,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+fR2uU6jkS5tkMmNh'
   },
   {
     id: 'est-san-luis-potosi',
@@ -983,7 +962,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+qI2D8S6auXA4Zjg5'
   },
   {
     id: 'est-tamaulipas',
@@ -995,7 +973,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+rUa2BLit1kQ0MDQx'
   },
   {
     id: 'est-zacatecas',
@@ -1007,7 +984,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+ulh5YSqyC68zMGUx'
   },
 
   // Tercera Circunscripción
@@ -1021,7 +997,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+KHcMS6PgrVszZjAx'
   },
   {
     id: 'est-chiapas',
@@ -1033,7 +1008,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+GF32xiCJ3cU4ZTQx'
   },
   {
     id: 'est-oaxaca',
@@ -1045,7 +1019,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+t4M19t2GKREyMmZh'
   },
   {
     id: 'est-quintana-roo',
@@ -1057,7 +1030,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+jiXq3dvzUH1lNTQx'
   },
   {
     id: 'est-tabasco',
@@ -1069,7 +1041,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+Y1cTvNxxpB9hZDVh'
   },
   {
     id: 'est-veracruz',
@@ -1081,7 +1052,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+JGd8ziIJ_Vc5YjJh'
   },
   {
     id: 'est-yucatan',
@@ -1093,7 +1063,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+QoxPGSTYaac1MWZh'
   },
 
   // Cuarta Circunscripción
@@ -1108,7 +1077,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/proyectomigalacdmx'
   },
   {
     id: 'est-guerrero',
@@ -1120,7 +1088,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+r3ZbJUdMNhRhOTAx'
   },
   {
     id: 'est-hidalgo',
@@ -1132,7 +1099,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+Mm56JqroNaUwZWNh'
   },
   {
     id: 'est-morelos',
@@ -1144,7 +1110,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+dza47K_Jk9Q0YjFh'
   },
   {
     id: 'est-puebla',
@@ -1156,7 +1121,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+Qssbg6uKg8s3Nzgx'
   },
   {
     id: 'est-tlaxcala',
@@ -1168,7 +1132,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+WlRPUhlkAaJlYzEx'
   },
 
   // Quinta Circunscripción
@@ -1182,7 +1145,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+1SkNWtEaoVI1NmRh'
   },
   {
     id: 'est-edomex',
@@ -1195,7 +1157,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+BJvSdeZsEX8xOTcx'
   },
   {
     id: 'est-michoacan',
@@ -1207,7 +1168,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+IrZcguTLOz1jZTdh'
   },
   {
     id: 'est-queretaro',
@@ -1219,7 +1179,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+2SEYsKvXCUdhOGZh'
   },
 
   // ─── EJE ESPECIALIZADO: COMISIONES TEMÁTICAS ──────────────────────────
@@ -1233,7 +1192,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+AApBC545YoI0OGVh'
   },
   {
     id: 'esp-arte-cultura',
@@ -1245,7 +1203,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+DSdGqkRqHYoxMDNh'
   },
   {
     id: 'esp-estudios-economicos',
@@ -1257,7 +1214,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+HQgxeRaaHWNmM2Vh'
   },
   {
     id: 'esp-geopolitica-historia',
@@ -1269,7 +1225,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+XnsDTw6O9_82MTYx'
   },
   {
     id: 'esp-ciencia-tecnologia',
@@ -1281,7 +1236,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+YiJbFajD1rU5Njkx'
   },
   {
     id: 'esp-sustentabilidad',
@@ -1293,7 +1247,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+s0NA0jmWwR81Zjhh'
   },
 
   // ─── EJE DE TRANSVERSALIDAD: GRUPOS DE INCLUSIÓN ────────────────────
@@ -1307,7 +1260,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+JnFN0ejayz5kODQx'
   },
   {
     id: 'tran-mujeres',
@@ -1319,7 +1271,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+LFOuxoJUXJ03OWM5'
   },
   {
     id: 'tran-funcionalidad-diversa',
@@ -1331,7 +1282,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+aoRqayE9iSo0ODMx'
   },
   {
     id: 'tran-paisanos',
@@ -1343,7 +1293,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+g3aMYKXlhLIwMDUx'
   },
   {
     id: 'tran-masculinidades',
@@ -1355,7 +1304,6 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+tf0Z41wSU2djMDAx'
   },
   {
     id: 'tran-pueblos-originarios',
@@ -1367,6 +1315,11 @@ export const ORGANIZACIONES_DATA: Organizacion[] = [
     subgruposIds: [],
     relaciones: [],
     articulosReferencia: [],
-    telegramUrl: 'https://t.me/+v1sZrsHXoJY5NjUx'
   }
 ];
+
+export const ORGANIZACIONES_DATA: Organizacion[] = ORGANIZACIONES_RAW.map(org => ({
+  ...org,
+  telegramUrl: TELEGRAM_LINKS[org.id]
+}));
+
