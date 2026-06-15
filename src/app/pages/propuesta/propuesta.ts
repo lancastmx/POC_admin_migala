@@ -27,11 +27,11 @@ export class Propuesta {
       seccion: 'Nombre',
       nombre: 'Nombre de la propuesta',
       icon: '🏷️',
-      detalle: 'Portal de Transparencia Interactiva y Fondo Documental del Proyecto Migala (Nombre en código del software: POC_admin_migala).',
+      detalle: 'Plantilla Base Reutilizable (Boilerplate) de Transparencia y Auto-Administración para Comisiones Estatales, Temáticas y Grupos Operativos (Nombre en código: POC_admin_migala).',
       detallesExtra: [
-        { key: 'Nombre Comercial', val: 'Portal de Transparencia' },
-        { key: 'Identificador del Sistema', val: 'POC_admin_migala' },
-        { key: 'Tipo de Proyecto', val: 'Desarrollo de Software / Herramienta Organizativa' }
+        { key: 'Nombre del Software', val: 'POC_admin_migala' },
+        { key: 'Propósito', val: 'Boilerplate / Plantilla Base de Transparencia' },
+        { key: 'Tipo de Proyecto', val: 'Herramienta de Software Descentralizada' }
       ]
     },
     {
@@ -39,11 +39,11 @@ export class Propuesta {
       seccion: 'Proponente',
       nombre: 'Nombre de la persona que propone',
       icon: '👤',
-      detalle: 'Presentado por miembros afiliados del Proyecto Migala de forma voluntaria y colaborativa, impulsando la autogestión tecnológica de la comunidad.',
+      detalle: 'Desarrollado de forma abierta por miembros de Proyecto Migala para capacitar y dar soberanía tecnológica a cada órgano local de la organización.',
       detallesExtra: [
-        { key: 'Rol', val: 'Afiliados Activos' },
-        { key: 'Eje de Participación', val: 'Eje Operativo / Comisión de Informática y Transparencia' },
-        { key: 'Modo de Trabajo', val: 'Colaborativo y Descentralizado' }
+        { key: 'GitHub Proponente', val: 'https://github.com/lancastmx' },
+        { key: 'Eje de Participación', val: 'Comisión de Informática y Tecnología' },
+        { key: 'Modo de Trabajo', val: 'Código Abierto y Comunitario' }
       ]
     },
     {
@@ -51,11 +51,11 @@ export class Propuesta {
       seccion: 'Descripción',
       nombre: 'Descripción de la propuesta',
       icon: '📝',
-      detalle: 'Desarrollo e implementación de una plataforma web interactiva y responsiva orientada a unificar, indexar y hacer accesible al público en general toda la información oficial y de interés público de Proyecto Migala.',
+      detalle: 'Un boilerplate modular en Angular 21+, Tailwind CSS v4 y Signals listo para desplegar. Permite a cualquier Comisión Estatal o Temática crear y autoadministrar su propio portal de transparencia simplemente editando archivos JSON/TypeScript de configuración.',
       detallesExtra: [
         { key: 'Tecnologías Clave', val: 'Angular 21+, Tailwind CSS v4, Signals' },
         { key: 'Componentes Core', val: 'Visualizador de Reglamentos, Lector de Manifiesto y Biblioteca de Archivos' },
-        { key: 'Accesibilidad', val: 'Reproductor de Audio integrado para lectura inclusiva' }
+        { key: 'Personalización', val: 'Edición de datos locales sin necesidad de programar' }
       ]
     },
     {
@@ -63,11 +63,11 @@ export class Propuesta {
       seccion: 'Justificación',
       nombre: '¿En qué consiste y cuál es el fin? (Justificación)',
       icon: '💡',
-      detalle: 'Digitalizar e interconectar la trilogía documental y archivos para resolver la dispersión de datos y facilitar la consulta masiva y descentralizada de reglamentos, minutas, finanzas y calendarios de todos los ejes. Esto promueve la rendición de cuentas, la transparencia voluntaria y facilita la inducción de nuevos miembros del Censo Nacional.',
+      detalle: 'El reglamento nacional exige un espacio de transparencia (Notion, Reglamento interno o Página web) para consolidar y reconocer formalmente a las comisiones locales. Este boilerplate democratiza el acceso a tecnología premium, permitiendo que comisiones locales cumplan con estos requisitos de forma autónoma, sin costo y de manera soberana.',
       detallesExtra: [
-        { key: 'Objetivo Principal', val: 'Resolver la fragmentación de datos y archivos oficiales' },
-        { key: 'Impacto en Inducción', val: 'Facilita la lectura de los 3 documentos básicos obligatorios' },
-        { key: 'Principio Rector', val: 'Publicidad y Transparencia (Artículo 2 del Reglamento)' }
+        { key: 'Foco Principal', val: 'Cumplimiento de requisitos de consolidación (Artículos 158 y 159)' },
+        { key: 'Soberanía Digital', val: 'Gestión local autónoma de minutas, finanzas y reglamentos' },
+        { key: 'Estandarización', val: 'Mantener la identidad visual y estándares del Proyecto Migala' }
       ]
     },
     {
@@ -75,11 +75,11 @@ export class Propuesta {
       seccion: 'Destinatarios',
       nombre: '¿A quién o quiénes va dirigido?',
       icon: '👥',
-      detalle: 'A todos los simpatizantes y afiliados de Proyecto Migala a nivel nacional y estatal, así como a la ciudadanía en general interesada en auditar y conocer nuestra estructura orgánica y reglamentaria.',
+      detalle: 'A todas las Comisiones Estatales (CE), Comisiones Temáticas (CT) y Grupos Operativos (GO) que requieran auto-administrar su información, y a los afiliados/ciudadanos interesados en auditar cada nodo local.',
       detallesExtra: [
-        { key: 'Público Interno', val: 'Voceros, representantes de comisiones, simpatizantes y afiliados' },
-        { key: 'Público Externo', val: 'Ciudadanos y organizaciones interesadas en democracia horizontal' },
-        { key: 'Alcance Geográfico', val: 'Nacional (las 32 entidades federativas)' }
+        { key: 'Administradores Locales', val: 'Enlaces de comunicación y archivo de cada comisión' },
+        { key: 'Lectores Locales', val: 'Afiliados y simpatizantes de cada entidad o grupo' },
+        { key: 'Sociedad Civil', val: 'Público general con interés en la transparencia horizontal' }
       ]
     },
     {
@@ -87,11 +87,11 @@ export class Propuesta {
       seccion: 'Recursos',
       nombre: '¿Qué recursos se necesitan? (RRHH y Materiales)',
       icon: '🛠️',
-      detalle: 'Recursos Humanos: Desarrolladores Frontend (Angular), Diseñador UX/UI y Enlaces de Transparencia/Archivo. Recursos Materiales: Repositorio en GitHub para control de código, hosting (Firebase Hosting/GitHub Pages de costo cero en niveles iniciales) y un dominio o subdominio oficial.',
+      detalle: 'Recursos Humanos: 1 o 2 desarrolladores para soporte y mantenimiento del core; 1 enlace de cada comisión local para configurar sus datos. Recursos Materiales: Repositorio plantilla en GitHub y hosting estático gratuito (Firebase Hosting o GitHub Pages).',
       detallesExtra: [
-        { key: 'Personal de Desarrollo', val: '1 Frontend Developer (Angular) + Colaboraciones de diseño' },
-        { key: 'Costo de Alojamiento', val: '$0.00 MXN (utilizando capas gratuitas de hosting en la nube)' },
-        { key: 'Requisitos Especiales', val: 'Asignación de dominio o subdominio por el Área de Informática' }
+        { key: 'Soporte del Core', val: 'Desarrolladores voluntarios de Informática Nacional' },
+        { key: 'Hosting y Dominio', val: 'Gratuitos y autogestionados por cada comisión local' },
+        { key: 'Facilidad de Uso', val: 'No requiere conocimientos avanzados de programación' }
       ]
     },
     {
@@ -99,10 +99,11 @@ export class Propuesta {
       seccion: 'Afluencia',
       nombre: '¿Cuál sería la afluencia estimada de personas?',
       icon: '📈',
-      detalle: 'Uso interno: 1,000+ afiliados activos mensuales en los 32 estados de la República Mexicana. Uso externo: Visitas de ciudadanos interesados en conocer la propuesta política y estructura interna del Proyecto Migala.',
+      detalle: 'Adopción proyectada en las 32 Comisiones Estatales, las 6 Comisiones Temáticas y múltiples grupos operativos, llegando potencialmente a miles de afiliados locales consultando sus portales de manera directa.',
       detallesExtra: [
-        { key: 'Tráfico Mensual Estimado', val: '1,500 - 3,000 visitas únicas' },
-        { key: 'Picos de Uso', val: 'Durante asambleas nacionales y periodos de afiliación/censos' }
+        { key: 'Comisiones Objetivo', val: '32 comisiones estatales y 6 temáticas' },
+        { key: 'Usuarios Finales', val: 'Toda la militancia y simpatizantes locales en sus respectivos territorios' },
+        { key: 'Impacto Organizativo', val: 'Descentralización real del acceso a la información' }
       ]
     },
     {
@@ -110,10 +111,11 @@ export class Propuesta {
       seccion: 'Ubicación',
       nombre: 'En qué lugar se llevará a cabo',
       icon: '🌐',
-      detalle: 'El desarrollo y la administración son 100% virtuales y descentralizados. La plataforma estará disponible públicamente en internet a través de cualquier dispositivo móvil o de escritorio.',
+      detalle: 'Implementación virtual y distribuida a nivel nacional. Cada órgano o comisión local clona, configura y aloja su copia del portal de manera autónoma en la nube.',
       detallesExtra: [
-        { key: 'Entorno de Desarrollo', val: 'Virtual (GitHub, Slack/Telegram)' },
-        { key: 'Disponibilidad de Servicio', val: '24/7 en línea, multidispositivo' }
+        { key: 'Desarrollo del Core', val: 'Esfuerzo colaborativo en línea (GitHub)' },
+        { key: 'Alojamiento', val: 'Servidores cloud con despliegues independientes y autónomos' },
+        { key: 'Acceso', val: 'Cualquier dispositivo con conexión a internet' }
       ]
     },
     {
@@ -121,11 +123,11 @@ export class Propuesta {
       seccion: 'Cronograma',
       nombre: '¿Cuál será la fecha y la duración?',
       icon: '📅',
-      detalle: 'Fase 1 (POC): Completada y testeada. Fase 2 (Retroalimentación): 2 semanas a partir de la presentación formal. Fase 3 (Lanzamiento): Julio de 2026.',
+      detalle: 'Fase 1 (POC del Boilerplate): Completada. Fase 2 (Prueba Piloto): Implementación en 2 comisiones estatales piloto (2 semanas). Fase 3 (Lanzamiento Nacional): Despliegue masivo en Julio de 2026.',
       detallesExtra: [
-        { key: 'Fase 1: Desarrollo Base', val: 'Finalizado (Código base estable y tests unitarios listos)' },
-        { key: 'Fase 2: Período de Feedback', val: '15 días naturales tras la aprobación del proyecto' },
-        { key: 'Fase 3: Despliegue', val: 'Julio 2026' }
+        { key: 'Fase 1: POC funcional', val: 'Completada (con suite de tests integrados)' },
+        { key: 'Fase 2: Piloto', val: '2 comisiones locales piloto para validación y manuales' },
+        { key: 'Fase 3: Lanzamiento', val: 'Julio 2026 (disponibilidad general del repositorio plantilla)' }
       ]
     },
     {
@@ -133,11 +135,11 @@ export class Propuesta {
       seccion: 'Contacto',
       nombre: 'Medio para comunicarse',
       icon: '✉️',
-      detalle: 'Canales oficiales del proponente para resolver dudas sobre el diseño, código y administración de la herramienta.',
+      detalle: 'Canales del proponente y soporte del boilerplate para guiar a las comisiones locales en su configuración y despliegue autónomo.',
       detallesExtra: [
-        { key: 'Telegram', val: '@proyectomigalanacional' },
-        { key: 'Email', val: 'tecnologia@proyectomigala.mx' },
-        { key: 'Canal Alterno', val: 'Grupo de Informática y Tecnología' }
+        { key: 'Telegram', val: 't.me/Lancast5' },
+        { key: 'GitHub', val: 'https://github.com/lancastmx' },
+        { key: 'Soporte del Core', val: 'Canal de Informática y Tecnología' }
       ]
     }
   ];
@@ -149,8 +151,8 @@ export class Propuesta {
 
   constructor() {
     inject(SeoService).generateTags({
-      title: 'Propuesta de Portal de Transparencia - Proyecto Migala',
-      description: 'Presentación formal de la propuesta de desarrollo del Portal de Transparencia y Archivo de Documentos del Proyecto Migala de acuerdo con el reglamento.',
+      title: 'Propuesta de Plantilla de Transparencia y Auto-Administración - Proyecto Migala',
+      description: 'Propuesta formal de una plantilla base (boilerplate) de transparencia y auto-administración para comisiones y órganos de Proyecto Migala.',
       url: 'https://poc-admin-migala.web.app/propuesta'
     });
   }
