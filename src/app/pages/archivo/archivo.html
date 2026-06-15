@@ -1,0 +1,1035 @@
+<migala-page-banner
+  title="Archivo de Documentos"
+  description="Consulta y descarga de reglamentos, rutas críticas, actas de sesiones, minutas, finanzas y formatos oficiales."
+  variant="migala">
+</migala-page-banner>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+    
+    <!-- ─── PANEL DE FILTROS (SIDEBAR EN ESCRITORIO) ────────────────────── -->
+    <aside class="space-y-6 lg:col-span-1">
+      <!-- Filtro de Categoría -->
+      <div class="bg-surface border border-default rounded-2xl p-5 shadow-xs">
+        <h3 class="text-sm font-bold text-default uppercase tracking-wider mb-4 border-b border-default pb-2">
+          Categorías
+        </h3>
+        <ul class="space-y-1">
+          @for (cat of categorias; track cat.id) {
+            <li>
+              <button
+                (click)="selectCategory(cat.id)"
+                class="w-full text-left px-3 py-2.5 rounded-xl text-xs font-medium transition duration-200 flex items-center justify-between cursor-pointer"
+                [class.bg-migala]="selectedCategory() === cat.id"
+                [class.text-white]="selectedCategory() === cat.id"
+                [class.text-sub]="selectedCategory() !== cat.id"
+                [class.hover:bg-brand-soft]="selectedCategory() !== cat.id"
+                [class.hover:text-migala]="selectedCategory() !== cat.id">
+                <span class="flex items-center space-x-2.5">
+                  <span class="text-sm select-none">{{ cat.icon }}</span>
+                  <span>{{ cat.label }}</span>
+                </span>
+                @if (selectedCategory() === cat.id) {
+                  <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+                }
+              </button>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <!-- Filtro de Ejes y Comisiones -->
+      <div class="bg-surface border border-default rounded-2xl p-5 shadow-xs">
+        <h3 class="text-sm font-bold text-default uppercase tracking-wider mb-4 border-b border-default pb-2">
+          Ámbitos y Comisiones
+        </h3>
+        <ul class="space-y-3 text-xs font-medium text-sub">
+          
+          <!-- Operativo -->
+          <li class="space-y-1">
+            <button
+              (click)="selectEjeSolo('operativo')"
+              class="w-full text-left px-2 py-1.5 rounded-lg flex items-center justify-between font-bold hover:bg-brand-soft hover:text-migala transition cursor-pointer"
+              [class.text-migala]="selectedEje() === 'operativo' && selectedSubseccion() === 'todos'">
+              <span>💻 Operativo</span>
+              @if (selectedEje() === 'operativo' && selectedSubseccion() === 'todos') {
+                <span class="w-1.5 h-1.5 rounded-full bg-migala"></span>
+              }
+            </button>
+            <div class="pl-3.5 border-l border-default space-y-0.5 mt-0.5">
+              @for (portal of portalesOperativos; track portal.acronimo) {
+                <button
+                  (click)="selectSubseccion(portal.acronimo, 'operativo')"
+                  class="w-full text-left px-2 py-1 rounded-md text-[11px] text-muted hover:bg-brand-soft/60 hover:text-migala transition flex items-center justify-between cursor-pointer"
+                  [class.text-migala]="selectedSubseccion() === portal.acronimo"
+                  [class.font-bold]="selectedSubseccion() === portal.acronimo">
+                  <span>{{ portal.seccion }}</span>
+                  <span class="text-[9px] font-mono opacity-60">{{ portal.acronimo }}</span>
+                </button>
+              }
+            </div>
+          </li>
+
+          <!-- Temático -->
+          <li class="space-y-1">
+            <button
+              (click)="selectEjeSolo('tematico')"
+              class="w-full text-left px-2 py-1.5 rounded-lg flex items-center justify-between font-bold hover:bg-brand-soft hover:text-migala transition cursor-pointer"
+              [class.text-migala]="selectedEje() === 'tematico' && selectedSubseccion() === 'todos'">
+              <span>🧬 Temático</span>
+              @if (selectedEje() === 'tematico' && selectedSubseccion() === 'todos') {
+                <span class="w-1.5 h-1.5 rounded-full bg-migala"></span>
+              }
+            </button>
+            <div class="pl-3.5 border-l border-default space-y-0.5 mt-0.5">
+              @for (portal of portalesTematicos; track portal.acronimo) {
+                <button
+                  (click)="selectSubseccion(portal.acronimo, 'tematico')"
+                  class="w-full text-left px-2 py-1 rounded-md text-[11px] text-muted hover:bg-brand-soft/60 hover:text-migala transition flex items-center justify-between cursor-pointer"
+                  [class.text-migala]="selectedSubseccion() === portal.acronimo"
+                  [class.font-bold]="selectedSubseccion() === portal.acronimo">
+                  <span>{{ portal.seccion }}</span>
+                  <span class="text-[9px] font-mono opacity-60">{{ portal.acronimo }}</span>
+                </button>
+              }
+            </div>
+          </li>
+
+          <!-- Transversal -->
+          <li class="space-y-1">
+            <button
+              (click)="selectEjeSolo('transversal')"
+              class="w-full text-left px-2 py-1.5 rounded-lg flex items-center justify-between font-bold hover:bg-brand-soft hover:text-migala transition cursor-pointer"
+              [class.text-migala]="selectedEje() === 'transversal' && selectedSubseccion() === 'todos'">
+              <span>💜 Transversal</span>
+              @if (selectedEje() === 'transversal' && selectedSubseccion() === 'todos') {
+                <span class="w-1.5 h-1.5 rounded-full bg-migala"></span>
+              }
+            </button>
+            <div class="pl-3.5 border-l border-default space-y-0.5 mt-0.5">
+              @for (portal of portalesTransversales; track portal.acronimo) {
+                <button
+                  (click)="selectSubseccion(portal.acronimo, 'transversal')"
+                  class="w-full text-left px-2 py-1 rounded-md text-[11px] text-muted hover:bg-brand-soft/60 hover:text-migala transition flex items-center justify-between cursor-pointer"
+                  [class.text-migala]="selectedSubseccion() === portal.acronimo"
+                  [class.font-bold]="selectedSubseccion() === portal.acronimo">
+                  <span>{{ portal.seccion }}</span>
+                  <span class="text-[9px] font-mono opacity-60">{{ portal.acronimo }}</span>
+                </button>
+              }
+            </div>
+          </li>
+
+          <!-- Territorial -->
+          <li class="space-y-1">
+            <button
+              (click)="selectEjeSolo('territorial')"
+              class="w-full text-left px-2 py-1.5 rounded-lg flex items-center justify-between font-bold hover:bg-brand-soft hover:text-migala transition cursor-pointer"
+              [class.text-migala]="selectedEje() === 'territorial' && selectedSubseccion() === 'todos'">
+              <span>🗺️ Territorial</span>
+              @if (selectedEje() === 'territorial' && selectedSubseccion() === 'todos') {
+                <span class="w-1.5 h-1.5 rounded-full bg-migala"></span>
+              }
+            </button>
+            <div class="pl-3.5 border-l border-default space-y-0.5 mt-0.5">
+              @for (portal of portalesTerritoriales; track portal.acronimo) {
+                <button
+                  (click)="selectSubseccion(portal.acronimo, 'territorial')"
+                  class="w-full text-left px-2 py-1 rounded-md text-[11px] text-muted hover:bg-brand-soft/60 hover:text-migala transition flex items-center justify-between cursor-pointer"
+                  [class.text-migala]="selectedSubseccion() === portal.acronimo"
+                  [class.font-bold]="selectedSubseccion() === portal.acronimo">
+                  <span>{{ portal.seccion }}</span>
+                  <span class="text-[9px] font-mono opacity-60">{{ portal.acronimo }}</span>
+                </button>
+              }
+            </div>
+          </li>
+
+          <!-- Estatal -->
+          <li class="space-y-1">
+            <button
+              (click)="estadosSubmenuExpanded.set(!estadosSubmenuExpanded())"
+              class="w-full text-left px-2 py-1.5 rounded-lg flex items-center justify-between font-bold hover:bg-brand-soft hover:text-migala transition cursor-pointer"
+              [class.text-migala]="selectedEje() === 'estatal'">
+              <span class="flex items-center gap-1.5">
+                <span>📍 Estatal</span>
+                <span class="text-[10px] text-muted font-normal">({{ estados.length }} estados)</span>
+              </span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transition-transform duration-200 text-muted"
+                   [class.rotate-90]="estadosSubmenuExpanded()"
+                   fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+            
+            @if (estadosSubmenuExpanded()) {
+              <div class="pl-3.5 border-l border-default max-h-40 overflow-y-auto space-y-0.5 mt-0.5 scrollbar-thin">
+                @for (state of estados; track state.id) {
+                  <button
+                    (click)="selectEstado(state.id)"
+                    class="w-full text-left px-2 py-1 rounded-md text-[11px] text-muted hover:bg-brand-soft/60 hover:text-migala transition flex items-center justify-between cursor-pointer"
+                    [class.text-migala]="selectedEstado() === state.id"
+                    [class.font-bold]="selectedEstado() === state.id">
+                    <span>{{ state.nombre }}</span>
+                    <span class="text-[9px] font-mono opacity-60">{{ state.abreviatura }}</span>
+                  </button>
+                }
+              </div>
+            }
+          </li>
+
+        </ul>
+      </div>
+
+      <!-- Filtros Secundarios -->
+      <div class="bg-surface border border-default rounded-2xl p-5 shadow-xs space-y-4">
+        <h3 class="text-sm font-bold text-default uppercase tracking-wider border-b border-default pb-2">
+          Filtrar por
+        </h3>
+        
+        <!-- Filtro por Ámbito / Eje -->
+        <div class="space-y-1.5">
+          <label for="filter-eje" class="text-xs font-semibold text-muted">Ámbito de Gestión</label>
+          <select
+            id="filter-eje"
+            [ngModel]="selectedEje()"
+            (ngModelChange)="selectedEje.set($event)"
+            class="w-full text-xs rounded-xl border bg-surface border-default text-sub focus:outline-none focus:ring-2 focus:ring-migala/40 p-2.5">
+            @for (e of ejes; track e.id) {
+              <option [value]="e.id">{{ e.label }}</option>
+            }
+          </select>
+        </div>
+
+        <!-- Filtro por Estado (solo visible si eje es Estatal) -->
+        @if (selectedEje() === 'estatal') {
+          <div class="space-y-1.5 animate-fade-in">
+            <label for="filter-estado" class="text-xs font-semibold text-muted">Comisión Estatal</label>
+            <select
+              id="filter-estado"
+              [ngModel]="selectedEstado()"
+              (ngModelChange)="selectedEstado.set($event)"
+              class="w-full text-xs rounded-xl border bg-surface border-default text-sub focus:outline-none focus:ring-2 focus:ring-migala/40 p-2.5">
+              <option value="todos">Todos los estados</option>
+              @for (state of estados; track state.id) {
+                <option [value]="state.id">{{ state.nombre }}</option>
+              }
+            </select>
+          </div>
+        }
+
+        <!-- Filtro por Formato -->
+        <div class="space-y-1.5">
+          <label for="filter-formato" class="text-xs font-semibold text-muted">Tipo de Formato</label>
+          <select
+            id="filter-formato"
+            [ngModel]="selectedFormat()"
+            (ngModelChange)="selectedFormat.set($event)"
+            class="w-full text-xs rounded-xl border bg-surface border-default text-sub focus:outline-none focus:ring-2 focus:ring-migala/40 p-2.5">
+            @for (fmt of formatos; track fmt.id) {
+              <option [value]="fmt.id">{{ fmt.label }}</option>
+            }
+          </select>
+        </div>
+
+        <!-- Restablecer Filtros -->
+        <button
+          (click)="clearFilters()"
+          class="w-full mt-2 bg-neutral-500/10 hover:bg-neutral-500/20 text-sub text-xs font-bold py-2 px-4 rounded-xl transition duration-200 flex items-center justify-center space-x-1 cursor-pointer">
+          <span>🧹</span>
+          <span>Limpiar filtros</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ─── RESULTADOS Y BUSCADOR ───────────────────────────────────────── -->
+    <main class="lg:col-span-3 space-y-6">
+      
+      <!-- Buscador de Texto -->
+      <div class="relative bg-surface border border-default rounded-2xl p-3 shadow-xs flex items-center gap-2">
+        <div class="absolute left-6 text-muted pointer-events-none">🔍</div>
+        <input
+          type="text"
+          [ngModel]="searchQuery()"
+          (ngModelChange)="searchQuery.set($event)"
+          placeholder="Buscar por nombre, descripción, ámbito..."
+          class="w-full pl-10 pr-4 py-3 text-sm rounded-xl border-none bg-neutral-500/5 text-default placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-migala/40 transition-all">
+        @if (searchQuery()) {
+          <button
+            (click)="searchQuery.set('')"
+            class="absolute right-6 text-muted hover:text-default text-sm font-semibold select-none cursor-pointer">
+            ✕
+          </button>
+        }
+      </div>
+
+      @if (selectedCategory() === 'inicio') {
+        <!-- SECCIÓN DE INICIO / INFORMACIÓN DEL ARCHIVO -->
+        <div class="bg-surface border border-default rounded-3xl p-6 md:p-8 space-y-8 shadow-2xs animate-fade-in text-default">
+          
+          <!-- Header Principal -->
+          <div class="space-y-4">
+            <div class="inline-flex items-center space-x-2 bg-migala/10 text-migala border border-migala/20 px-3.5 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
+              🏛️ Archivo de Proyecto Migala A.C.
+            </div>
+            <h2 class="text-xl md:text-3xl font-extrabold tracking-tight text-default">
+              Proyecto Migala Nacional
+            </h2>
+            <p class="text-sub text-sm leading-relaxed text-justify font-light">
+              El fondo documental del acervo de Proyecto Migala A.C. se divide entre los Ejes estructurales: 
+              <strong>Operativo</strong>, <strong>Temático</strong>, <strong>Transversal</strong>, <strong>Territorial</strong> y <strong>Estatal</strong> generando a su interior las series documentales enfocadas en los grupos y comisiones, las cuales pueden ser consultados en 
+              <button (click)="selectCategory('todos')" class="text-migala hover:text-migala-dark hover:underline font-bold bg-transparent border-none p-0 inline cursor-pointer text-sm">esta liga</button>.
+            </p>
+          </div>
+
+          <!-- Tarjeta de Bienvenida -->
+          <div class="bg-brand-soft border border-brand-soft/80 rounded-2xl p-5 md:p-6 space-y-4 shadow-3xs">
+            <p class="text-sub text-sm leading-relaxed text-justify font-light">
+              Bienvenido al fondo documental de <strong>Proyecto Migala A.C.</strong>, una iniciativa de monitoreo que analiza y evalúa los portales de transparencia de los <strong>5 ejes</strong> del Proyecto: <strong>Operativo</strong>, <strong>Temático</strong>, <strong>Transversal, Territorial</strong> y <strong>Estatal</strong>. El objetivo es promover la rendición de cuentas y facilitar el acceso a la información de interés público generada por los grupos y comisiones.
+            </p>
+          </div>
+
+          <!-- Niveles de Archivo -->
+          <div class="space-y-6">
+            <div class="border-b border-default pb-3">
+              <h3 class="text-base font-bold text-default tracking-tight">
+                Niveles de Archivo
+              </h3>
+              <p class="text-muted text-xs font-light mt-1">
+                En Proyecto Migala se clasifican los portales de transparencia en cinco niveles según la calidad y organización de la información disponible.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4">
+              
+              <!-- Sin Archivo -->
+              <div class="border border-default bg-neutral-500/5 rounded-2xl p-5 flex flex-col md:flex-row gap-4 items-start hover:border-neutral-500/20 transition duration-200">
+                <span class="text-2xl p-2 bg-neutral-500/10 rounded-xl select-none">⚪</span>
+                <div class="space-y-1">
+                  <h4 class="text-sm font-bold text-default">Sin Archivo</h4>
+                  <p class="text-xs text-muted leading-relaxed font-light text-justify">
+                    La <strong>serie del fondo documental</strong> no cuenta con un sistema de archivo o repositorio visible de información de interés público. Los documentos no están organizados ni son fácilmente accesibles para los integrantes del proyecto ni público en general.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Mínimo -->
+              <div class="border border-default bg-rose-500/5 rounded-2xl p-5 flex flex-col md:flex-row gap-4 items-start hover:border-rose-500/20 transition duration-200">
+                <span class="text-2xl p-2 bg-rose-500/10 rounded-xl select-none">🔴</span>
+                <div class="space-y-1">
+                  <h4 class="text-sm font-bold text-rose-500">Mínimo</h4>
+                  <p class="text-xs text-muted leading-relaxed font-light text-justify">
+                    La <strong>serie del fondo documental</strong> cuenta con información de interés público disponible de manera muy limitada o dispersa. Los documentos pueden estar publicados sin ningún sistema de organización formal, haciendo extremadamente difícil su localización. No existe un repositorio centralizado ni herramientas básicas de navegación.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Básico -->
+              <div class="border border-default bg-amber-500/5 rounded-2xl p-5 flex flex-col md:flex-row gap-4 items-start hover:border-amber-500/20 transition duration-200">
+                <span class="text-2xl p-2 bg-amber-500/10 rounded-xl select-none">🟡</span>
+                <div class="space-y-1">
+                  <h4 class="text-sm font-bold text-amber-500">Básico</h4>
+                  <p class="text-xs text-muted leading-relaxed font-light text-justify">
+                    Existe un archivo o repositorio elemental con información mínima. Los documentos están disponibles pero con una organización limitada, dificultando la búsqueda y consulta de información específica.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Avanzado -->
+              <div class="border border-default bg-sky-500/5 rounded-2xl p-5 flex flex-col md:flex-row gap-4 items-start hover:border-sky-500/20 transition duration-200">
+                <span class="text-2xl p-2 bg-sky-500/10 rounded-xl select-none">🔵</span>
+                <div class="space-y-1">
+                  <h4 class="text-sm font-bold text-sky-500">Avanzado</h4>
+                  <p class="text-xs text-muted leading-relaxed font-light text-justify">
+                    El portal cuenta con un sistema de archivo bien estructurado que incluye categorización de documentos, funciones de búsqueda y navegación intuitiva. La información está organizada de manera que facilita el acceso al usuario.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Consolidado -->
+              <div class="border border-default bg-emerald-500/5 rounded-2xl p-5 flex flex-col md:flex-row gap-4 items-start hover:border-emerald-500/20 transition duration-200">
+                <span class="text-2xl p-2 bg-emerald-500/10 rounded-xl select-none">🟢</span>
+                <div class="space-y-1">
+                  <h4 class="text-sm font-bold text-emerald-500">Consolidado</h4>
+                  <p class="text-xs text-muted leading-relaxed font-light text-justify">
+                    Nivel óptimo de organización y accesibilidad. El portal presenta un sistema de archivo robusto con herramientas avanzadas de búsqueda, filtros múltiples, formatos accesibles, actualización constante y documentación completa. Representa las mejores prácticas en transparencia y acceso a la información pública.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Portales de Transparencia Accordion -->
+          <div class="space-y-4 pt-8 border-t border-default">
+            <div class="flex items-center justify-between flex-wrap gap-4">
+              <div>
+                <h3 class="text-base font-bold text-default tracking-tight">
+                  Portales de Transparencia
+                </h3>
+                <p class="text-muted text-xs font-light mt-0.5">
+                  Haz clic en los ejes para consultar el nivel de archivo de cada grupo y comisión.
+                </p>
+              </div>
+              
+              <!-- Selector de modo (Grid / Tabla) -->
+              <div class="inline-flex bg-sub border border-default rounded-xl p-1 shadow-2xs">
+                <button
+                  (click)="viewMode.set('portales')"
+                  class="flex items-center space-x-1 px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition duration-150"
+                  [class.bg-migala]="viewMode() === 'portales'"
+                  [class.text-white]="viewMode() === 'portales'"
+                  [class.text-sub]="viewMode() !== 'portales'"
+                  [class.hover:bg-brand-soft]="viewMode() !== 'portales'">
+                  <span class="text-sm select-none">⚙️</span>
+                  <span>Portales</span>
+                </button>
+                <button
+                  (click)="viewMode.set('tabla')"
+                  class="flex items-center space-x-1 px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition duration-150"
+                  [class.bg-migala]="viewMode() === 'tabla'"
+                  [class.text-white]="viewMode() === 'tabla'"
+                  [class.text-sub]="viewMode() !== 'tabla'"
+                  [class.hover:bg-brand-soft]="viewMode() !== 'tabla'">
+                  <span class="text-sm select-none">📋</span>
+                  <span>Tabla</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Acordeón de Ejes -->
+            <div class="space-y-3">
+              
+              <!-- 1. OPERATIVO -->
+              <div class="border border-default rounded-2xl overflow-hidden bg-surface shadow-2xs">
+                <button
+                  (click)="toggleEje('operativo')"
+                  class="w-full bg-neutral-500/5 hover:bg-neutral-500/10 px-5 py-3.5 flex items-center justify-between font-bold text-xs sm:text-sm tracking-wide text-default transition cursor-pointer">
+                  <div class="flex items-center space-x-2.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-2xs"></span>
+                    <span class="uppercase">Operativo</span>
+                  </div>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 text-muted"
+                       [class.rotate-90]="expandedEjes().operativo"
+                       fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+                
+                @if (expandedEjes().operativo) {
+                  <div class="p-5 border-t border-default bg-surface/50 animate-fade-in">
+                    @if (viewMode() === 'portales') {
+                      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                        @for (portal of portalesOperativos; track portal.acronimo) {
+                          <div (click)="selectSubseccionFromPortal(portal.acronimo, 'operativo')" 
+                               class="border border-default bg-surface rounded-xl p-4 hover:border-migala hover:shadow-sm hover:scale-[1.02] cursor-pointer transition-all duration-200 active:scale-[0.98] flex flex-col justify-between space-y-3 shadow-3xs">
+                            <div class="flex items-center justify-between">
+                              <span class="text-xl select-none">{{ portal.logoIcon }}</span>
+                              <span class="text-[9px] font-mono font-bold text-faint bg-neutral-500/5 px-1.5 py-0.5 rounded">{{ portal.acronimo }}</span>
+                            </div>
+                            <h5 class="text-xs font-bold text-default line-clamp-1">{{ portal.seccion }}</h5>
+                            <div class="pt-1">
+                              <span class="px-2.5 py-0.5 text-[9px] font-bold rounded-full border {{ getNivelBadgeClass(portal.nivel) }}">
+                                {{ portal.nivel }}
+                              </span>
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    } @else {
+                      <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs border-collapse">
+                          <thead>
+                            <tr class="border-b border-default text-muted font-bold">
+                              <th class="py-2.5">Sección</th>
+                              <th class="py-2.5">Eje</th>
+                              <th class="py-2.5">Acrónimo</th>
+                              <th class="py-2.5 text-center">Logo</th>
+                              <th class="py-2.5 text-right">Archivo</th>
+                            </tr>
+                          </thead>
+                          <tbody class="divide-y divide-default/40">
+                            @for (portal of portalesOperativos; track portal.acronimo) {
+                              <tr (click)="selectSubseccionFromPortal(portal.acronimo, 'operativo')" 
+                                  class="hover:bg-brand-soft/40 hover:text-migala cursor-pointer transition duration-150">
+                                <td class="py-3 font-semibold text-default flex items-center gap-2">
+                                  <span>{{ portal.logoIcon }}</span>
+                                  <span>{{ portal.seccion }}</span>
+                                </td>
+                                <td class="py-3">
+                                  <span class="bg-blue-500/10 text-blue-500 border border-blue-500/20 text-[9px] font-bold px-2 py-0.5 rounded">Operativo</span>
+                                </td>
+                                <td class="py-3 font-mono text-muted">{{ portal.acronimo }}</td>
+                                <td class="py-3 text-center text-sm">{{ portal.logoIcon }}</td>
+                                <td class="py-3 text-right">
+                                  <span class="px-2 py-0.5 text-[9px] font-bold rounded-full border {{ getNivelBadgeClass(portal.nivel) }}">
+                                    {{ portal.nivel }}
+                                  </span>
+                                </td>
+                              </tr>
+                            }
+                          </tbody>
+                        </table>
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- 2. TEMÁTICO -->
+              <div class="border border-default rounded-2xl overflow-hidden bg-surface shadow-2xs">
+                <button
+                  (click)="toggleEje('tematico')"
+                  class="w-full bg-neutral-500/5 hover:bg-neutral-500/10 px-5 py-3.5 flex items-center justify-between font-bold text-xs sm:text-sm tracking-wide text-default transition cursor-pointer">
+                  <div class="flex items-center space-x-2.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-600 shadow-2xs"></span>
+                    <span class="uppercase">Temático</span>
+                  </div>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 text-muted"
+                       [class.rotate-90]="expandedEjes().tematico"
+                       fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+                
+                @if (expandedEjes().tematico) {
+                  <div class="p-5 border-t border-default bg-surface/50 animate-fade-in">
+                    @if (viewMode() === 'portales') {
+                      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                        @for (portal of portalesTematicos; track portal.acronimo) {
+                          <div (click)="selectSubseccionFromPortal(portal.acronimo, 'tematico')" 
+                               class="border border-default bg-surface rounded-xl p-4 hover:border-migala hover:shadow-sm hover:scale-[1.02] cursor-pointer transition-all duration-200 active:scale-[0.98] flex flex-col justify-between space-y-3 shadow-3xs">
+                            <div class="flex items-center justify-between">
+                              <span class="text-xl select-none">{{ portal.logoIcon }}</span>
+                              <span class="text-[9px] font-mono font-bold text-faint bg-neutral-500/5 px-1.5 py-0.5 rounded">{{ portal.acronimo }}</span>
+                            </div>
+                            <h5 class="text-xs font-bold text-default line-clamp-1">{{ portal.seccion }}</h5>
+                            <div class="pt-1">
+                              <span class="px-2.5 py-0.5 text-[9px] font-bold rounded-full border {{ getNivelBadgeClass(portal.nivel) }}">
+                                {{ portal.nivel }}
+                              </span>
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    } @else {
+                      <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs border-collapse">
+                          <thead>
+                            <tr class="border-b border-default text-muted font-bold">
+                              <th class="py-2.5">Sección</th>
+                              <th class="py-2.5">Eje</th>
+                              <th class="py-2.5">Acrónimo</th>
+                              <th class="py-2.5 text-center">Logo</th>
+                              <th class="py-2.5 text-right">Archivo</th>
+                            </tr>
+                          </thead>
+                          <tbody class="divide-y divide-default/40">
+                            @for (portal of portalesTematicos; track portal.acronimo) {
+                              <tr (click)="selectSubseccionFromPortal(portal.acronimo, 'tematico')" 
+                                  class="hover:bg-brand-soft/40 hover:text-migala cursor-pointer transition duration-150">
+                                <td class="py-3 font-semibold text-default flex items-center gap-2">
+                                  <span>{{ portal.logoIcon }}</span>
+                                  <span>{{ portal.seccion }}</span>
+                                </td>
+                                <td class="py-3">
+                                  <span class="bg-amber-600/10 text-amber-600 border border-amber-600/20 text-[9px] font-bold px-2 py-0.5 rounded">Temático</span>
+                                </td>
+                                <td class="py-3 font-mono text-muted">{{ portal.acronimo }}</td>
+                                <td class="py-3 text-center text-sm">{{ portal.logoIcon }}</td>
+                                <td class="py-3 text-right">
+                                  <span class="px-2 py-0.5 text-[9px] font-bold rounded-full border {{ getNivelBadgeClass(portal.nivel) }}">
+                                    {{ portal.nivel }}
+                                  </span>
+                                </td>
+                              </tr>
+                            }
+                          </tbody>
+                        </table>
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- 3. TRANSVERSAL -->
+              <div class="border border-default rounded-2xl overflow-hidden bg-surface shadow-2xs">
+                <button
+                  (click)="toggleEje('transversal')"
+                  class="w-full bg-neutral-500/5 hover:bg-neutral-500/10 px-5 py-3.5 flex items-center justify-between font-bold text-xs sm:text-sm tracking-wide text-default transition cursor-pointer">
+                  <div class="flex items-center space-x-2.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-purple-500 shadow-2xs"></span>
+                    <span class="uppercase">Transversal</span>
+                  </div>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 text-muted"
+                       [class.rotate-90]="expandedEjes().transversal"
+                       fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+                
+                @if (expandedEjes().transversal) {
+                  <div class="p-5 border-t border-default bg-surface/50 animate-fade-in">
+                    @if (viewMode() === 'portales') {
+                      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                        @for (portal of portalesTransversales; track portal.acronimo) {
+                          <div (click)="selectSubseccionFromPortal(portal.acronimo, 'transversal')" 
+                               class="border border-default bg-surface rounded-xl p-4 hover:border-migala hover:shadow-sm hover:scale-[1.02] cursor-pointer transition-all duration-200 active:scale-[0.98] flex flex-col justify-between space-y-3 shadow-3xs">
+                            <div class="flex items-center justify-between">
+                              <span class="text-xl select-none">{{ portal.logoIcon }}</span>
+                              <span class="text-[9px] font-mono font-bold text-faint bg-neutral-500/5 px-1.5 py-0.5 rounded">{{ portal.acronimo }}</span>
+                            </div>
+                            <h5 class="text-xs font-bold text-default line-clamp-1">{{ portal.seccion }}</h5>
+                            <div class="pt-1">
+                              <span class="px-2.5 py-0.5 text-[9px] font-bold rounded-full border {{ getNivelBadgeClass(portal.nivel) }}">
+                                {{ portal.nivel }}
+                              </span>
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    } @else {
+                      <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs border-collapse">
+                          <thead>
+                            <tr class="border-b border-default text-muted font-bold">
+                              <th class="py-2.5">Sección</th>
+                              <th class="py-2.5">Eje</th>
+                              <th class="py-2.5">Acrónimo</th>
+                              <th class="py-2.5 text-center">Logo</th>
+                              <th class="py-2.5 text-right">Archivo</th>
+                            </tr>
+                          </thead>
+                          <tbody class="divide-y divide-default/40">
+                            @for (portal of portalesTransversales; track portal.acronimo) {
+                              <tr (click)="selectSubseccionFromPortal(portal.acronimo, 'transversal')" 
+                                  class="hover:bg-brand-soft/40 hover:text-migala cursor-pointer transition duration-150">
+                                <td class="py-3 font-semibold text-default flex items-center gap-2">
+                                  <span>{{ portal.logoIcon }}</span>
+                                  <span>{{ portal.seccion }}</span>
+                                </td>
+                                <td class="py-3">
+                                  <span class="bg-purple-500/10 text-purple-500 border border-purple-500/20 text-[9px] font-bold px-2 py-0.5 rounded">Transversal</span>
+                                </td>
+                                <td class="py-3 font-mono text-muted">{{ portal.acronimo }}</td>
+                                <td class="py-3 text-center text-sm">{{ portal.logoIcon }}</td>
+                                <td class="py-3 text-right">
+                                  <span class="px-2 py-0.5 text-[9px] font-bold rounded-full border {{ getNivelBadgeClass(portal.nivel) }}">
+                                    {{ portal.nivel }}
+                                  </span>
+                                </td>
+                              </tr>
+                            }
+                          </tbody>
+                        </table>
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- 4. TERRITORIAL -->
+              <div class="border border-default rounded-2xl overflow-hidden bg-surface shadow-2xs">
+                <button
+                  (click)="toggleEje('territorial')"
+                  class="w-full bg-neutral-500/5 hover:bg-neutral-500/10 px-5 py-3.5 flex items-center justify-between font-bold text-xs sm:text-sm tracking-wide text-default transition cursor-pointer">
+                  <div class="flex items-center space-x-2.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-500 shadow-2xs"></span>
+                    <span class="uppercase">Territorial</span>
+                  </div>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 text-muted"
+                       [class.rotate-90]="expandedEjes().territorial"
+                       fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+                
+                @if (expandedEjes().territorial) {
+                  <div class="p-5 border-t border-default bg-surface/50 animate-fade-in">
+                    @if (viewMode() === 'portales') {
+                      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                        @for (portal of portalesTerritoriales; track portal.acronimo) {
+                          <div (click)="selectSubseccionFromPortal(portal.acronimo, 'territorial')" 
+                               class="border border-default bg-surface rounded-xl p-4 hover:border-migala hover:shadow-sm hover:scale-[1.02] cursor-pointer transition-all duration-200 active:scale-[0.98] flex flex-col justify-between space-y-3 shadow-3xs">
+                            <div class="flex items-center justify-between">
+                              <span class="text-xl select-none">{{ portal.logoIcon }}</span>
+                              <span class="text-[9px] font-mono font-bold text-faint bg-neutral-500/5 px-1.5 py-0.5 rounded">{{ portal.acronimo }}</span>
+                            </div>
+                            <h5 class="text-xs font-bold text-default line-clamp-1">{{ portal.seccion }}</h5>
+                            <div class="pt-1">
+                              <span class="px-2.5 py-0.5 text-[9px] font-bold rounded-full border {{ getNivelBadgeClass(portal.nivel) }}">
+                                {{ portal.nivel }}
+                              </span>
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    } @else {
+                      <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs border-collapse">
+                          <thead>
+                            <tr class="border-b border-default text-muted font-bold">
+                              <th class="py-2.5">Sección</th>
+                              <th class="py-2.5">Eje</th>
+                              <th class="py-2.5">Acrónimo</th>
+                              <th class="py-2.5 text-center">Logo</th>
+                              <th class="py-2.5 text-right">Archivo</th>
+                            </tr>
+                          </thead>
+                          <tbody class="divide-y divide-default/40">
+                            @for (portal of portalesTerritoriales; track portal.acronimo) {
+                              <tr (click)="selectSubseccionFromPortal(portal.acronimo, 'territorial')" 
+                                  class="hover:bg-brand-soft/40 hover:text-migala cursor-pointer transition duration-150">
+                                <td class="py-3 font-semibold text-default flex items-center gap-2">
+                                  <span>{{ portal.logoIcon }}</span>
+                                  <span>{{ portal.seccion }}</span>
+                                </td>
+                                <td class="py-3">
+                                  <span class="bg-amber-500/10 text-amber-500 border border-amber-500/20 text-[9px] font-bold px-2 py-0.5 rounded">Territorial</span>
+                                </td>
+                                <td class="py-3 font-mono text-muted">{{ portal.acronimo }}</td>
+                                <td class="py-3 text-center text-sm">{{ portal.logoIcon }}</td>
+                                <td class="py-3 text-right">
+                                  <span class="px-2 py-0.5 text-[9px] font-bold rounded-full border {{ getNivelBadgeClass(portal.nivel) }}">
+                                    {{ portal.nivel }}
+                                  </span>
+                                </td>
+                              </tr>
+                            }
+                          </tbody>
+                        </table>
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- 5. ESTATAL -->
+              <div class="border border-default rounded-2xl overflow-hidden bg-surface shadow-2xs">
+                <button
+                  (click)="toggleEje('estatal')"
+                  class="w-full bg-neutral-500/5 hover:bg-neutral-500/10 px-5 py-3.5 flex items-center justify-between font-bold text-xs sm:text-sm tracking-wide text-default transition cursor-pointer">
+                  <div class="flex items-center space-x-2.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-2xs"></span>
+                    <span class="uppercase">Estatal (Entidades Federativas)</span>
+                  </div>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 text-muted"
+                       [class.rotate-90]="expandedEjes().estatal"
+                       fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+                
+                @if (expandedEjes().estatal) {
+                  <div class="p-5 border-t border-default bg-surface/50 animate-fade-in">
+                    @if (viewMode() === 'portales') {
+                      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 max-h-[500px] overflow-y-auto pr-1">
+                        @for (portal of portalesEstatales(); track portal.seccion) {
+                          <div (click)="selectEstadoFromPortal(portal.id || '')" 
+                               class="border border-default bg-surface rounded-xl p-4 hover:border-migala hover:shadow-sm hover:scale-[1.02] cursor-pointer transition-all duration-200 active:scale-[0.98] flex flex-col justify-between space-y-3 shadow-3xs">
+                            <div class="flex items-center justify-between">
+                              <span class="text-xl select-none">{{ portal.logoIcon }}</span>
+                              <span class="text-[9px] font-mono font-bold text-faint bg-neutral-500/5 px-1.5 py-0.5 rounded">{{ portal.acronimo }}</span>
+                            </div>
+                            <h5 class="text-xs font-bold text-default line-clamp-1">{{ portal.seccion }}</h5>
+                            <div class="pt-1">
+                              <span class="px-2.5 py-0.5 text-[9px] font-bold rounded-full border {{ getNivelBadgeClass(portal.nivel) }}">
+                                {{ portal.nivel }}
+                              </span>
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    } @else {
+                      <div class="overflow-x-auto max-h-[500px] overflow-y-auto pr-1">
+                        <table class="w-full text-left text-xs border-collapse">
+                          <thead>
+                            <tr class="border-b border-default text-muted font-bold sticky top-0 bg-surface z-10">
+                              <th class="py-2.5 bg-surface">Sección</th>
+                              <th class="py-2.5 bg-surface">Eje</th>
+                              <th class="py-2.5 bg-surface">Acrónimo</th>
+                              <th class="py-2.5 bg-surface text-center">Logo</th>
+                              <th class="py-2.5 bg-surface text-right">Archivo</th>
+                            </tr>
+                          </thead>
+                          <tbody class="divide-y divide-default/40">
+                            @for (portal of portalesEstatales(); track portal.seccion) {
+                              <tr (click)="selectEstadoFromPortal(portal.id || '')" 
+                                  class="hover:bg-brand-soft/40 hover:text-migala cursor-pointer transition duration-150">
+                                <td class="py-3 font-semibold text-default flex items-center gap-2">
+                                  <span>{{ portal.logoIcon }}</span>
+                                  <span>{{ portal.seccion }}</span>
+                                </td>
+                                <td class="py-3">
+                                  <span class="bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-[9px] font-bold px-2 py-0.5 rounded">Estatal</span>
+                                </td>
+                                <td class="py-3 font-mono text-muted">{{ portal.acronimo }}</td>
+                                <td class="py-3 text-center text-sm">{{ portal.logoIcon }}</td>
+                                <td class="py-3 text-right">
+                                  <span class="px-2 py-0.5 text-[9px] font-bold rounded-full border {{ getNivelBadgeClass(portal.nivel) }}">
+                                    {{ portal.nivel }}
+                                  </span>
+                                </td>
+                              </tr>
+                            }
+                          </tbody>
+                        </table>
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Pie informativo -->
+          <div class="pt-6 border-t border-default flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div class="text-xs text-muted">
+              Fondo Documental: <span class="font-bold text-default">Portales de Transparencia</span> / <span class="font-bold text-default">Partido Político Nacional</span>
+            </div>
+            <button
+              (click)="selectCategory('todos')"
+              class="bg-migala hover:bg-migala-dark text-white text-xs font-bold py-2.5 px-6 rounded-xl transition duration-200 cursor-pointer shadow-xs self-start sm:self-center">
+              Explorar todos los archivos
+            </button>
+          </div>
+
+        </div>
+      } @else {
+        <!-- Encabezado de Resultados -->
+        <div class="flex items-center justify-between text-xs text-muted">
+          <div>
+            Se encontraron <span class="font-bold text-default">{{ filteredDocumentos().length }}</span> documento(s)
+            @if (selectedCategory() !== 'todos' || selectedEje() !== 'todos' || selectedFormat() !== 'todos' || searchQuery()) {
+              bajo filtros activos
+            }
+          </div>
+          <div class="hidden sm:block">
+            Mostrando: <span class="font-bold text-default">{{ getCategoryLabel(selectedCategory()) }}</span>
+          </div>
+        </div>
+
+        <!-- Redes Sociales Nacionales si se selecciona la categoría correspondiente -->
+        @if (selectedCategory() === 'redes-sociales') {
+          <div class="bg-surface border border-default rounded-3xl p-6 space-y-6 shadow-2xs animate-fade-in text-default">
+            <div class="space-y-1.5">
+              <h3 class="text-base font-extrabold tracking-tight text-default flex items-center gap-2">
+                <span>👥</span> Redes Sociales Nacionales Oficiales
+              </h3>
+              <p class="text-xs text-muted font-light leading-relaxed">
+                Canales oficiales de comunicación y difusión de Proyecto Migala a nivel nacional. Cualquier red social no listada aquí no posee carácter oficial de la asociación.
+              </p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5">
+              @for (net of socialNetworks; track net.name) {
+                <div class="flex items-center justify-between bg-neutral-500/5 border border-default rounded-2xl p-4 hover:border-migala/40 transition duration-200 group">
+                  <div class="flex items-center space-x-3 text-xs font-semibold text-sub tracking-wide">
+                    <img [src]="net.iconUrl" [alt]="net.name" 
+                         class="w-5 h-5 rounded-md object-contain group-hover:scale-105 transition-transform duration-200"
+                         onerror="this.src='assets/img/Logo.png'">
+                    <span class="font-medium text-sub">{{ net.name }}</span>
+                  </div>
+                  <a [href]="net.url" target="_blank" rel="noopener noreferrer" 
+                     class="bg-migala/10 hover:bg-migala hover:text-white text-migala text-[10px] font-extrabold px-3 py-1.5 rounded-lg transition duration-200 shadow-2xs cursor-pointer text-center">
+                    Ir al canal
+                  </a>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- Ruta Crítica interactiva si se selecciona la categoría correspondiente -->
+        @if (selectedCategory() === 'ruta-critica') {
+          <div class="bg-surface border border-default rounded-3xl p-6 md:p-8 space-y-8 shadow-2xs animate-fade-in text-default mb-6">
+            
+            <!-- Cabecera de la Ruta Crítica -->
+            <div class="space-y-4">
+              <div class="inline-flex items-center space-x-2 bg-migala/10 text-migala border border-migala/20 px-3.5 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                📌 Plan Nacional de Trabajo
+              </div>
+              <h2 class="text-xl md:text-3xl font-extrabold tracking-tight text-default">
+                {{ rutaCritica.titulo }} Nacional {{ rutaCritica.periodo }}
+              </h2>
+              <p class="text-sub text-sm leading-relaxed text-justify font-light border-l-4 border-migala/40 pl-4">
+                {{ rutaCritica.sobreNosotros }}
+              </p>
+            </div>
+
+            <!-- Balance 2025 -->
+            <div class="bg-brand-soft border border-brand-soft/80 rounded-2xl p-5 md:p-6 space-y-3 shadow-3xs">
+              <h4 class="text-xs font-extrabold text-migala uppercase tracking-wider">Balance y Crecimiento 2025</h4>
+              <p class="text-xs text-muted leading-relaxed text-justify font-light">
+                {{ rutaCritica.resumen2025 }}
+              </p>
+            </div>
+
+            <!-- Grid de Objetivos Principales y Secundarios -->
+            <div class="space-y-6">
+              
+              <!-- Objetivos Principales -->
+              <div class="space-y-4">
+                <h3 class="text-sm font-extrabold uppercase tracking-widest text-default border-b border-default pb-2 flex items-center gap-2">
+                  <span class="text-emerald-500">⭐</span> Objetivos Principales 2026
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  @for (obj of rutaCritica.objetivos; track obj.titulo) {
+                    @if (obj.tipo === 'principal') {
+                      <div class="bg-neutral-500/5 border border-default rounded-2xl p-5 space-y-4 flex flex-col justify-between hover:border-migala/30 transition duration-200">
+                        <div class="space-y-2">
+                          <h4 class="text-xs font-extrabold uppercase tracking-wider text-migala leading-snug">
+                            {{ obj.titulo }}
+                          </h4>
+                          <div class="divide-y divide-default/40 space-y-3">
+                            @for (det of obj.detalles; track det.nombre) {
+                              <div class="pt-3 first:pt-0 space-y-1">
+                                <div class="flex items-center justify-between gap-2">
+                                  <span class="text-[11px] font-bold text-default">{{ det.nombre }}</span>
+                                  <span class="text-[9px] font-mono text-faint bg-neutral-500/10 px-1.5 py-0.5 rounded font-bold">{{ det.id }}</span>
+                                </div>
+                                <p class="text-[11px] text-muted leading-relaxed text-justify font-light">
+                                  {{ det.detalle }}
+                                </p>
+                              </div>
+                            }
+                          </div>
+                        </div>
+                      </div>
+                    }
+                  }
+                </div>
+              </div>
+
+              <!-- Objetivos Secundarios -->
+              <div class="space-y-4 pt-4">
+                <h3 class="text-sm font-extrabold uppercase tracking-widest text-default border-b border-default pb-2 flex items-center gap-2">
+                  <span class="text-cyan-500">⚙️</span> Objetivos Secundarios 2026
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  @for (obj of rutaCritica.objetivos; track obj.titulo) {
+                    @if (obj.tipo === 'secundario') {
+                      <div class="bg-neutral-500/5 border border-default rounded-2xl p-5 space-y-4 hover:border-migala/30 transition duration-200">
+                        <h4 class="text-xs font-extrabold uppercase tracking-wider text-migala border-b border-default/50 pb-2">
+                          {{ obj.titulo }}
+                        </h4>
+                        <div class="space-y-4">
+                          @for (det of obj.detalles; track det.nombre) {
+                            <div class="flex items-start gap-3">
+                              <span class="text-[10px] font-mono text-faint bg-neutral-500/10 px-2 py-0.5 rounded font-bold mt-0.5">{{ det.id }}</span>
+                              <div class="space-y-0.5 flex-1">
+                                <span class="text-xs font-bold text-default">{{ det.nombre }}</span>
+                                <p class="text-xs text-muted leading-relaxed text-justify font-light">
+                                  {{ det.detalle }}
+                                </p>
+                              </div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+                    }
+                  }
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Finalidad del Plan -->
+            <div class="pt-6 border-t border-default space-y-3.5">
+              <div class="space-y-1">
+                <h3 class="text-xs font-extrabold tracking-widest uppercase text-default">
+                  {{ rutaCritica.finalidad.titulo }}
+                </h3>
+                <h4 class="text-xs font-extrabold text-migala">
+                  {{ rutaCritica.finalidad.subtitulo }}
+                </h4>
+              </div>
+              <p class="text-xs text-muted leading-relaxed text-justify font-light">
+                {{ rutaCritica.finalidad.descripcion }}
+              </p>
+            </div>
+
+          </div>
+        }
+
+        <!-- Cuadrícula de Documentos -->
+        @if (filteredDocumentos().length > 0) {
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            @for (doc of filteredDocumentos(); track doc.id) {
+              <div class="bg-surface border border-default rounded-2xl p-5 hover:border-migala/40 hover:bg-brand-soft/20 transition-all duration-300 flex flex-col justify-between shadow-2xs group">
+                <div class="space-y-4">
+                  
+                  <!-- Cabecera de la Tarjeta (Formatos y Ámbitos) -->
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex items-center space-x-2">
+                      <span class="text-xl select-none">{{ getFormatIcon(doc.formato) }}</span>
+                      <span class="px-2.5 py-0.5 text-[10px] font-semibold border rounded-full uppercase tracking-wider {{ getFormatBadgeClass(doc.formato) }}">
+                        {{ doc.formato }}
+                      </span>
+                    </div>
+                    <span class="bg-neutral-500/10 text-default border border-default text-[10px] font-bold px-2 py-0.5 rounded-md uppercase">
+                      {{ doc.eje }}
+                    </span>
+                  </div>
+
+                  <!-- Título y Descripción -->
+                  <div class="space-y-1.5">
+                    <h4 class="text-sm font-bold text-default leading-snug group-hover:text-migala transition-colors">
+                      {{ doc.nombre }}
+                    </h4>
+                    <p class="text-xs text-muted leading-relaxed line-clamp-3 text-justify font-light">
+                      {{ doc.descripcion }}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Pie de la Tarjeta (Fecha, Peso y Botón) -->
+                <div class="mt-5 pt-4 border-t border-default flex items-center justify-between gap-4">
+                  <div class="text-[10px] text-faint flex flex-col">
+                    <span class="flex items-center gap-1">📅 {{ doc.fecha }}</span>
+                    @if (doc.peso) {
+                      <span class="font-mono mt-0.5">💾 {{ doc.peso }}</span>
+                    }
+                  </div>
+
+                  <a
+                    [href]="doc.fileUrl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="bg-migala/10 hover:bg-migala hover:text-white text-migala text-xs font-extrabold px-4 py-2 rounded-lg transition duration-200 shadow-2xs cursor-pointer flex items-center gap-1.5">
+                    @if (doc.formato === 'video') {
+                      <span>Ver video</span>
+                      <span>▶️</span>
+                    } @else {
+                      <span>Consultar</span>
+                      <span>📥</span>
+                    }
+                  </a>
+                </div>
+              </div>
+            }
+          </div>
+        } @else {
+          <!-- ESTADO VACÍO -->
+          <div class="bg-surface border border-default rounded-3xl p-12 text-center shadow-xs flex flex-col items-center justify-center min-h-[300px]">
+            <span class="text-5xl mb-4 block select-none">🔎</span>
+            <h4 class="text-base font-bold text-default">No se encontraron documentos</h4>
+            <p class="text-dim text-xs mt-2 max-w-sm">
+              Intenta cambiar tus términos de búsqueda o desactivar algunos de los filtros seleccionados para encontrar lo que buscas.
+            </p>
+            <button
+              (click)="clearFilters()"
+              class="mt-6 bg-migala hover:bg-migala-dark text-white text-xs font-bold py-2.5 px-6 rounded-xl transition duration-200 cursor-pointer shadow-xs">
+              Restablecer todos los filtros
+            </button>
+          </div>
+        }
+      }
+
+    </main>
+
+  </div>
+</div>

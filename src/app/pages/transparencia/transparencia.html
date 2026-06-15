@@ -79,7 +79,9 @@
                     <span class="text-migala mt-0.5">📄</span>
                     <span class="font-medium text-sub">{{ item.name }}</span>
                   </div>
-                  <a [routerLink]="item.route" class="bg-migala/10 hover:bg-migala hover:text-white text-migala text-xs font-extrabold px-4 py-2 rounded-lg transition duration-200 shadow-2xs self-end sm:self-center cursor-pointer text-center">
+                  <a [routerLink]="item.route" 
+                     [queryParams]="item.route === '/archivo' ? { categoria: sec.id, buscar: item.name } : null"
+                     class="bg-migala/10 hover:bg-migala hover:text-white text-migala text-xs font-extrabold px-4 py-2 rounded-lg transition duration-200 shadow-2xs self-end sm:self-center cursor-pointer text-center">
                     Consultar
                   </a>
                 </div>
@@ -159,7 +161,9 @@
                     <span class="text-migala mt-0.5">📄</span>
                     <span class="font-medium text-sub">{{ item.name }}</span>
                   </div>
-                  <a [routerLink]="item.route" class="bg-migala/10 hover:bg-migala hover:text-white text-migala text-xs font-extrabold px-4 py-2 rounded-lg transition duration-200 shadow-2xs self-end sm:self-center cursor-pointer text-center">
+                  <a [routerLink]="item.route" 
+                     [queryParams]="item.route === '/archivo' ? { categoria: sec.id, buscar: item.name } : null"
+                     class="bg-migala/10 hover:bg-migala hover:text-white text-migala text-xs font-extrabold px-4 py-2 rounded-lg transition duration-200 shadow-2xs self-end sm:self-center cursor-pointer text-center">
                     Consultar
                   </a>
                 </div>
