@@ -10,6 +10,7 @@ import type { Estado } from '../../core/models/entidad';
 interface TransparenciaItem {
   name: string;
   route: string;
+  queryParams?: Record<string, string>;
 }
 
 interface TransparenciaSection {
@@ -156,8 +157,8 @@ export class Transparencia {
       icon: '🌿',
       description: 'Aquí podrás encontrar de forma gráfica la estructura del Proyecto Migala. El PM, se compone de cuatro ejes; El Eje Operativo, que concentra a las áreas de trabajo que garantizan la horizontalidad en el PM; El Eje Territorial, que concentra a las Comisiones Estatales cuya función es representar a las treinta y dos entidades federativas, que son la base del proyecto Migala; El Eje en Materia de Transversalidad, cuya función es la de garantizar la igualdad y equidad en el PM; El Eje Especializado en Temas Ideológicos, su principal función es la de desarrollar cuestiones relacionadas a las áreas del conocimiento humano relevantes para el Manifiesto, en otras palabras son las generadoras de ideología dentro del PM.',
       items: [
-        { name: 'I.- Organigrama Nacional', route: '/archivo' },
-        { name: 'II.- Organigrama de Comisiones Estatales', route: '/archivo' }
+        { name: 'I.- Organigrama Nacional', route: '/estructura', queryParams: { eje: 'todos', id: 'eje-operativo' } },
+        { name: 'II.- Organigrama de Comisiones Estatales', route: '/estructura', queryParams: { eje: 'territorial', id: 'eje-territorial' } }
       ]
     },
     {

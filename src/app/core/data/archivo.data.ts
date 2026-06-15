@@ -22,7 +22,7 @@ export const ARCHIVOS_DATA: ArchivoDocumento[] = [
     categoria: 'ruta-critica',
     eje: 'nacional',
     fecha: '2026-03-15',
-    fileUrl: 'assets/docs/ruta_critica_nacional.pdf',
+    fileUrl: 'https://drive.google.com/file/d/mock-ruta_critica_nacional/view',
     formato: 'pdf',
     peso: '3.2 MB'
   },
@@ -33,7 +33,7 @@ export const ARCHIVOS_DATA: ArchivoDocumento[] = [
     categoria: 'ruta-critica',
     eje: 'estatal',
     fecha: '2026-03-20',
-    fileUrl: 'assets/docs/ruta_critica_estatales.pdf',
+    fileUrl: 'https://drive.google.com/file/d/mock-ruta_critica_estatales/view',
     formato: 'pdf',
     peso: '2.8 MB'
   },
@@ -44,7 +44,7 @@ export const ARCHIVOS_DATA: ArchivoDocumento[] = [
     categoria: 'ruta-critica',
     eje: 'operativo',
     fecha: '2026-04-01',
-    fileUrl: 'assets/docs/ruta_critica_operativos.pdf',
+    fileUrl: 'https://drive.google.com/file/d/mock-ruta_critica_operativos/view',
     formato: 'pdf',
     peso: '1.9 MB'
   },
@@ -55,7 +55,7 @@ export const ARCHIVOS_DATA: ArchivoDocumento[] = [
     categoria: 'ruta-critica',
     eje: 'tematico',
     fecha: '2026-04-05',
-    fileUrl: 'assets/docs/ruta_critica_tematicas.pdf',
+    fileUrl: 'https://drive.google.com/file/d/mock-ruta_critica_tematicas/view',
     formato: 'pdf',
     peso: '2.1 MB'
   },
@@ -66,7 +66,7 @@ export const ARCHIVOS_DATA: ArchivoDocumento[] = [
     categoria: 'ruta-critica',
     eje: 'transversal',
     fecha: '2026-04-10',
-    fileUrl: 'assets/docs/ruta_critica_transversalidad.pdf',
+    fileUrl: 'https://drive.google.com/file/d/mock-ruta_critica_transversalidad/view',
     formato: 'pdf',
     peso: '1.5 MB'
   },
@@ -125,7 +125,7 @@ export const ARCHIVOS_DATA: ArchivoDocumento[] = [
     categoria: 'organigrama',
     eje: 'nacional',
     fecha: '2026-02-15',
-    fileUrl: 'assets/docs/organigrama_nacional.pdf',
+    fileUrl: 'https://drive.google.com/file/d/mock-organigrama_nacional/view',
     formato: 'pdf',
     peso: '4.5 MB'
   },
@@ -136,7 +136,7 @@ export const ARCHIVOS_DATA: ArchivoDocumento[] = [
     categoria: 'organigrama',
     eje: 'estatal',
     fecha: '2026-02-20',
-    fileUrl: 'assets/docs/organigrama_comisiones_estatales.pdf',
+    fileUrl: 'https://drive.google.com/file/d/mock-organigrama_comisiones_estatales/view',
     formato: 'pdf',
     peso: '3.1 MB'
   },
@@ -287,7 +287,7 @@ export const ARCHIVOS_DATA: ArchivoDocumento[] = [
     categoria: 'patrimonio',
     eje: 'nacional',
     fecha: '2026-04-30',
-    fileUrl: 'assets/docs/inventario_patrimonio_nacional.pdf',
+    fileUrl: 'https://drive.google.com/file/d/mock-inventario_patrimonio_nacional/view',
     formato: 'spreadsheet',
     peso: '1.2 MB'
   },
@@ -298,7 +298,7 @@ export const ARCHIVOS_DATA: ArchivoDocumento[] = [
     categoria: 'patrimonio',
     eje: 'estatal',
     fecha: '2026-04-30',
-    fileUrl: 'assets/docs/inventario_patrimonio_estatales.pdf',
+    fileUrl: 'https://drive.google.com/file/d/mock-inventario_patrimonio_estatales/view',
     formato: 'spreadsheet',
     peso: '2.5 MB'
   },
@@ -311,7 +311,7 @@ export const ARCHIVOS_DATA: ArchivoDocumento[] = [
     categoria: 'ingresos-egresos',
     eje: 'nacional',
     fecha: '2026-05-31',
-    fileUrl: 'assets/docs/ingresos_nacionales_2026.pdf',
+    fileUrl: 'https://drive.google.com/file/d/mock-ingresos_nacionales_2026/view',
     formato: 'spreadsheet',
     peso: '1.8 MB'
   },
@@ -322,7 +322,7 @@ export const ARCHIVOS_DATA: ArchivoDocumento[] = [
     categoria: 'ingresos-egresos',
     eje: 'estatal',
     fecha: '2026-05-31',
-    fileUrl: 'assets/docs/ingresos_estatales_2026.pdf',
+    fileUrl: 'https://drive.google.com/file/d/mock-ingresos_estatales_2026/view',
     formato: 'spreadsheet',
     peso: '2.2 MB'
   },
@@ -333,7 +333,7 @@ export const ARCHIVOS_DATA: ArchivoDocumento[] = [
     categoria: 'ingresos-egresos',
     eje: 'nacional',
     fecha: '2026-05-31',
-    fileUrl: 'assets/docs/egresos_nacionales_2026.pdf',
+    fileUrl: 'https://drive.google.com/file/d/mock-egresos_nacionales_2026/view',
     formato: 'spreadsheet',
     peso: '2.0 MB'
   },
@@ -344,7 +344,7 @@ export const ARCHIVOS_DATA: ArchivoDocumento[] = [
     categoria: 'ingresos-egresos',
     eje: 'estatal',
     fecha: '2026-05-31',
-    fileUrl: 'assets/docs/egresos_estatales_2026.pdf',
+    fileUrl: 'https://drive.google.com/file/d/mock-egresos_estatales_2026/view',
     formato: 'spreadsheet',
     peso: '2.7 MB'
   },
@@ -357,7 +357,7 @@ export const ARCHIVOS_DATA: ArchivoDocumento[] = [
     categoria: 'tramites-formatos-manuales',
     eje: 'nacional',
     fecha: '2026-02-01',
-    fileUrl: 'assets/docs/manuales_y_formatos_nacionales.zip',
+    fileUrl: 'https://drive.google.com/file/d/mock-manuales_y_formatos_nacionales/view',
     formato: 'doc',
     peso: '8.4 MB'
   },
@@ -368,7 +368,7 @@ export const ARCHIVOS_DATA: ArchivoDocumento[] = [
     categoria: 'tramites-formatos-manuales',
     eje: 'estatal',
     fecha: '2026-02-05',
-    fileUrl: 'assets/docs/manuales_y_formatos_estatales.zip',
+    fileUrl: 'https://drive.google.com/file/d/mock-manuales_y_formatos_estatales/view',
     formato: 'doc',
     peso: '6.1 MB'
   },
@@ -405,7 +405,7 @@ export const ARCHIVOS_DATA: ArchivoDocumento[] = [
     categoria: 'tramites-formatos-manuales',
     eje: 'nacional',
     fecha: '2025-08-14',
-    fileUrl: 'assets/docs/acta_constitutiva_migala_ac.pdf',
+    fileUrl: 'https://drive.google.com/file/d/mock-acta_constitutiva_migala_ac/view',
     formato: 'pdf',
     peso: '5.6 MB'
   },
@@ -418,7 +418,7 @@ export const ARCHIVOS_DATA: ArchivoDocumento[] = [
     categoria: 'ruta-critica',
     eje: 'territorial',
     fecha: '2026-03-22',
-    fileUrl: 'assets/docs/ruta_critica_territorial.pdf',
+    fileUrl: 'https://drive.google.com/file/d/mock-ruta_critica_territorial/view',
     formato: 'pdf',
     peso: '1.7 MB'
   },
