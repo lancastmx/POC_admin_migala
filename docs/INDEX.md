@@ -5,14 +5,14 @@ type: index
 tags: [angular, index]
 author: lancast
 created: 2026-06-10
-updated: 2026-06-10
+updated: 2026-06-15
 collection: poc-admin-migala
 path: docs/
 ---
 
 # Índice de documentación — POC_admin_migala
 
-Última actualización: 2026-06-10
+Última actualización: 2026-06-15
 
 ## Components
 
@@ -28,6 +28,9 @@ path: docs/
 - [[comp-010]] PageBanner — Banner reutilizable de página
 - [[comp-011]] Manifiesto — Página del manifiesto con audio reader
 - [[comp-012]] AudioReader — Componente de lectura por audio
+- [[comp-013]] Archivo — Página de archivo documental + Tree View organigrama + Directorio
+- [[comp-014]] Estructura — Página de estructura y gobernanza con explorador y procedimientos
+- [[comp-015]] Propuesta — Página de propuesta de valor interactiva
 
 ## Servicios
 
@@ -39,6 +42,8 @@ path: docs/
 
 - [[model-001]] Entidad — Interfaces País, Estado, Municipio
 - [[model-002]] Reglamento — Interfaces Reglamento, Articulo, Capitulo, Titulo
+- [[model-003]] Organizacion — Órgano del organigrama
+- [[model-004]] ArchivoDocumento — Documento del archivo
 
 ## Datos / Constantes
 
@@ -47,6 +52,16 @@ path: docs/
 - [[data-003]] SOCIAL_NETWORKS — Redes sociales oficiales
 - [[data-004]] TOP_MENU — Configuración del menú de navegación
 - [[data-005]] MenuItem — Interfaz para entradas de menú
+- [[data-006]] TELEGRAM_LINKS — Fuente única de verdad para URLs de Telegram
+- [[data-007]] ORGANIGRAMA_NACIONAL — Árbol jerárquico canónico del organigrama
+- [[data-008]] ORGANIZACIONES_DATA — Catálogo de organizaciones
+- [[data-009]] ARCHIVOS_DATA — Catálogo de documentos
+- [[data-010]] PROCEDIMIENTOS_DATA — Guías y trámites
+- [[data-011]] RUTA_CRITICA_DATA — Plan Nacional de Trabajo
+
+## Arquitectura
+
+- [[arch-001]] ARCHITECTURE.md — Flujo de datos TELEGRAM_LINKS
 
 ## Configs
 
@@ -64,4 +79,5 @@ path: docs/
 - [[docs-003]] component_styles.md — Guía de estilos locales de componentes
 
 ## Grafos
+
 - GRAPH.md — Grafo global de dependencias
