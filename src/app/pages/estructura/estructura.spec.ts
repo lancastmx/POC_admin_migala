@@ -38,7 +38,28 @@ describe('Estructura Component', () => {
 
   it('debe encontrar el padre y subgrupos del organo seleccionado', () => {
     component['selectedOrganId'].set('org-confu');
-    expect(component['selectedOrganParent']()?.id).toBe('org-coordinacion-nacional');
+    expect(component['selectedOrganParent']()?.id).toBe('area-formacion');
+  });
+
+  it('debe calcular correctamente las migas de pan (breadcrumbs)', () => {
+    component['currentLevelOrganId'].set('area-informatica');
+    const crumbs = component['breadcrumbs']();
+    expect(crumbs.length).toBe(3);
+    expect(crumbs[0].id).toBe('root');
+    expect(crumbs[1].id).toBe('eje-operativo');
+    expect(crumbs[2].id).toBe('area-informatica');
+  });
+
+  it('debe navegar por la estructura (drill-down y leaf selection)', () => {
+    // Caso 1: Navegar a un eje (tiene subgrupos)
+    component['navigateToOrgan']('eje-operativo');
+    expect(component['currentLevelOrganId']()).toBe('eje-operativo');
+    expect(component['selectedOrganId']()).toBe('eje-operativo');
+
+    // Caso 2: Navegar a una hoja (no tiene subgrupos, debe quedarse en el nivel de su padre)
+    component['navigateToOrgan']('inf-mesa-ejecucion');
+    expect(component['selectedOrganId']()).toBe('inf-mesa-ejecucion');
+    expect(component['currentLevelOrganId']()).toBe('inf-programadores'); // Su padre
   });
 
   it('debe parsear correctamente la estructura XML semantica en segmentos', () => {

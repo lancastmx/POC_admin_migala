@@ -33,10 +33,51 @@ export class Estructura {
   protected readonly ejeFilter = signal<EjeEstructural | 'todos'>('todos');
   protected readonly selectedOrganId = signal<string>('org-coordinacion-nacional');
   protected readonly selectedProcedureId = signal<string>('proc-crear-comision-tematica');
+  
+  // Navegación visual del organigrama
+  protected readonly currentLevelOrganId = signal<string>('root');
 
   // ─── Querys Computadas ───────────────────────
+
+  /** Camino de navegación (Breadcrumbs) */
+  protected readonly breadcrumbs = computed(() => {
+    const levelId = this.currentLevelOrganId();
+    if (!levelId || levelId === 'root') {
+      return [{ id: 'root', nombre: 'Inicio' }];
+    }
+
+    const path: { id: string; nombre: string }[] = [];
+    let current = this.organizaciones().find(o => o.id === levelId);
+    while (current) {
+      path.unshift({ id: current.id, nombre: current.nombre });
+      current = current.parentId ? this.organizaciones().find(o => o.id === current!.parentId) : undefined;
+    }
+
+    path.unshift({ id: 'root', nombre: 'Inicio' });
+    return path;
+  });
+
+  /** Órganos a mostrar en el nivel actual del organigrama */
+  protected readonly currentLevelChildren = computed(() => {
+    const levelId = this.currentLevelOrganId();
+    if (!levelId || levelId === 'root') {
+      return this.organizaciones().filter(o => !o.parentId);
+    }
+
+    const current = this.organizaciones().find(o => o.id === levelId);
+    if (!current) return [];
+
+    return this.organizaciones().filter(o => current.subgruposIds.includes(o.id));
+  });
+
+  /** Órgano correspondiente al nivel actual */
+  protected readonly currentLevelOrgan = computed(() => {
+    const levelId = this.currentLevelOrganId();
+    if (!levelId || levelId === 'root') return null;
+    return this.organizaciones().find(o => o.id === levelId) ?? null;
+  });
   
-  /** Lista de órganos filtrados por búsqueda y eje */
+  /** Lista de órgãos filtrados por búsqueda y eje */
   protected readonly filteredOrganizaciones = computed(() => {
     const query = this.searchQuery().toLowerCase().trim();
     const eje = this.ejeFilter();
@@ -90,6 +131,39 @@ export class Estructura {
     if (exists) {
       this.selectedOrganId.set(id);
       this.activeTab.set('organigrama'); // Auto switch tab if referencing from FAQ/Procedure
+
+      // Sincronizar el nivel del explorador visual
+      const organ = this.organizaciones().find(o => o.id === id);
+      if (organ) {
+        if (organ.subgruposIds && organ.subgruposIds.length > 0) {
+          this.currentLevelOrganId.set(id);
+        } else if (organ.parentId) {
+          this.currentLevelOrganId.set(organ.parentId);
+        } else {
+          this.currentLevelOrganId.set('root');
+        }
+      }
+    }
+  }
+
+  protected navigateToOrgan(id: string): void {
+    if (id === 'root') {
+      this.currentLevelOrganId.set('root');
+      return;
+    }
+
+    const organ = this.organizaciones().find(o => o.id === id);
+    if (!organ) return;
+
+    this.selectedOrganId.set(id);
+
+    // Si tiene hijos, profundizamos. Si es una hoja, nos quedamos en el nivel del padre pero lo seleccionamos.
+    if (organ.subgruposIds && organ.subgruposIds.length > 0) {
+      this.currentLevelOrganId.set(id);
+    } else if (organ.parentId) {
+      this.currentLevelOrganId.set(organ.parentId);
+    } else {
+      this.currentLevelOrganId.set('root');
     }
   }
 
