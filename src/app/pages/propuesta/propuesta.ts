@@ -160,4 +160,15 @@ export class Propuesta {
   protected selectTab(id: string): void {
     this.activeTabId.set(id);
   }
+
+  protected isLink(val: string): boolean {
+    return val.startsWith('http://') || val.startsWith('https://') || val.startsWith('t.me/');
+  }
+
+  protected getLinkUrl(val: string): string {
+    if (val.startsWith('t.me/')) {
+      return `https://${val}`;
+    }
+    return val;
+  }
 }

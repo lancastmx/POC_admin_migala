@@ -51,4 +51,15 @@ describe('Propuesta Component', () => {
     expect(component['activeItem']().id).toBe('03');
     expect(component['activeItem']().seccion).toBe('Descripción');
   });
+
+  it('should correctly identify link values', () => {
+    expect(component['isLink']('https://github.com/lancastmx')).toBe(true);
+    expect(component['isLink']('t.me/Lancast5')).toBe(true);
+    expect(component['isLink']('regular-text')).toBe(false);
+  });
+
+  it('should format link urls properly', () => {
+    expect(component['getLinkUrl']('https://github.com/lancastmx')).toBe('https://github.com/lancastmx');
+    expect(component['getLinkUrl']('t.me/Lancast5')).toBe('https://t.me/Lancast5');
+  });
 });
