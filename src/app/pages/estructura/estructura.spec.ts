@@ -75,6 +75,14 @@ describe('Estructura Component', () => {
     expect(segments[4]).toEqual({ type: 'text', content: '.' });
   });
 
+  it('debe tener el telegramUrl configurado en los organos correspondientes', () => {
+    const jalisco = component['organizaciones']().find(o => o.id === 'est-jalisco');
+    expect(jalisco?.telegramUrl).toBe('https://t.me/+iXwYSCyHyHw1NTgx');
+
+    const cdmx = component['organizaciones']().find(o => o.id === 'est-cdmx');
+    expect(cdmx?.telegramUrl).toBe('https://t.me/proyectomigalacdmx');
+  });
+
   it('debe retornar texto plano si no hay etiquetas XML', () => {
     const text = 'Texto normal sin etiquetas.';
     const segments = component['parseXmlDescription'](text);

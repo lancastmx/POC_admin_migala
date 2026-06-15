@@ -53,4 +53,8 @@ export interface Organizacion {
   // Fundamentos Legales
   /** Artículos del reglamento nacional que facultan a este órgano */
   articulosReferencia: string[];
+
+  // Comunicación
+  /** Enlace oficial al canal o grupo de Telegram de este órgano */
+  telegramUrl?: string;
 }

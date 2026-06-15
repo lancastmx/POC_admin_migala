@@ -178,12 +178,26 @@
 
               <!-- Encabezado -->
               <div class="border-b border-neutral-800/80 pb-6 mb-6">
-                <h2 class="text-xl md:text-2xl font-extrabold text-white mb-2 tracking-tight leading-snug">
-                  {{ org.nombre }}
-                </h2>
-                @if (org.siglas) {
-                  <p class="text-xs font-mono text-cyan-400">Siglas oficiales: {{ org.siglas }}</p>
-                }
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                  <div class="min-w-0">
+                    <h2 class="text-xl md:text-2xl font-extrabold text-white mb-2 tracking-tight leading-snug break-words">
+                      {{ org.nombre }}
+                    </h2>
+                    @if (org.siglas) {
+                      <p class="text-xs font-mono text-cyan-400">Siglas oficiales: {{ org.siglas }}</p>
+                    }
+                  </div>
+                  
+                  @if (org.telegramUrl) {
+                    <a [href]="org.telegramUrl" target="_blank"
+                       class="bg-[#229ED9] hover:bg-[#1c80b0] text-white text-[11px] font-bold py-2.5 px-4 rounded-xl transition duration-200 cursor-pointer shadow-xs inline-flex items-center gap-1.5 shrink-0 self-start">
+                      <svg class="w-3.5 h-3.5 fill-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-1-.65-.35-1 .22-1.6.15-.15 2.76-2.53 2.81-2.75.01-.03.01-.1-.04-.15-.05-.05-.12-.03-.18-.02-.07.02-1.28.82-3.61 2.39-.34.23-.65.35-.93.34-.3-.01-.89-.17-1.32-.31-.53-.18-.95-.27-.91-.57.02-.16.24-.32.66-.49 2.58-1.12 4.3-1.86 5.16-2.22 2.46-1.02 2.97-1.2 3.3-.18-.1-.1-.08-.18-.08-.18.06-.06.07-.11.08-.15.01-.04-.01-.06-.01-.06s.02-.02-.04-.02z"/>
+                      </svg>
+                      <span>Unirse a Telegram</span>
+                    </a>
+                  }
+                </div>
               </div>
 
               <!-- Descripción con parseado XML interactivo -->
