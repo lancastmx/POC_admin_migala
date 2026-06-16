@@ -63,7 +63,7 @@ export const PROPUESTA_ITEMS: PropuestaItem[] = [
     seccion: 'Descripción',
     nombre: 'Descripción de la propuesta',
     icon: '📝',
-    detalle: 'Un boilerplate modular en Angular 21+, Tailwind CSS v4 y Signals listo para desplegar. Permite a cualquier Comisión Estatal o Temática crear y autoadministrar su propio portal de transparencia simplemente editando archivos JSON/TypeScript de configuración.',
+    detalle: 'Es una plantilla digital completamente armada —como un "molde" de página web— que permite a cualquier Comisión Estatal, Comisión Temática o Grupo Operativo tener su propio portal de transparencia en internet, sin necesidad de saber programar. Cada comisión solo escribe sus datos (quiénes la integran, sus documentos, su reglamento interno, actividades) en unos formatos sencillos, y la página se genera sola. Cualquier afiliado o ciudadano puede consultarla desde su celular o computadora.',
     fundamento: 'Art. 159, fracc. 3',
     detallesExtra: [
       { key: 'Tecnologías Clave', val: 'Angular 21+ (standalone), Tailwind CSS v4, Signals, Bun, Vitest' },
