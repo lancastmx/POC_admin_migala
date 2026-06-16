@@ -1,18 +1,32 @@
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  page-001
+ * title:  HOME — Página de inicio / landing
+ * type:   page
+ * tags:   [angular, page, home, landing, banner]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ */
 import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { PageBanner } from '../../shared/page-banner/page-banner';
 import { SeoService } from '../../core/services/seo.service';
+import { SEO_DATA } from '../../core/data/seo.data';
 
 @Component({
   selector: 'migala-home',
-  imports: [PageBanner],
+  imports: [RouterLink, PageBanner],
   templateUrl: './home.html'
 })
 export class Home {
   constructor() {
+    const seo = SEO_DATA['home'];
     inject(SeoService).generateTags({
-      title: 'Inicio - Transparencia Proyecto Migala',
-      description: 'Portal oficial de transparencia y administración del Proyecto Migala. Consulta nuestros reglamentos, manifiesto y actas de comisiones de forma abierta y voluntaria.',
-      url: 'https://poc-admin-migala.web.app'
+      title: seo.title,
+      description: seo.description,
+      url: seo.url
     });
   }
 }

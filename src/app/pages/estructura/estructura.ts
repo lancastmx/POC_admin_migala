@@ -1,3 +1,14 @@
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  page-006
+ * title:  ESTRUCTURA — Explorador visual de la estructura organizacional
+ * type:   page
+ * tags:   [angular, page, structure, organization, visualization, filter]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ */
 import { Component, computed, signal, inject, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -7,6 +18,7 @@ import { ORGANIZACIONES_DATA } from '../../core/data/organizaciones.data';
 import { PROCEDIMIENTOS_DATA } from '../../core/data/procedimientos.data';
 import { Organizacion, EjeEstructural } from '../../core/models/organizacion';
 import { Procedimiento } from '../../core/models/procedimiento';
+import { VALID_EJES_ESTRUCTURALES, EJE_ESTRUCTURA_CLASSES, EJE_ESTRUCTURA_DEFAULT_CLASS } from '../../core/constants/estructura.constants';
 
 export interface TextSegment {
   type: 'text' | 'rol' | 'organo' | 'documento' | 'requisito';
@@ -31,6 +43,10 @@ export class Estructura implements OnInit, OnDestroy {
   protected readonly organizaciones = signal<Organizacion[]>(ORGANIZACIONES_DATA);
   protected readonly procedimientos = signal<Procedimiento[]>(PROCEDIMIENTOS_DATA);
 
+  // ─── Constantes expuestas al template ─────────
+  protected readonly ejeEstructuraClasses = EJE_ESTRUCTURA_CLASSES;
+  protected readonly ejeEstructuraDefaultClass = EJE_ESTRUCTURA_DEFAULT_CLASS;
+
   // ─── Filtros y Selección ─────────────────────
   protected readonly activeTab = signal<'organigrama' | 'procedimientos'>('organigrama');
   protected readonly searchQuery = signal('');
@@ -45,7 +61,7 @@ export class Estructura implements OnInit, OnDestroy {
     this.routeSub = this.route.queryParams.subscribe(params => {
       if (params['eje']) {
         const val = params['eje'];
-        if (val === 'operativo' || val === 'territorial' || val === 'ideologico' || val === 'transversal' || val === 'todos') {
+        if (VALID_EJES_ESTRUCTURALES.includes(val as EjeEstructural | 'todos')) {
           this.ejeFilter.set(val as EjeEstructural | 'todos');
         }
       }

@@ -1,3 +1,14 @@
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  data-009
+ * title:  ARCHIVOS_DATA — Catálogo de documentos del fondo documental
+ * type:   data
+ * tags:   [angular, data, documents, archive]
+ * author: lancast
+ * created: 2026-06-15
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ */
 import { ArchivoDocumento } from '../models/archivo';
 
 export const ARCHIVOS_DATA: ArchivoDocumento[] = [
@@ -456,3 +467,35 @@ export const ARCHIVOS_DATA: ArchivoDocumento[] = [
     peso: 'Google Calendar'
   }
 ];
+
+// ─── Auditoría de completitud ─────────────────────────────────
+
+export interface ReporteArchivo {
+  totalDocumentos: number;
+  porCategoria: Record<string, number>;
+  porFormato: Record<string, number>;
+  porEje: Record<string, number>;
+}
+
+/**
+ * Genera un reporte de los documentos del archivo: cuántos hay,
+ * cómo se distribuyen por categoría, formato y eje.
+ */
+export function auditArchivo(): ReporteArchivo {
+  const porCategoria: Record<string, number> = {};
+  const porFormato: Record<string, number> = {};
+  const porEje: Record<string, number> = {};
+
+  for (const doc of ARCHIVOS_DATA) {
+    porCategoria[doc.categoria] = (porCategoria[doc.categoria] ?? 0) + 1;
+    porFormato[doc.formato] = (porFormato[doc.formato] ?? 0) + 1;
+    porEje[doc.eje] = (porEje[doc.eje] ?? 0) + 1;
+  }
+
+  return {
+    totalDocumentos: ARCHIVOS_DATA.length,
+    porCategoria,
+    porFormato,
+    porEje,
+  };
+}

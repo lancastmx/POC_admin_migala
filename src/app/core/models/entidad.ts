@@ -1,6 +1,16 @@
-/** ───────────────────────────────────────────────
- *  Modelo de datos geopolíticos: País, Estado, Municipio
- *  ─────────────────────────────────────────────── */
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  model-001
+ * title:  ENTIDAD — Modelo geopolítico: País, Estado, Municipio
+ * type:   model
+ * tags:   [angular, model, geography, states, municipalities, mexico]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ *
+ * Modelo de datos geopolíticos: País, Estado, Municipio
+ */
 
 /** Regiones geográficas de México */
 export type Region =

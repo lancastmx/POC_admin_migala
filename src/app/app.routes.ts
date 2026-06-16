@@ -1,3 +1,14 @@
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  root-003
+ * title:  APP_ROUTES — Definición de rutas de la aplicación
+ * type:   root
+ * tags:   [angular, routes, navigation, lazy-loading]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ */
 import { Routes } from '@angular/router';
 import { Home } from './pages/home/home';
 import { Manifiesto } from './pages/manifiesto/manifiesto';

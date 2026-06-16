@@ -1,3 +1,14 @@
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  data-010
+ * title:  PROCEDIMIENTOS_DATA — Guías y trámites formales
+ * type:   data
+ * tags:   [angular, data, procedures, workflows, guides]
+ * author: lancast
+ * created: 2026-06-15
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ */
 import { Procedimiento } from '../models/procedimiento';
 
 export const PROCEDIMIENTOS_DATA: Procedimiento[] = [

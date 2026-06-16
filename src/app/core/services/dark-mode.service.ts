@@ -1,3 +1,14 @@
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  svc-001
+ * title:  DARK_MODE_SERVICE — Gestión de modo oscuro con persistencia
+ * type:   service
+ * tags:   [angular, service, dark-mode, theme, localStorage]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ */
 import { Injectable, signal } from '@angular/core';
 
 const STORAGE_KEY = 'darkMode';

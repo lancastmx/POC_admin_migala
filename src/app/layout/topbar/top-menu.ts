@@ -1,3 +1,14 @@
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  data-004
+ * title:  TOP_MENU — Elementos del menú de navegación principal
+ * type:   data
+ * tags:   [angular, data, navigation, menu]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ */
 import { MenuItem } from './menu-item';
 
 export const TOP_MENU: MenuItem[] = [

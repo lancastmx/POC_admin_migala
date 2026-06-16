@@ -1,3 +1,14 @@
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  test-001
+ * title:  USUARIO.SPEC — Tests de afiliación y perfil de usuario
+ * type:   test
+ * tags:   [angular, test, user, affiliation, vitest]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ */
 import { describe, it, expect } from 'vitest';
 import { cumpleRequisitosAfiliacion, UsuarioPerfil } from './usuario';
 

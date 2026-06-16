@@ -1,0 +1,233 @@
+<aside class="space-y-6 lg:col-span-1">
+  <!-- Filtro de Categoría -->
+  <div class="bg-surface border border-default rounded-2xl p-5 shadow-xs">
+    <h3 class="text-sm font-bold text-default uppercase tracking-wider mb-4 border-b border-default pb-2">
+      Categorías
+    </h3>
+    <ul class="space-y-1">
+      @for (cat of categorias; track cat.id) {
+        <li>
+          <button
+            (click)="selectCategory(cat.id)"
+            class="w-full text-left px-3 py-2.5 rounded-xl text-xs font-medium transition duration-200 flex items-center justify-between cursor-pointer"
+            [class.bg-migala]="selectedCategory() === cat.id"
+            [class.text-white]="selectedCategory() === cat.id"
+            [class.text-sub]="selectedCategory() !== cat.id"
+            [class.hover:bg-brand-soft]="selectedCategory() !== cat.id"
+            [class.hover:text-migala]="selectedCategory() !== cat.id">
+            <span class="flex items-center space-x-2.5">
+              <span class="text-sm select-none">{{ cat.icon }}</span>
+              <span>{{ cat.label }}</span>
+            </span>
+            @if (selectedCategory() === cat.id) {
+              <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+            }
+          </button>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <!-- Filtro de Ejes y Comisiones -->
+  <div class="bg-surface border border-default rounded-2xl p-5 shadow-xs">
+    <h3 class="text-sm font-bold text-default uppercase tracking-wider mb-4 border-b border-default pb-2">
+      Ámbitos y Comisiones
+    </h3>
+    <ul class="space-y-3 text-xs font-medium text-sub">
+      
+      <!-- Operativo -->
+      <li class="space-y-1">
+        <button
+          (click)="selectEjeSolo('operativo')"
+          class="w-full text-left px-2 py-1.5 rounded-lg flex items-center justify-between font-bold hover:bg-brand-soft hover:text-migala transition cursor-pointer"
+          [class.text-migala]="selectedEje() === 'operativo' && selectedSubseccion() === 'todos'">
+          <span>{{ ejeAccordionLabels['operativo'].label }}</span>
+          @if (selectedEje() === 'operativo' && selectedSubseccion() === 'todos') {
+            <span class="w-1.5 h-1.5 rounded-full bg-migala"></span>
+          }
+        </button>
+        <div class="pl-3.5 border-l border-default space-y-0.5 mt-0.5">
+          @for (portal of portalesOperativos; track portal.acronimo) {
+            <button
+              (click)="selectSubseccion(portal.acronimo, 'operativo')"
+              class="w-full text-left px-2 py-1 rounded-md text-[11px] text-muted hover:bg-brand-soft/60 hover:text-migala transition flex items-center justify-between cursor-pointer"
+              [class.text-migala]="selectedSubseccion() === portal.acronimo"
+              [class.font-bold]="selectedSubseccion() === portal.acronimo">
+              <span>{{ portal.seccion }}</span>
+              <span class="text-[9px] font-mono opacity-60">{{ portal.acronimo }}</span>
+            </button>
+          }
+        </div>
+      </li>
+
+      <!-- Temático -->
+      <li class="space-y-1">
+        <button
+          (click)="selectEjeSolo('tematico')"
+          class="w-full text-left px-2 py-1.5 rounded-lg flex items-center justify-between font-bold hover:bg-brand-soft hover:text-migala transition cursor-pointer"
+          [class.text-migala]="selectedEje() === 'tematico' && selectedSubseccion() === 'todos'">
+          <span>{{ ejeAccordionLabels['tematico'].label }}</span>
+          @if (selectedEje() === 'tematico' && selectedSubseccion() === 'todos') {
+            <span class="w-1.5 h-1.5 rounded-full bg-migala"></span>
+          }
+        </button>
+        <div class="pl-3.5 border-l border-default space-y-0.5 mt-0.5">
+          @for (portal of portalesTematicos; track portal.acronimo) {
+            <button
+              (click)="selectSubseccion(portal.acronimo, 'tematico')"
+              class="w-full text-left px-2 py-1 rounded-md text-[11px] text-muted hover:bg-brand-soft/60 hover:text-migala transition flex items-center justify-between cursor-pointer"
+              [class.text-migala]="selectedSubseccion() === portal.acronimo"
+              [class.font-bold]="selectedSubseccion() === portal.acronimo">
+              <span>{{ portal.seccion }}</span>
+              <span class="text-[9px] font-mono opacity-60">{{ portal.acronimo }}</span>
+            </button>
+          }
+        </div>
+      </li>
+
+      <!-- Transversal -->
+      <li class="space-y-1">
+        <button
+          (click)="selectEjeSolo('transversal')"
+          class="w-full text-left px-2 py-1.5 rounded-lg flex items-center justify-between font-bold hover:bg-brand-soft hover:text-migala transition cursor-pointer"
+          [class.text-migala]="selectedEje() === 'transversal' && selectedSubseccion() === 'todos'">
+          <span>{{ ejeAccordionLabels['transversal'].label }}</span>
+          @if (selectedEje() === 'transversal' && selectedSubseccion() === 'todos') {
+            <span class="w-1.5 h-1.5 rounded-full bg-migala"></span>
+          }
+        </button>
+        <div class="pl-3.5 border-l border-default space-y-0.5 mt-0.5">
+          @for (portal of portalesTransversales; track portal.acronimo) {
+            <button
+              (click)="selectSubseccion(portal.acronimo, 'transversal')"
+              class="w-full text-left px-2 py-1 rounded-md text-[11px] text-muted hover:bg-brand-soft/60 hover:text-migala transition flex items-center justify-between cursor-pointer"
+              [class.text-migala]="selectedSubseccion() === portal.acronimo"
+              [class.font-bold]="selectedSubseccion() === portal.acronimo">
+              <span>{{ portal.seccion }}</span>
+              <span class="text-[9px] font-mono opacity-60">{{ portal.acronimo }}</span>
+            </button>
+          }
+        </div>
+      </li>
+
+      <!-- Territorial -->
+      <li class="space-y-1">
+        <button
+          (click)="selectEjeSolo('territorial')"
+          class="w-full text-left px-2 py-1.5 rounded-lg flex items-center justify-between font-bold hover:bg-brand-soft hover:text-migala transition cursor-pointer"
+          [class.text-migala]="selectedEje() === 'territorial' && selectedSubseccion() === 'todos'">
+          <span>{{ ejeAccordionLabels['territorial'].label }}</span>
+          @if (selectedEje() === 'territorial' && selectedSubseccion() === 'todos') {
+            <span class="w-1.5 h-1.5 rounded-full bg-migala"></span>
+          }
+        </button>
+        <div class="pl-3.5 border-l border-default space-y-0.5 mt-0.5">
+          @for (portal of portalesTerritoriales; track portal.acronimo) {
+            <button
+              (click)="selectSubseccion(portal.acronimo, 'territorial')"
+              class="w-full text-left px-2 py-1 rounded-md text-[11px] text-muted hover:bg-brand-soft/60 hover:text-migala transition flex items-center justify-between cursor-pointer"
+              [class.text-migala]="selectedSubseccion() === portal.acronimo"
+              [class.font-bold]="selectedSubseccion() === portal.acronimo">
+              <span>{{ portal.seccion }}</span>
+              <span class="text-[9px] font-mono opacity-60">{{ portal.acronimo }}</span>
+            </button>
+          }
+        </div>
+      </li>
+
+      <!-- Estatal -->
+      <li class="space-y-1">
+        <button
+          (click)="estadosSubmenuExpanded.set(!estadosSubmenuExpanded())"
+          class="w-full text-left px-2 py-1.5 rounded-lg flex items-center justify-between font-bold hover:bg-brand-soft hover:text-migala transition cursor-pointer"
+          [class.text-migala]="selectedEje() === 'estatal'">
+          <span class="flex items-center gap-1.5">
+            <span>{{ ejeAccordionLabels['estatal'].label }}</span>
+            <span class="text-[10px] text-muted font-normal">({{ estados.length }} estados)</span>
+          </span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transition-transform duration-200 text-muted"
+               [class.rotate-90]="estadosSubmenuExpanded()"
+               fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+        
+        @if (estadosSubmenuExpanded()) {
+          <div class="pl-3.5 border-l border-default max-h-40 overflow-y-auto space-y-0.5 mt-0.5 scrollbar-thin">
+            @for (state of estados; track state.id) {
+              <button
+                (click)="selectEstado(state.id)"
+                class="w-full text-left px-2 py-1 rounded-md text-[11px] text-muted hover:bg-brand-soft/60 hover:text-migala transition flex items-center justify-between cursor-pointer"
+                [class.text-migala]="selectedEstado() === state.id"
+                [class.font-bold]="selectedEstado() === state.id">
+                <span>{{ state.nombre }}</span>
+                <span class="text-[9px] font-mono opacity-60">{{ state.abreviatura }}</span>
+              </button>
+            }
+          </div>
+        }
+      </li>
+
+    </ul>
+  </div>
+
+  <!-- Filtros Secundarios -->
+  <div class="bg-surface border border-default rounded-2xl p-5 shadow-xs space-y-4">
+    <h3 class="text-sm font-bold text-default uppercase tracking-wider border-b border-default pb-2">
+      Filtrar por
+    </h3>
+    
+    <!-- Filtro por Ámbito / Eje -->
+    <div class="space-y-1.5">
+      <label for="filter-eje" class="text-xs font-semibold text-muted">Ámbito de Gestión</label>
+      <select
+        id="filter-eje"
+        [ngModel]="selectedEje()"
+        (ngModelChange)="selectedEje.set($event)"
+        class="w-full text-xs rounded-xl border bg-surface border-default text-sub focus:outline-none focus:ring-2 focus:ring-migala/40 p-2.5">
+        @for (e of ejes; track e.id) {
+          <option [value]="e.id">{{ e.label }}</option>
+        }
+      </select>
+    </div>
+
+    <!-- Filtro por Estado (solo visible si eje es Estatal) -->
+    @if (selectedEje() === 'estatal') {
+      <div class="space-y-1.5 animate-fade-in">
+        <label for="filter-estado" class="text-xs font-semibold text-muted">Comisión Estatal</label>
+        <select
+          id="filter-estado"
+          [ngModel]="selectedEstado()"
+          (ngModelChange)="selectedEstado.set($event)"
+          class="w-full text-xs rounded-xl border bg-surface border-default text-sub focus:outline-none focus:ring-2 focus:ring-migala/40 p-2.5">
+          <option value="todos">Todos los estados</option>
+          @for (state of estados; track state.id) {
+            <option [value]="state.id">{{ state.nombre }}</option>
+          }
+        </select>
+      </div>
+    }
+
+    <!-- Filtro por Formato -->
+    <div class="space-y-1.5">
+      <label for="filter-formato" class="text-xs font-semibold text-muted">Tipo de Formato</label>
+      <select
+        id="filter-formato"
+        [ngModel]="selectedFormat()"
+        (ngModelChange)="selectedFormat.set($event)"
+        class="w-full text-xs rounded-xl border bg-surface border-default text-sub focus:outline-none focus:ring-2 focus:ring-migala/40 p-2.5">
+        @for (fmt of formatos; track fmt.id) {
+          <option [value]="fmt.id">{{ fmt.label }}</option>
+        }
+      </select>
+    </div>
+
+    <!-- Restablecer Filtros -->
+    <button
+      (click)="clearFilters()"
+      class="w-full mt-2 bg-neutral-500/10 hover:bg-neutral-500/20 text-sub text-xs font-bold py-2 px-4 rounded-xl transition duration-200 flex items-center justify-center space-x-1 cursor-pointer">
+      <span>🧹</span>
+      <span>Limpiar filtros</span>
+    </button>
+  </div>
+</aside>

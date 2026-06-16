@@ -1,7 +1,17 @@
-/** ───────────────────────────────────────────────
- *  Modelo de datos para Procedimientos / Trámites Administrativos
- *  Permite estructurar flujos de trabajo paso a paso basados en el reglamento.
- *  ─────────────────────────────────────────────── */
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  model-005
+ * title:  PROCEDIMIENTO — Trámites administrativos y flujos de trabajo
+ * type:   model
+ * tags:   [angular, model, procedures, workflows, regulations]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ *
+ * Modelo de datos para Procedimientos / Trámites Administrativos.
+ * Permite estructurar flujos de trabajo paso a paso basados en el reglamento.
+ */
 
 export interface PasoProcedimiento {
   /** Orden correlativo del paso: 1, 2, 3... */

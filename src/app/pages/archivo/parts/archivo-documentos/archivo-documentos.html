@@ -1,0 +1,72 @@
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            @for (doc of filteredDocumentos; track doc.id) {
+              <div class="bg-surface border border-default rounded-2xl p-5 hover:border-migala/40 hover:bg-brand-soft/20 transition-all duration-300 flex flex-col justify-between shadow-2xs group">
+                <div class="space-y-4">
+                  
+                  <!-- Cabecera de la Tarjeta (Formatos y Ámbitos) -->
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex items-center space-x-2">
+                      <span class="text-xl select-none">{{ getFormatIcon(doc.formato) }}</span>
+                      <span class="px-2.5 py-0.5 text-[10px] font-semibold border rounded-full uppercase tracking-wider {{ getFormatBadgeClass(doc.formato) }}">
+                        {{ getFormatBadgeLabel(doc.formato) }}
+                      </span>
+                    </div>
+                    <span class="bg-neutral-500/10 text-default border border-default text-[10px] font-bold px-2 py-0.5 rounded-md uppercase">
+                      {{ doc.eje }}
+                    </span>
+                  </div>
+
+                  <!-- Título y Descripción -->
+                  <div class="space-y-1.5">
+                    <h4 class="text-sm font-bold text-default leading-snug group-hover:text-migala transition-colors">
+                      {{ doc.nombre }}
+                    </h4>
+                    <p class="text-xs text-muted leading-relaxed line-clamp-3 text-justify font-light">
+                      {{ doc.descripcion }}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Pie de la Tarjeta (Fecha, Peso y Botón) -->
+                <div class="mt-5 pt-4 border-t border-default flex items-center justify-between gap-4">
+                  <div class="text-[10px] text-faint flex flex-col">
+                    <span class="flex items-center gap-1">📅 {{ doc.fecha }}</span>
+                    @if (doc.peso) {
+                      <span class="font-mono mt-0.5">💾 {{ doc.peso }}</span>
+                    } @else {
+                      <span class="font-mono mt-0.5 text-faint">⏳ Pendiente</span>
+                    }
+                  </div>
+
+                  @if (doc.fileUrl && !isMockUrl(doc.fileUrl)) {
+                    <a
+                      [href]="doc.fileUrl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="bg-migala/10 hover:bg-migala hover:text-white text-migala text-xs font-extrabold px-4 py-2 rounded-lg transition duration-200 shadow-2xs cursor-pointer flex items-center gap-1.5">
+                      @let act = getFormatAction(doc.formato);
+                      <span>{{ act.label }}</span>
+                      <span>{{ act.icon }}</span>
+                    </a>
+                  } @else {
+                    <span class="bg-neutral-500/10 text-faint text-xs font-extrabold px-4 py-2 rounded-lg flex items-center gap-1.5">
+                      ⏳ Pendiente
+                    </span>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+          <!-- ESTADO VACÍO -->
+          <div class="bg-surface border border-default rounded-3xl p-12 text-center shadow-xs flex flex-col items-center justify-center min-h-[300px]">
+            <span class="text-5xl mb-4 block select-none">🔎</span>
+            <h4 class="text-base font-bold text-default">No se encontraron documentos</h4>
+            <p class="text-dim text-xs mt-2 max-w-sm">
+              Intenta cambiar tus términos de búsqueda o desactivar algunos de los filtros seleccionados para encontrar lo que buscas.
+            </p>
+            <button
+              (click)="clearFilters()"
+              class="mt-6 bg-migala hover:bg-migala-dark text-white text-xs font-bold py-2.5 px-6 rounded-xl transition duration-200 cursor-pointer shadow-xs">
+              Restablecer todos los filtros
+            </button>
+          </div>

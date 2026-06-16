@@ -1,0 +1,594 @@
+<!-- SECCIÓN DE INICIO / INFORMACIÓN DEL ARCHIVO -->
+<div class="bg-surface border border-default rounded-3xl p-6 md:p-8 space-y-8 shadow-2xs animate-fade-in text-default">
+  
+  <!-- Header Principal -->
+  <div class="space-y-4">
+    <div class="inline-flex items-center space-x-2 bg-migala/10 text-migala border border-migala/20 px-3.5 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
+      🏛️ Archivo de Proyecto Migala A.C.
+    </div>
+    <h2 class="text-xl md:text-3xl font-extrabold tracking-tight text-default">
+      Proyecto Migala Nacional
+    </h2>
+    <p class="text-sub text-sm leading-relaxed text-justify font-light">
+      El fondo documental del acervo de Proyecto Migala A.C. se divide entre los Ejes estructurales: 
+      <strong>Operativo</strong>, <strong>Temático</strong>, <strong>Transversal</strong>, <strong>Territorial</strong> y <strong>Estatal</strong> generando a su interior las series documentales enfocadas en los grupos y comisiones, las cuales pueden ser consultados en 
+      <button (click)="selectCategory('todos')" class="text-migala hover:text-migala-dark hover:underline font-bold bg-transparent border-none p-0 inline cursor-pointer text-sm">esta liga</button>.
+    </p>
+  </div>
+
+  <!-- Tarjeta de Bienvenida -->
+  <div class="bg-brand-soft border border-brand-soft/80 rounded-2xl p-5 md:p-6 space-y-4 shadow-3xs">
+    <p class="text-sub text-sm leading-relaxed text-justify font-light">
+      Bienvenido al fondo documental de <strong>Proyecto Migala A.C.</strong>, una iniciativa de monitoreo que analiza y evalúa los portales de transparencia de los <strong>5 ejes</strong> del Proyecto: <strong>Operativo</strong>, <strong>Temático</strong>, <strong>Transversal, Territorial</strong> y <strong>Estatal</strong>. El objetivo es promover la rendición de cuentas y facilitar el acceso a la información de interés público generada por los grupos y comisiones.
+    </p>
+  </div>
+
+  <!-- Niveles de Archivo -->
+  <div class="space-y-6">
+    <div class="border-b border-default pb-3">
+      <h3 class="text-base font-bold text-default tracking-tight">
+        Niveles de Archivo
+      </h3>
+      <p class="text-muted text-xs font-light mt-1">
+        En Proyecto Migala se clasifican los portales de transparencia en cinco niveles según la calidad y organización de la información disponible.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-4">
+      @for (nivel of nivelesArchivo; track nivel.id) {
+        <div class="border border-default {{ nivel.bgClass }} rounded-2xl p-5 flex flex-col md:flex-row gap-4 items-start {{ nivel.borderColor }} transition duration-200">
+          <span class="text-2xl p-2 {{ nivel.bgClass.replace('/5', '/10') }} rounded-xl select-none">{{ nivel.icon }}</span>
+          <div class="space-y-1">
+            <h4 class="text-sm font-bold text-default">{{ nivel.nombre }}</h4>
+            <p class="text-xs text-muted leading-relaxed font-light text-justify [&>strong]:text-default" [innerHTML]="nivel.descripcion">
+            </p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Portales de Transparencia Accordion -->
+  <div class="space-y-4 pt-8 border-t border-default">
+    <div class="flex items-center justify-between flex-wrap gap-4">
+      <div>
+        <h3 class="text-base font-bold text-default tracking-tight">
+          Portales de Transparencia
+        </h3>
+        <p class="text-muted text-xs font-light mt-0.5">
+          Haz clic en los ejes para consultar el nivel de archivo de cada grupo y comisión.
+        </p>
+      </div>
+      
+      <!-- Selector de modo (Grid / Tabla) -->
+      <div class="inline-flex bg-sub border border-default rounded-xl p-1 shadow-2xs">
+        <button
+          (click)="viewMode.set('portales')"
+          class="flex items-center space-x-1 px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition duration-150"
+          [class.bg-migala]="viewMode() === 'portales'"
+          [class.text-white]="viewMode() === 'portales'"
+          [class.text-sub]="viewMode() !== 'portales'"
+          [class.hover:bg-brand-soft]="viewMode() !== 'portales'">
+          <span class="text-sm select-none">⚙️</span>
+          <span>Portales</span>
+        </button>
+        <button
+          (click)="viewMode.set('tabla')"
+          class="flex items-center space-x-1 px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition duration-150"
+          [class.bg-migala]="viewMode() === 'tabla'"
+          [class.text-white]="viewMode() === 'tabla'"
+          [class.text-sub]="viewMode() !== 'tabla'"
+          [class.hover:bg-brand-soft]="viewMode() !== 'tabla'">
+          <span class="text-sm select-none">📋</span>
+          <span>Tabla</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Acordeón de Ejes -->
+    <div class="space-y-3">
+      
+      <!-- 1. OPERATIVO -->
+      <div class="border border-default rounded-2xl overflow-hidden bg-surface shadow-2xs">
+        <button
+          (click)="toggleEje('operativo')"
+          class="w-full bg-neutral-500/5 hover:bg-neutral-500/10 px-5 py-3.5 flex items-center justify-between font-bold text-xs sm:text-sm tracking-wide text-default transition cursor-pointer">
+          <div class="flex items-center space-x-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-2xs"></span>
+            <span class="uppercase">{{ ejeAccordionLabels['operativo'].uppercase }}</span>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 text-muted"
+               [class.rotate-90]="expandedEjes().operativo"
+               fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+        
+        @if (expandedEjes().operativo) {
+          <div class="p-5 border-t border-default bg-surface/50 animate-fade-in">
+            @if (viewMode() === 'portales') {
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                @for (portal of portalesOperativos; track portal.acronimo) {
+                  <div (click)="selectSubseccionFromPortal(portal.acronimo, 'operativo')" 
+                       class="border border-default bg-surface rounded-xl p-4 hover:border-migala hover:shadow-sm hover:scale-[1.02] cursor-pointer transition-all duration-200 active:scale-[0.98] flex flex-col justify-between space-y-3 shadow-3xs">
+                    <div class="flex items-center justify-between">
+                      <span class="text-xl select-none">{{ portal.logoIcon }}</span>
+                      <span class="text-[9px] font-mono font-bold text-faint bg-neutral-500/5 px-1.5 py-0.5 rounded">{{ portal.acronimo }}</span>
+                    </div>
+                    <h5 class="text-xs font-bold text-default line-clamp-1">{{ portal.seccion }}</h5>
+                    <div class="pt-1 mt-2 flex flex-wrap items-center justify-between gap-1 border-t border-default/50 pt-2">
+                      <span class="px-2.5 py-0.5 text-[9px] font-bold rounded-full border {{ getNivelBadgeClass(portal.nivel) }}">
+                        {{ portal.nivel }}
+                      </span>
+                      @if (portal.telegramUrl) {
+                        <a
+                          [href]="portal.telegramUrl"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          (click)="$event.stopPropagation()"
+                          title="Unirse a Telegram"
+                          class="text-migala hover:bg-migala hover:text-white bg-migala/10 text-[10px] font-bold px-2 py-0.5 rounded-md transition duration-200 flex items-center gap-1">
+                          <span>Telegram</span>
+                          <span>✈️</span>
+                        </a>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+            } @else {
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr class="border-b border-default text-muted font-bold">
+                      <th class="py-2.5">Sección</th>
+                      <th class="py-2.5">Eje</th>
+                      <th class="py-2.5">Acrónimo</th>
+                      <th class="py-2.5 text-center">Logo</th>
+                      <th class="py-2.5 text-center">Contacto</th>
+                      <th class="py-2.5 text-right">Archivo</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-default/40">
+                    @for (portal of portalesOperativos; track portal.acronimo) {
+                      <tr (click)="selectSubseccionFromPortal(portal.acronimo, 'operativo')" 
+                          class="hover:bg-brand-soft/40 hover:text-migala cursor-pointer transition duration-150">
+                        <td class="py-3 font-semibold text-default flex items-center gap-2">
+                          <span>{{ portal.logoIcon }}</span>
+                          <span>{{ portal.seccion }}</span>
+                        </td>
+                        <td class="py-3">
+                          <span class="{{ ejeBadgeClasses['operativo'] }} border text-[9px] font-bold px-2 py-0.5 rounded">{{ ejeAccordionLabels['operativo'].badge }}</span>
+                        </td>
+                        <td class="py-3 font-mono text-muted">{{ portal.acronimo }}</td>
+                        <td class="py-3 text-center text-sm">{{ portal.logoIcon }}</td>
+                        <td class="py-3 text-center">
+                          @if (portal.telegramUrl) {
+                            <a [href]="portal.telegramUrl" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()" title="Unirse a Telegram" class="inline-flex items-center justify-center text-migala hover:bg-migala hover:text-white bg-migala/10 text-[10px] px-1.5 py-0.5 rounded transition duration-200">
+                              ✈️
+                            </a>
+                          } @else {
+                            <span class="text-muted/30 text-[10px]">-</span>
+                          }
+                        </td>
+                        <td class="py-3 text-right">
+                          <span class="px-2 py-0.5 text-[9px] font-bold rounded-full border {{ getNivelBadgeClass(portal.nivel) }}">
+                            {{ portal.nivel }}
+                          </span>
+                        </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- 2. TEMÁTICO -->
+      <div class="border border-default rounded-2xl overflow-hidden bg-surface shadow-2xs">
+        <button
+          (click)="toggleEje('tematico')"
+          class="w-full bg-neutral-500/5 hover:bg-neutral-500/10 px-5 py-3.5 flex items-center justify-between font-bold text-xs sm:text-sm tracking-wide text-default transition cursor-pointer">
+          <div class="flex items-center space-x-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-600 shadow-2xs"></span>
+            <span class="uppercase">{{ ejeAccordionLabels['tematico'].uppercase }}</span>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 text-muted"
+               [class.rotate-90]="expandedEjes().tematico"
+               fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+        
+        @if (expandedEjes().tematico) {
+          <div class="p-5 border-t border-default bg-surface/50 animate-fade-in">
+            @if (viewMode() === 'portales') {
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                @for (portal of portalesTematicos; track portal.acronimo) {
+                  <div (click)="selectSubseccionFromPortal(portal.acronimo, 'tematico')" 
+                       class="border border-default bg-surface rounded-xl p-4 hover:border-migala hover:shadow-sm hover:scale-[1.02] cursor-pointer transition-all duration-200 active:scale-[0.98] flex flex-col justify-between space-y-3 shadow-3xs">
+                    <div class="flex items-center justify-between">
+                      <span class="text-xl select-none">{{ portal.logoIcon }}</span>
+                      <span class="text-[9px] font-mono font-bold text-faint bg-neutral-500/5 px-1.5 py-0.5 rounded">{{ portal.acronimo }}</span>
+                    </div>
+                    <h5 class="text-xs font-bold text-default line-clamp-1">{{ portal.seccion }}</h5>
+                    <div class="pt-1 mt-2 flex flex-wrap items-center justify-between gap-1 border-t border-default/50 pt-2">
+                      <span class="px-2.5 py-0.5 text-[9px] font-bold rounded-full border {{ getNivelBadgeClass(portal.nivel) }}">
+                        {{ portal.nivel }}
+                      </span>
+                      @if (portal.telegramUrl) {
+                        <a
+                          [href]="portal.telegramUrl"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          (click)="$event.stopPropagation()"
+                          title="Unirse a Telegram"
+                          class="text-migala hover:bg-migala hover:text-white bg-migala/10 text-[10px] font-bold px-2 py-0.5 rounded-md transition duration-200 flex items-center gap-1">
+                          <span>Telegram</span>
+                          <span>✈️</span>
+                        </a>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+            } @else {
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr class="border-b border-default text-muted font-bold">
+                      <th class="py-2.5">Sección</th>
+                      <th class="py-2.5">Eje</th>
+                      <th class="py-2.5">Acrónimo</th>
+                      <th class="py-2.5 text-center">Logo</th>
+                      <th class="py-2.5 text-center">Contacto</th>
+                      <th class="py-2.5 text-right">Archivo</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-default/40">
+                    @for (portal of portalesTematicos; track portal.acronimo) {
+                      <tr (click)="selectSubseccionFromPortal(portal.acronimo, 'tematico')" 
+                          class="hover:bg-brand-soft/40 hover:text-migala cursor-pointer transition duration-150">
+                        <td class="py-3 font-semibold text-default flex items-center gap-2">
+                          <span>{{ portal.logoIcon }}</span>
+                          <span>{{ portal.seccion }}</span>
+                        </td>
+                        <td class="py-3">
+                           <span class="{{ ejeBadgeClasses['tematico'] }} border text-[9px] font-bold px-2 py-0.5 rounded">{{ ejeAccordionLabels['tematico'].badge }}</span>
+                        </td>
+                        <td class="py-3 font-mono text-muted">{{ portal.acronimo }}</td>
+                        <td class="py-3 text-center text-sm">{{ portal.logoIcon }}</td>
+                        <td class="py-3 text-center">
+                          @if (portal.telegramUrl) {
+                            <a [href]="portal.telegramUrl" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()" title="Unirse a Telegram" class="inline-flex items-center justify-center text-migala hover:bg-migala hover:text-white bg-migala/10 text-[10px] px-1.5 py-0.5 rounded transition duration-200">
+                              ✈️
+                            </a>
+                          } @else {
+                            <span class="text-muted/30 text-[10px]">-</span>
+                          }
+                        </td>
+                        <td class="py-3 text-right">
+                          <span class="px-2 py-0.5 text-[9px] font-bold rounded-full border {{ getNivelBadgeClass(portal.nivel) }}">
+                            {{ portal.nivel }}
+                          </span>
+                        </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- 3. TRANSVERSAL -->
+      <div class="border border-default rounded-2xl overflow-hidden bg-surface shadow-2xs">
+        <button
+          (click)="toggleEje('transversal')"
+          class="w-full bg-neutral-500/5 hover:bg-neutral-500/10 px-5 py-3.5 flex items-center justify-between font-bold text-xs sm:text-sm tracking-wide text-default transition cursor-pointer">
+          <div class="flex items-center space-x-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-purple-500 shadow-2xs"></span>
+            <span class="uppercase">{{ ejeAccordionLabels['transversal'].uppercase }}</span>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 text-muted"
+               [class.rotate-90]="expandedEjes().transversal"
+               fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+        
+        @if (expandedEjes().transversal) {
+          <div class="p-5 border-t border-default bg-surface/50 animate-fade-in">
+            @if (viewMode() === 'portales') {
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                @for (portal of portalesTransversales; track portal.acronimo) {
+                  <div (click)="selectSubseccionFromPortal(portal.acronimo, 'transversal')" 
+                       class="border border-default bg-surface rounded-xl p-4 hover:border-migala hover:shadow-sm hover:scale-[1.02] cursor-pointer transition-all duration-200 active:scale-[0.98] flex flex-col justify-between space-y-3 shadow-3xs">
+                    <div class="flex items-center justify-between">
+                      <span class="text-xl select-none">{{ portal.logoIcon }}</span>
+                      <span class="text-[9px] font-mono font-bold text-faint bg-neutral-500/5 px-1.5 py-0.5 rounded">{{ portal.acronimo }}</span>
+                    </div>
+                    <h5 class="text-xs font-bold text-default line-clamp-1">{{ portal.seccion }}</h5>
+                    <div class="pt-1 mt-2 flex flex-wrap items-center justify-between gap-1 border-t border-default/50 pt-2">
+                      <span class="px-2.5 py-0.5 text-[9px] font-bold rounded-full border {{ getNivelBadgeClass(portal.nivel) }}">
+                        {{ portal.nivel }}
+                      </span>
+                      @if (portal.telegramUrl) {
+                        <a
+                          [href]="portal.telegramUrl"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          (click)="$event.stopPropagation()"
+                          title="Unirse a Telegram"
+                          class="text-migala hover:bg-migala hover:text-white bg-migala/10 text-[10px] font-bold px-2 py-0.5 rounded-md transition duration-200 flex items-center gap-1">
+                          <span>Telegram</span>
+                          <span>✈️</span>
+                        </a>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+            } @else {
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr class="border-b border-default text-muted font-bold">
+                      <th class="py-2.5">Sección</th>
+                      <th class="py-2.5">Eje</th>
+                      <th class="py-2.5">Acrónimo</th>
+                      <th class="py-2.5 text-center">Logo</th>
+                      <th class="py-2.5 text-right">Archivo</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-default/40">
+                    @for (portal of portalesTransversales; track portal.acronimo) {
+                      <tr (click)="selectSubseccionFromPortal(portal.acronimo, 'transversal')" 
+                          class="hover:bg-brand-soft/40 hover:text-migala cursor-pointer transition duration-150">
+                        <td class="py-3 font-semibold text-default flex items-center gap-2">
+                          <span>{{ portal.logoIcon }}</span>
+                          <span>{{ portal.seccion }}</span>
+                        </td>
+                        <td class="py-3">
+                          <span class="{{ ejeBadgeClasses['transversal'] }} border text-[9px] font-bold px-2 py-0.5 rounded">{{ ejeAccordionLabels['transversal'].badge }}</span>
+                        </td>
+                        <td class="py-3 font-mono text-muted">{{ portal.acronimo }}</td>
+                        <td class="py-3 text-center text-sm">{{ portal.logoIcon }}</td>
+                        <td class="py-3 text-center">
+                          @if (portal.telegramUrl) {
+                            <a [href]="portal.telegramUrl" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()" title="Unirse a Telegram" class="inline-flex items-center justify-center text-migala hover:bg-migala hover:text-white bg-migala/10 text-[10px] px-1.5 py-0.5 rounded transition duration-200">
+                              ✈️
+                            </a>
+                          } @else {
+                            <span class="text-muted/30 text-[10px]">-</span>
+                          }
+                        </td>
+                        <td class="py-3 text-right">
+                          <span class="px-2 py-0.5 text-[9px] font-bold rounded-full border {{ getNivelBadgeClass(portal.nivel) }}">
+                            {{ portal.nivel }}
+                          </span>
+                        </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- 4. TERRITORIAL -->
+      <div class="border border-default rounded-2xl overflow-hidden bg-surface shadow-2xs">
+        <button
+          (click)="toggleEje('territorial')"
+          class="w-full bg-neutral-500/5 hover:bg-neutral-500/10 px-5 py-3.5 flex items-center justify-between font-bold text-xs sm:text-sm tracking-wide text-default transition cursor-pointer">
+          <div class="flex items-center space-x-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-500 shadow-2xs"></span>
+            <span class="uppercase">{{ ejeAccordionLabels['territorial'].uppercase }}</span>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 text-muted"
+               [class.rotate-90]="expandedEjes().territorial"
+               fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+        
+        @if (expandedEjes().territorial) {
+          <div class="p-5 border-t border-default bg-surface/50 animate-fade-in">
+            @if (viewMode() === 'portales') {
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                @for (portal of portalesTerritoriales; track portal.acronimo) {
+                  <div (click)="selectSubseccionFromPortal(portal.acronimo, 'territorial')" 
+                       class="border border-default bg-surface rounded-xl p-4 hover:border-migala hover:shadow-sm hover:scale-[1.02] cursor-pointer transition-all duration-200 active:scale-[0.98] flex flex-col justify-between space-y-3 shadow-3xs">
+                    <div class="flex items-center justify-between">
+                      <span class="text-xl select-none">{{ portal.logoIcon }}</span>
+                      <span class="text-[9px] font-mono font-bold text-faint bg-neutral-500/5 px-1.5 py-0.5 rounded">{{ portal.acronimo }}</span>
+                    </div>
+                    <h5 class="text-xs font-bold text-default line-clamp-1">{{ portal.seccion }}</h5>
+                    <div class="pt-1 mt-2 flex flex-wrap items-center justify-between gap-1 border-t border-default/50 pt-2">
+                      <span class="px-2.5 py-0.5 text-[9px] font-bold rounded-full border {{ getNivelBadgeClass(portal.nivel) }}">
+                        {{ portal.nivel }}
+                      </span>
+                      @if (portal.telegramUrl) {
+                        <a
+                          [href]="portal.telegramUrl"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          (click)="$event.stopPropagation()"
+                          title="Unirse a Telegram"
+                          class="text-migala hover:bg-migala hover:text-white bg-migala/10 text-[10px] font-bold px-2 py-0.5 rounded-md transition duration-200 flex items-center gap-1">
+                          <span>Telegram</span>
+                          <span>✈️</span>
+                        </a>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+            } @else {
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr class="border-b border-default text-muted font-bold">
+                      <th class="py-2.5">Sección</th>
+                      <th class="py-2.5">Eje</th>
+                      <th class="py-2.5">Acrónimo</th>
+                      <th class="py-2.5 text-center">Logo</th>
+                      <th class="py-2.5 text-right">Archivo</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-default/40">
+                    @for (portal of portalesTerritoriales; track portal.acronimo) {
+                      <tr (click)="selectSubseccionFromPortal(portal.acronimo, 'territorial')" 
+                          class="hover:bg-brand-soft/40 hover:text-migala cursor-pointer transition duration-150">
+                        <td class="py-3 font-semibold text-default flex items-center gap-2">
+                          <span>{{ portal.logoIcon }}</span>
+                          <span>{{ portal.seccion }}</span>
+                        </td>
+                        <td class="py-3">
+                          <span class="{{ ejeBadgeClasses['territorial'] }} border text-[9px] font-bold px-2 py-0.5 rounded">{{ ejeAccordionLabels['territorial'].badge }}</span>
+                        </td>
+                        <td class="py-3 font-mono text-muted">{{ portal.acronimo }}</td>
+                        <td class="py-3 text-center text-sm">{{ portal.logoIcon }}</td>
+                        <td class="py-3 text-center">
+                          @if (portal.telegramUrl) {
+                            <a [href]="portal.telegramUrl" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()" title="Unirse a Telegram" class="inline-flex items-center justify-center text-migala hover:bg-migala hover:text-white bg-migala/10 text-[10px] px-1.5 py-0.5 rounded transition duration-200">
+                              ✈️
+                            </a>
+                          } @else {
+                            <span class="text-muted/30 text-[10px]">-</span>
+                          }
+                        </td>
+                        <td class="py-3 text-right">
+                          <span class="px-2 py-0.5 text-[9px] font-bold rounded-full border {{ getNivelBadgeClass(portal.nivel) }}">
+                            {{ portal.nivel }}
+                          </span>
+                        </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- 5. ESTATAL -->
+      <div class="border border-default rounded-2xl overflow-hidden bg-surface shadow-2xs">
+        <button
+          (click)="toggleEje('estatal')"
+          class="w-full bg-neutral-500/5 hover:bg-neutral-500/10 px-5 py-3.5 flex items-center justify-between font-bold text-xs sm:text-sm tracking-wide text-default transition cursor-pointer">
+          <div class="flex items-center space-x-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-2xs"></span>
+            <span class="uppercase">{{ ejeAccordionLabels['estatal'].uppercase }}</span>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 text-muted"
+               [class.rotate-90]="expandedEjes().estatal"
+               fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+        
+        @if (expandedEjes().estatal) {
+          <div class="p-5 border-t border-default bg-surface/50 animate-fade-in">
+            @if (viewMode() === 'portales') {
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 max-h-[500px] overflow-y-auto pr-1">
+                @for (portal of portalesEstatales; track portal.seccion) {
+                  <div (click)="selectEstadoFromPortal(portal.id || '')" 
+                       class="border border-default bg-surface rounded-xl p-4 hover:border-migala hover:shadow-sm hover:scale-[1.02] cursor-pointer transition-all duration-200 active:scale-[0.98] flex flex-col justify-between space-y-3 shadow-3xs">
+                    <div class="flex items-center justify-between">
+                      <span class="text-xl select-none">{{ portal.logoIcon }}</span>
+                      <span class="text-[9px] font-mono font-bold text-faint bg-neutral-500/5 px-1.5 py-0.5 rounded">{{ portal.acronimo }}</span>
+                    </div>
+                    <h5 class="text-xs font-bold text-default line-clamp-1">{{ portal.seccion }}</h5>
+                    <div class="pt-1 mt-2 flex flex-wrap items-center justify-between gap-1 border-t border-default/50 pt-2">
+                      <span class="px-2.5 py-0.5 text-[9px] font-bold rounded-full border {{ getNivelBadgeClass(portal.nivel) }}">
+                        {{ portal.nivel }}
+                      </span>
+                      @if (portal.telegramUrl) {
+                        <a
+                          [href]="portal.telegramUrl"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          (click)="$event.stopPropagation()"
+                          title="Unirse a Telegram"
+                          class="text-migala hover:bg-migala hover:text-white bg-migala/10 text-[10px] font-bold px-2 py-0.5 rounded-md transition duration-200 flex items-center gap-1">
+                          <span>Telegram</span>
+                          <span>✈️</span>
+                        </a>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+            } @else {
+              <div class="overflow-x-auto max-h-[500px] overflow-y-auto pr-1">
+                <table class="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr class="border-b border-default text-muted font-bold sticky top-0 bg-surface z-10">
+                      <th class="py-2.5 bg-surface">Sección</th>
+                      <th class="py-2.5 bg-surface">Eje</th>
+                      <th class="py-2.5 bg-surface">Acrónimo</th>
+                      <th class="py-2.5 bg-surface text-center">Logo</th>
+                      <th class="py-2.5 bg-surface text-center">Contacto</th>
+                      <th class="py-2.5 bg-surface text-right">Archivo</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-default/40">
+                    @for (portal of portalesEstatales; track portal.seccion) {
+                      <tr (click)="selectEstadoFromPortal(portal.id || '')" 
+                          class="hover:bg-brand-soft/40 hover:text-migala cursor-pointer transition duration-150">
+                        <td class="py-3 font-semibold text-default flex items-center gap-2">
+                          <span>{{ portal.logoIcon }}</span>
+                          <span>{{ portal.seccion }}</span>
+                        </td>
+                        <td class="py-3">
+                          <span class="{{ ejeBadgeClasses['estatal'] }} border text-[9px] font-bold px-2 py-0.5 rounded">{{ ejeAccordionLabels['estatal'].badge }}</span>
+                        </td>
+                        <td class="py-3 font-mono text-muted">{{ portal.acronimo }}</td>
+                        <td class="py-3 text-center text-sm">{{ portal.logoIcon }}</td>
+                        <td class="py-3 text-center">
+                          @if (portal.telegramUrl) {
+                            <a [href]="portal.telegramUrl" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()" title="Unirse a Telegram" class="inline-flex items-center justify-center text-migala hover:bg-migala hover:text-white bg-migala/10 text-[10px] px-1.5 py-0.5 rounded transition duration-200">
+                              ✈️
+                            </a>
+                          } @else {
+                            <span class="text-muted/30 text-[10px]">-</span>
+                          }
+                        </td>
+                        <td class="py-3 text-right">
+                          <span class="px-2 py-0.5 text-[9px] font-bold rounded-full border {{ getNivelBadgeClass(portal.nivel) }}">
+                            {{ portal.nivel }}
+                          </span>
+                        </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Pie informativo -->
+  <div class="pt-6 border-t border-default flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div class="text-xs text-muted">
+      Fondo Documental: <span class="font-bold text-default">Portales de Transparencia</span> / <span class="font-bold text-default">Partido Político Nacional</span>
+    </div>
+    <button
+      (click)="selectCategory('todos')"
+      class="bg-migala hover:bg-migala-dark text-white text-xs font-bold py-2.5 px-6 rounded-xl transition duration-200 cursor-pointer shadow-xs self-start sm:self-center">
+      Explorar todos los archivos
+    </button>
+  </div>
+
+</div>

@@ -1,7 +1,16 @@
-/** ───────────────────────────────────────────────
- *  Modelo de datos para Archivos y Documentos
- *  Define la estructura de los documentos en el archivo de transparencia.
- *  ─────────────────────────────────────────────── */
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  model-004
+ * title:  ARCHIVO — Tipos y modelos de documentos del archivo de transparencia
+ * type:   model
+ * tags:   [angular, model, documents, archive, transparency]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ *
+ * Define la estructura de los documentos en el archivo de transparencia.
+ */
 
 export type AmbitoDocumento =
   | 'nacional'

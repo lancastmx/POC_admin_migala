@@ -1,3 +1,14 @@
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  model-006
+ * title:  RUTA_CRITICA — Plan Nacional de Trabajo y objetivos estratégicos
+ * type:   model
+ * tags:   [angular, model, planning, objectives, critical-path]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ */
 export interface RutaCriticaObjetivoDetalle {
   id: string;
   nombre: string;

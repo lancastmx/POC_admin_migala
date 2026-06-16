@@ -1,3 +1,14 @@
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  data-008
+ * title:  ORGANIZACIONES_DATA — Catálogo plano de organizaciones
+ * type:   data
+ * tags:   [angular, data, organizations, catalog, organigrama]
+ * author: lancast
+ * created: 2026-06-15
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ */
 import { Organizacion } from '../models/organizacion';
 import { TELEGRAM_LINKS } from './telegram-links';
 
@@ -159,7 +170,7 @@ const ORGANIZACIONES_RAW: Organizacion[] = [
     descripcion: 'Desarrolla la planeación de candidaturas de afiliación, campañas ciudadanas y estrategia de registro electoral.',
     subgruposIds: [],
     relaciones: [],
-    articulosReferencia: []
+    articulosReferencia: [],
   },
   {
     id: 'area-transparencia',

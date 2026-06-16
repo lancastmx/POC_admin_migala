@@ -1,7 +1,22 @@
-/** ───────────────────────────────────────────────
- *  Modelo de datos para Organizaciones / Órganos de Trabajo
- *  Permite definir el organigrama y relaciones de gobernanza de Migala.
- *  ─────────────────────────────────────────────── */
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  model-003
+ * title:  ORGANIZACION — Órganos de trabajo y estructura organizacional
+ * type:   model
+ * tags:   [angular, model, organization, organigrama, governance]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ *
+ * Modelo de datos para Organizaciones / Órganos de Trabajo.
+ * Permite definir el organigrama y relaciones de gobernanza de Migala.
+ *
+ * Las redes sociales por comisión/órgano se definen en
+ * `core/data/redes.data.ts` y se obtienen mediante `getRedesComision(orgId)`.
+ */
+
+import type { RedComision } from './social-network';
 
 export type TipoOrgano =
   | 'area'               // Área (estructura más amplia, ej: Área Operativa)
@@ -57,4 +72,10 @@ export interface Organizacion {
   // Comunicación
   /** Enlace oficial al canal o grupo de Telegram de este órgano */
   telegramUrl?: string;
+
+  /**
+   * Redes sociales y canales de contacto de este órgano.
+   * Los datos se definen en `core/data/redes.data.ts`.
+   */
+  redes?: RedComision[];
 }

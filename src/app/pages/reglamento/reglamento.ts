@@ -1,10 +1,21 @@
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  page-004
+ * title:  REGLAMENTO — Reglamento Nacional interactivo
+ * type:   page
+ * tags:   [angular, page, regulations, national, search, articles, traceability]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ */
 import { Component, computed, signal, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ReglamentoService } from '../../core/services/reglamento.service';
 import { MEXICO } from '../../core/data/entidades.data';
-import { ESTATUS_REGLAMENTO_MAP, REGION_INFO, REGION_ORDER } from '../../core/constants/reglamento.constants';
+import { ESTATUS_REGLAMENTO_MAP, REGION_INFO, REGION_ORDER, REGLAMENTO_TABS, LIST_TYPE_MARKER_CLASS, LIST_TYPE_DEFAULT_MARKER, FRAGMENT_TYPE_VISUAL, getProgresoBarClass } from '../../core/constants/reglamento.constants';
 import type { Estado } from '../../core/models/entidad';
 import type { ArticuloType } from '../../core/models/reglamento';
 
@@ -40,6 +51,11 @@ export class Reglamento {
 
   /** Referencia al mapa de estatus para el template */
   readonly estatusMap = ESTATUS_REGLAMENTO_MAP;
+
+  /** Mapas visuales para fragmentos de artículo */
+  readonly listTypeMarkerClass = LIST_TYPE_MARKER_CLASS;
+  readonly listTypeDefaultMarker = LIST_TYPE_DEFAULT_MARKER;
+  readonly fragmentTypeVisual = FRAGMENT_TYPE_VISUAL;
 
   // ═══════════════════════════════════════════════
   //  DATOS DE ENTIDADES FEDERATIVAS
@@ -90,11 +106,7 @@ export class Reglamento {
         ? this.getEstatusConfig(reglamento.metadata.estatus)
         : null;
       const progreso = reglamento?.cobertura.progreso ?? 0;
-      const progresoBarClass = 'h-full rounded-full transition-all duration-500 ' + (progreso === 100
-        ? 'bg-emerald-500'
-        : progreso > 0
-          ? 'bg-amber-500'
-          : 'bg-neutral-700');
+      const progresoBarClass = 'h-full rounded-full transition-all duration-500 ' + getProgresoBarClass(progreso);
       return { estado: e, reglamento, estatusCfg, progreso, progresoBarClass };
     });
   });
@@ -115,16 +127,7 @@ export class Reglamento {
   //  TABS
   // ═══════════════════════════════════════════════
 
-  tabs = [
-    { id: 'nacional',      name: 'Nacional',           icon: '📜' },
-    { id: 'estatales',     name: 'Comisiones Estatales', icon: '🗺️' },
-    { id: 'operativos',    name: 'Grupos Operativos',   icon: '⚙️' },
-    { id: 'tematicas',     name: 'Comisiones Temáticas', icon: '🎯' },
-    { id: 'transversal',   name: 'Transversalidad',     icon: '🔄' },
-    { id: 'procedimental', name: 'Procedimientos',      icon: '📋' },
-    { id: 'disciplinario', name: 'Conductas y Sanciones', icon: '⚖️' },
-    { id: 'normativo',     name: 'Modificaciones',      icon: '📝' },
-  ];
+  tabs = REGLAMENTO_TABS;
 
   activeTab = signal<string>('nacional');
   activeTabLabel = computed(() => this.tabs.find(t => t.id === this.activeTab())?.name ?? 'Nacional');

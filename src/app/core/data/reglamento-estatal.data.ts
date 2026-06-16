@@ -1,8 +1,18 @@
-/** ───────────────────────────────────────────────
- *  CATÁLOGO DE REGLAMENTOS ESTATALES
- *  32 entidades federativas + sus estatus actuales.
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  data-012
+ * title:  REGLAMENTO_ESTATAL_DATA — Catálogo de reglamentos estatales
+ * type:   data
+ * tags:   [angular, data, regulations, states, catalog]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
  *
- *  Cada reglamento tiene el estatus real del proyecto
+ * CATÁLOGO DE REGLAMENTOS ESTATALES
+ * 32 entidades federativas + sus estatus actuales.
+ *
+ * Cada reglamento tiene el estatus real del proyecto
  *  (la mayoría 'inexistente' porque aún no se redactan).
  *
  *  Cuando un estado complete su reglamento, se cambia

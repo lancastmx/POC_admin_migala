@@ -1,3 +1,14 @@
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  data-011
+ * title:  RUTA_CRITICA_DATA — Plan Nacional de Trabajo 2026
+ * type:   data
+ * tags:   [angular, data, planning, objectives, critical-path]
+ * author: lancast
+ * created: 2026-06-15
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ */
 import { RutaCritica } from '../models/ruta-critica';
 
 export const RUTA_CRITICA_DATA: RutaCritica = {

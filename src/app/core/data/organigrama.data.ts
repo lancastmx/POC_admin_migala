@@ -1,8 +1,18 @@
-// ─── Organigrama Nacional ───────────────────────────────────────────
-// Fuente: Estructura oficial de Proyecto Migala A.C.
-// Los Telegram URLs se resuelven desde TELEGRAM_LINKS (única fuente de verdad).
-// Si un enlace cambia, solo se edita en telegram-links.ts.
-// ─────────────────────────────────────────────────────────────────────
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  data-007
+ * title:  ORGANIGRAMA_NACIONAL — Árbol jerárquico canónico del organigrama
+ * type:   data
+ * tags:   [angular, data, organigrama, tree, hierarchy]
+ * author: lancast
+ * created: 2026-06-15
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ *
+ * Estructura oficial de Proyecto Migala A.C.
+ * Los Telegram URLs se resuelven desde TELEGRAM_LINKS (única fuente de verdad).
+ * Si un enlace cambia, solo se edita en telegram-links.ts.
+ */
 
 import { TELEGRAM_LINKS } from './telegram-links';
 

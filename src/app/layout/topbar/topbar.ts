@@ -1,3 +1,14 @@
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  ui-001
+ * title:  TOPBAR — Barra de navegación principal
+ * type:   component
+ * tags:   [angular, layout, navigation, topbar, dark-mode]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ */
 import { Component, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TOP_MENU } from './top-menu';

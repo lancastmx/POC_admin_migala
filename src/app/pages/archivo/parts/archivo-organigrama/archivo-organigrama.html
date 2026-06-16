@@ -1,0 +1,212 @@
+        <!-- I.- Organigrama Nacional ─── Tree View Jerárquico -->
+        <div class="bg-surface border border-default rounded-3xl p-6 md:p-8 space-y-6 shadow-2xs animate-fade-in text-default mb-6">
+          
+          <!-- Cabecera de la sección -->
+          <div class="space-y-2">
+            <h3 class="text-xl font-extrabold tracking-tight text-default flex items-center gap-2">
+              <span>🌿</span> I.- Organigrama Nacional
+            </h3>
+            <p class="text-xs text-muted font-light leading-relaxed">
+              Estructura jerárquica completa de Proyecto Migala organizada por Ejes. 
+          Haz clic en cada nodo para expandir sus sub-órganos. Los enlaces de Telegram están disponibles en las hojas del árbol.
+            </p>
+          </div>
+
+          <!-- Resumen rápido -->
+          <div class="flex flex-wrap gap-3 text-xs">
+            @for (badge of organigramaSummaryBadges; track badge.ejeId) {
+              <span class="{{ badge.badgeClass }} px-2.5 py-1 rounded-full font-bold">{{ badge.icon }} {{ badge.label }}</span>
+            }
+          </div>
+
+          <!-- ─── ÁRBOL JERÁRQUICO ─── -->
+          @if (organigramaAgrupado.length > 0) {
+            <div class="space-y-4">
+              @for (group of organigramaAgrupado; track group.ejeId) {
+                
+                <!-- Cada Grupo/Eje es un bloque colapsable -->
+                <div class="border border-default rounded-2xl overflow-hidden shadow-2xs">
+                  
+                  <!-- Header del Eje -->
+                  <button
+                    (click)="isTreeNodeExpanded('grupo-' + group.ejeId) ? toggleTreeNode('grupo-' + group.ejeId) : toggleTreeNode('grupo-' + group.ejeId)"
+                    class="w-full flex items-center gap-3 px-5 py-3.5 text-xs sm:text-sm font-bold tracking-wide transition cursor-pointer"
+                    [class.bg-neutral-500/5]="!isTreeNodeExpanded('grupo-' + group.ejeId)"
+                    [class.hover:bg-neutral-500/10]="!isTreeNodeExpanded('grupo-' + group.ejeId)"
+                    [class.bg-brand-soft]="isTreeNodeExpanded('grupo-' + group.ejeId)">
+                    <span [class]="'w-2.5 h-2.5 rounded-full ' + ejeDotColors[group.ejeId]">
+                    </span>
+                    <span class="flex-1 text-left uppercase">{{ group.ejeName }}</span>
+                    <span class="text-[10px] text-faint font-mono">{{ group.nodos.length }} órgano(s)</span>
+                    <!-- Chevron -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-muted transition-transform duration-200"
+                         [class.rotate-90]="isTreeNodeExpanded('grupo-' + group.ejeId)"
+                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+
+                  <!-- Cuerpo del árbol (colapsable) -->
+                  @if (isTreeNodeExpanded('grupo-' + group.ejeId)) {
+                    <div class="border-t border-default bg-surface/40 animate-fade-in py-2 px-1">
+                      @for (node of group.nodos; track node.org.id) {
+                        <!-- ═══ LEVEL 1 (hijos directos del Eje) ═══ -->
+                        <div class="tree-node">
+                          <div class="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-brand-soft/40 transition group">
+                            <!-- Expand toggle if has children -->
+                            @if (node.children.length > 0) {
+                              <button (click)="toggleTreeNode(node.org.id)"
+                                      class="w-4 h-4 flex items-center justify-center text-muted hover:text-default cursor-pointer flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transition-transform duration-150"
+                                     [class.rotate-90]="isTreeNodeExpanded(node.org.id)"
+                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+                                </svg>
+                              </button>
+                            } @else {
+                              <span class="w-4 flex-shrink-0 text-faint text-[10px] text-center">•</span>
+                            }
+                            <!-- Icono del tipo de órgano -->
+                            <span class="text-base select-none flex-shrink-0">{{ getTipoOrganoIcon(node.org.tipo) }}</span>
+                            <!-- Nombre -->
+                            <span class="text-xs font-bold text-default flex-1">{{ node.org.nombre }}</span>
+                            @if (node.org.siglas) {
+                              <span class="text-[10px] font-mono text-faint hidden sm:inline">({{ node.org.siglas }})</span>
+                            }
+                            <!-- Badge tipo -->
+                            <span class="px-2 py-0.5 text-[9px] font-bold rounded-full border hidden sm:inline {{ getTipoOrganoBadgeClass(node.org.tipo) }}">
+                              {{ getTipoOrganoLabel(node.org.tipo) }}
+                            </span>
+                            <!-- Telegram si es hoja (sin hijos) -->
+                            @if (node.children.length === 0 && node.org.telegramUrl) {
+                              <a [href]="node.org.telegramUrl" target="_blank" rel="noopener noreferrer"
+                                 class="text-migala hover:bg-migala hover:text-white bg-migala/10 text-[10px] px-2 py-0.5 rounded-md transition flex items-center gap-1 flex-shrink-0 cursor-pointer"
+                                 title="Unirse a Telegram">
+                                <span>✈️</span>
+                              </a>
+                            }
+                            @if (node.children.length === 0 && !node.org.telegramUrl) {
+                              <span class="text-[10px] text-faint flex-shrink-0" title="Sin enlace público">🔒</span>
+                            }
+                          </div>
+
+                          <!-- ═══ LEVEL 2 ═══ -->
+                          @if (node.children.length > 0 && isTreeNodeExpanded(node.org.id)) {
+                            <div class="ml-5 border-l-2 border-default/30 pl-2 mt-0.5 space-y-0.5">
+                              @for (child of node.children; track child.org.id) {
+                                <div class="tree-node">
+                                  <div class="flex items-center gap-2 px-4 py-1.5 rounded-lg hover:bg-brand-soft/40 transition group">
+                                    @if (child.children.length > 0) {
+                                      <button (click)="toggleTreeNode(child.org.id)"
+                                              class="w-4 h-4 flex items-center justify-center text-muted hover:text-default cursor-pointer flex-shrink-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transition-transform duration-150"
+                                             [class.rotate-90]="isTreeNodeExpanded(child.org.id)"
+                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+                                        </svg>
+                                      </button>
+                                    } @else {
+                                      <span class="w-4 flex-shrink-0 text-faint text-[10px] text-center">•</span>
+                                    }
+                                    <span class="text-sm select-none flex-shrink-0">{{ getTipoOrganoIcon(child.org.tipo) }}</span>
+                                    <span class="text-xs font-semibold text-default flex-1">{{ child.org.nombre }}</span>
+                                    @if (child.org.siglas) {
+                                      <span class="text-[10px] font-mono text-faint hidden sm:inline">({{ child.org.siglas }})</span>
+                                    }
+                                    <span class="px-2 py-0.5 text-[9px] font-bold rounded-full border hidden sm:inline {{ getTipoOrganoBadgeClass(child.org.tipo) }}">
+                                      {{ getTipoOrganoLabel(child.org.tipo) }}
+                                    </span>
+                                    @if (child.children.length === 0 && child.org.telegramUrl) {
+                                      <a [href]="child.org.telegramUrl" target="_blank" rel="noopener noreferrer"
+                                         class="text-migala hover:bg-migala hover:text-white bg-migala/10 text-[10px] px-2 py-0.5 rounded-md transition flex items-center gap-1 flex-shrink-0 cursor-pointer"
+                                         title="Unirse a Telegram">
+                                        <span>✈️</span>
+                                      </a>
+                                    }
+                                    @if (child.children.length === 0 && !child.org.telegramUrl) {
+                                      <span class="text-[10px] text-faint flex-shrink-0" title="Sin enlace público">🔒</span>
+                                    }
+                                  </div>
+
+                                  <!-- ═══ LEVEL 3 ═══ -->
+                                  @if (child.children.length > 0 && isTreeNodeExpanded(child.org.id)) {
+                                    <div class="ml-5 border-l-2 border-default/20 pl-2 mt-0.5 space-y-0.5">
+                                      @for (grandchild of child.children; track grandchild.org.id) {
+                                        <div class="tree-node">
+                                          <div class="flex items-center gap-2 px-4 py-1.5 rounded-lg hover:bg-brand-soft/40 transition group">
+                                            @if (grandchild.children.length > 0) {
+                                              <button (click)="toggleTreeNode(grandchild.org.id)"
+                                                      class="w-4 h-4 flex items-center justify-center text-muted hover:text-default cursor-pointer flex-shrink-0">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transition-transform duration-150"
+                                                     [class.rotate-90]="isTreeNodeExpanded(grandchild.org.id)"
+                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+                                                </svg>
+                                              </button>
+                                            } @else {
+                                              <span class="w-4 flex-shrink-0 text-faint text-[10px] text-center">•</span>
+                                            }
+                                            <span class="text-sm select-none flex-shrink-0">{{ getTipoOrganoIcon(grandchild.org.tipo) }}</span>
+                                            <span class="text-xs font-medium text-default flex-1">{{ grandchild.org.nombre }}</span>
+                                            @if (grandchild.org.siglas) {
+                                              <span class="text-[10px] font-mono text-faint hidden sm:inline">({{ grandchild.org.siglas }})</span>
+                                            }
+                                            @if (grandchild.children.length === 0 && grandchild.org.telegramUrl) {
+                                              <a [href]="grandchild.org.telegramUrl" target="_blank" rel="noopener noreferrer"
+                                                 class="text-migala hover:bg-migala hover:text-white bg-migala/10 text-[10px] px-2 py-0.5 rounded-md transition flex items-center gap-1 flex-shrink-0 cursor-pointer"
+                                                 title="Unirse a Telegram">
+                                                <span>✈️</span>
+                                              </a>
+                                            }
+                                            @if (grandchild.children.length === 0 && !grandchild.org.telegramUrl) {
+                                              <span class="text-[10px] text-faint flex-shrink-0" title="Sin enlace público">🔒</span>
+                                            }
+                                          </div>
+
+                                          <!-- ═══ LEVEL 4 (profundidad máxima) ═══ -->
+                                          @if (grandchild.children.length > 0 && isTreeNodeExpanded(grandchild.org.id)) {
+                                            <div class="ml-5 border-l-2 border-default/10 pl-2 mt-0.5 space-y-0.5">
+                                              @for (ggchild of grandchild.children; track ggchild.org.id) {
+                                                <div class="flex items-center gap-2 px-4 py-1.5 rounded-lg hover:bg-brand-soft/40 transition group">
+                                                  <span class="w-4 flex-shrink-0 text-faint text-[10px] text-center">•</span>
+                                                  <span class="text-sm select-none flex-shrink-0">{{ getTipoOrganoIcon(ggchild.org.tipo) }}</span>
+                                                  <span class="text-xs font-medium text-default flex-1">{{ ggchild.org.nombre }}</span>
+                                                  @if (ggchild.org.siglas) {
+                                                    <span class="text-[10px] font-mono text-faint hidden sm:inline">({{ ggchild.org.siglas }})</span>
+                                                  }
+                                                  @if (ggchild.org.telegramUrl) {
+                                                    <a [href]="ggchild.org.telegramUrl" target="_blank" rel="noopener noreferrer"
+                                                       class="text-migala hover:bg-migala hover:text-white bg-migala/10 text-[10px] px-2 py-0.5 rounded-md transition flex items-center gap-1 flex-shrink-0 cursor-pointer"
+                                                       title="Unirse a Telegram">
+                                                      <span>✈️</span>
+                                                    </a>
+                                                  } @else {
+                                                    <span class="text-[10px] text-faint flex-shrink-0" title="Sin enlace público">🔒</span>
+                                                  }
+                                                </div>
+                                              }
+                                            </div>
+                                          }
+                                        </div>
+                                      }
+                                    </div>
+                                  }
+                                </div>
+                              }
+                            </div>
+                          }
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          } @else {
+            <div class="bg-neutral-500/5 border border-default rounded-2xl p-8 text-center flex flex-col items-center justify-center min-h-[150px]">
+              <span class="text-3xl select-none block mb-2">🌿</span>
+              <p class="text-xs text-muted">No hay datos de organigrama disponibles.</p>
+            </div>
+          }
+
+        </div>

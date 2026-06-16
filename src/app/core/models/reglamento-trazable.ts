@@ -1,9 +1,17 @@
-/** ───────────────────────────────────────────────
- *  Modelo de trazabilidad para reglamentos
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  model-007
+ * title:  REGLAMENTO_TRAZABLE — Trazabilidad y gobernanza de reglamentos
+ * type:   model
+ * tags:   [angular, model, traceability, regulations, governance, graph]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
  *
- *  Capa de gobernanza sobre el modelo base (reglamento.ts).
- *  Separa ciclo de vida, auditoría y relaciones de grafo
- *  del contenido semántico de los artículos.
+ * Capa de gobernanza sobre el modelo base (reglamento.ts).
+ * Separa ciclo de vida, auditoría y relaciones de grafo
+ * del contenido semántico de los artículos.
  *  ─────────────────────────────────────────────── */
 
 // ═══════════════════════════════════════════════

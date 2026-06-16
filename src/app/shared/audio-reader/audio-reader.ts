@@ -1,3 +1,14 @@
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  ui-008
+ * title:  AUDIO_READER — Reproductor de texto-a-voz para artículos
+ * type:   component
+ * tags:   [angular, component, audio, tts, accessibility]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ */
 import { Component, input, inject, OnDestroy } from '@angular/core';
 import { TextToSpeechService } from '../../core/services/text-to-speech.service';
 
@@ -25,6 +36,8 @@ export class AudioReader implements OnDestroy {
   protected readonly voices = this.ttsService.voices;
   protected readonly selectedVoice = this.ttsService.selectedVoice;
   protected readonly rate = this.ttsService.rate;
+
+  protected readonly speedOptions = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
 
   protected play(): void {
     this.ttsService.speak(this.textToRead());

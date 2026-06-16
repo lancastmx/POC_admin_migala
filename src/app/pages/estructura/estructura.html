@@ -168,10 +168,7 @@
               <!-- Tag de Eje -->
               <div class="mb-4">
                 <span class="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full border"
-                  [class]="org.eje === 'operativo' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 
-                           org.eje === 'territorial' ? 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20' : 
-                           org.eje === 'ideologico' ? 'bg-purple-500/10 text-purple-400 border-purple-500/20' : 
-                           'bg-rose-500/10 text-rose-400 border-rose-500/20'">
+                  [class]="ejeEstructuraClasses[org.eje] ?? ejeEstructuraDefaultClass">
                   ● Eje {{ org.eje | titlecase }}
                 </span>
               </div>

@@ -1,3 +1,14 @@
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  data-002
+ * title:  REGLAMENTO_DATA — Reglamento Nacional completo
+ * type:   data
+ * tags:   [angular, data, regulations, national, full-text]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ */
 import { Reglamento } from '../models/reglamento';
 import type { ReglamentoCobertura, ReglamentoMetadata } from '../models/reglamento-trazable';
 

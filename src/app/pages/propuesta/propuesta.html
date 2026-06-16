@@ -31,7 +31,7 @@
 
   <!-- Mobile index pills (horizontal scrollable) -->
   <div class="block lg:hidden mb-6">
-    <h3 class="text-[10px] font-bold text-faint uppercase tracking-wider mb-2 px-1">Los 10 Puntos Básicos</h3>
+    <h3 class="text-[10px] font-bold text-faint uppercase tracking-wider mb-2 px-1">Los {{ totalItems() }} Puntos Básicos</h3>
     <div class="flex overflow-x-auto pb-3 gap-2 scrollbar-none snap-x snap-mandatory">
       @for (item of items; track item.id) {
         <button (click)="selectTab(item.id)"
@@ -92,7 +92,7 @@
         <div class="flex items-start justify-between border-b border-default pb-5 gap-4">
           <div class="space-y-1">
             <span class="text-[10px] font-mono font-bold text-migala uppercase tracking-widest">
-              Requisito {{ activeItem().id }} de 10
+              Requisito {{ activeItem().id }} de {{ totalItems() }}
             </span>
             <h2 class="text-base md:text-xl font-extrabold text-default tracking-tight leading-snug">
               {{ activeItem().nombre }}
@@ -151,7 +151,7 @@
             </button>
           }
           
-          @if (+activeItem().id < 10) {
+          @if (+activeItem().id < totalItems()) {
             <button (click)="selectTab((+activeItem().id + 1).toString().padStart(2, '0'))"
                     class="px-3 py-2 text-xs font-bold text-white bg-migala hover:bg-migala-dark rounded-xl transition duration-150 flex items-center gap-1.5 shadow-2xs cursor-pointer">
               Siguiente

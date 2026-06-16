@@ -1,8 +1,17 @@
-/** ───────────────────────────────────────────────
- *  Modelo de datos del Reglamento Nacional
- *  Versión enriquecida con metadatos semánticos,
- *  tipificación de artículos, fragmentación interna,
- *  referencias cruzadas y cuantificación.
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  model-002
+ * title:  REGLAMENTO — Modelo de datos del Reglamento Nacional
+ * type:   model
+ * tags:   [angular, model, regulations, national, articles, full-text]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ *
+ * Versión enriquecida con metadatos semánticos,
+ * tipificación de artículos, fragmentación interna,
+ * referencias cruzadas y cuantificación.
  *
  *  EXTENDIDO: soporte para trazabilidad, ciclo de
  *  vida, relaciones de grafo y auditoría.

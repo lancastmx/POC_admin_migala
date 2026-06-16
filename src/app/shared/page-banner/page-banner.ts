@@ -1,3 +1,14 @@
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  ui-004
+ * title:  PAGE_BANNER — Banner decorativo para cabeceras de página
+ * type:   component
+ * tags:   [angular, component, banner, header, decoration]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ */
 import { Component, input, computed } from '@angular/core';
 
 @Component({

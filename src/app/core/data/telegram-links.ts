@@ -1,12 +1,20 @@
 /**
- * ─── TELEGRAM_LINKS ─────────────────────────────────────────────
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  data-006
+ * title:  TELEGRAM_LINKS — Fuente única de verdad para URLs de Telegram
+ * type:   data
+ * tags:   [angular, data, telegram, urls]
+ * author: lancast
+ * created: 2026-06-15
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ * 
  * Fuente Única de Verdad para URLs de Telegram.
  * Extraído del PDF oficial de Proyecto Migala (Junio 2026).
  * 
  * Dos áreas NO tienen URL individual según el PDF:
  *   - Área Político Electoral
  *   - Área de Dirección
- * ────────────────────────────────────────────────────────────────
  */
 export const TELEGRAM_LINKS: Record<string, string> = {
   // ─── ORGANIGRAMA NACIONAL ──────────────────────────

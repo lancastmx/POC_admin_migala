@@ -1,7 +1,16 @@
-/** ───────────────────────────────────────────────
- *  Modelo de perfil de usuario (Miembro / Owner / Organización)
- *  Alineado con los Artículos 4, 5 y 6 del Reglamento Nacional.
- *  ─────────────────────────────────────────────── */
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  model-008
+ * title:  USUARIO — Perfil de miembro y roles organizacionales
+ * type:   model
+ * tags:   [angular, model, user, profile, roles, membership]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ *
+ * Alineado con los Artículos 4, 5 y 6 del Reglamento Nacional.
+ */
 
 /** Nacionalidades reconocidas reglamentariamente */
 export type Nacionalidad = 'mexicana_nacimiento' | 'mexicana_naturalizado' | 'extranjera';

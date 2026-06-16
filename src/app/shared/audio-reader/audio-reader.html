@@ -74,7 +74,7 @@
       <select id="rate-select" 
               (change)="changeRate($event)" 
               class="bg-surface border border-brand-soft/60 text-xs py-1.5 px-2 rounded-lg text-sub outline-none focus:border-migala focus:ring-1 focus:ring-migala/20 transition cursor-pointer shadow-3xs">
-        @for (speed of [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]; track speed) {
+        @for (speed of speedOptions; track speed) {
           <option [value]="speed" [selected]="rate() === speed">
             {{ speed }}x
           </option>

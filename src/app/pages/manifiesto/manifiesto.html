@@ -34,7 +34,7 @@
       <div class="flex items-center justify-between mb-5 pb-3 border-b border-default">
         <h2 class="text-sm font-extrabold text-default tracking-wider uppercase">Índice del Contenido</h2>
         <span class="bg-migala-light text-migala-dark text-xs font-mono font-bold px-2.5 py-1 rounded-full">
-          18 Temas
+          {{ totalSections() }} Temas
         </span>
       </div>
       
@@ -84,7 +84,7 @@
         <div class="flex items-center justify-between border-b border-default pb-5">
           <div class="space-y-1">
             <span class="text-xs font-mono font-bold text-migala uppercase tracking-widest">
-              Tema {{ activeSection().id }} de 18
+              Tema {{ activeSection().id }} de {{ totalSections() }}
             </span>
             <h2 class="text-2xl md:text-3xl font-extrabold text-default tracking-tight leading-tight">
               {{ activeSection().title }}
@@ -168,7 +168,7 @@
             </button>
           }
           
-          @if (+activeSection().id < 18) {
+          @if (+activeSection().id < totalSections()) {
             <button (click)="setActiveSection((+activeSection().id + 1).toString())"
                     class="px-3 py-2 text-xs font-bold text-white bg-migala hover:bg-migala-dark rounded-lg transition-all flex items-center gap-1.5 shadow-sm">
               Siguiente

@@ -1,3 +1,14 @@
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  svc-004
+ * title:  SEO_SERVICE — Meta tags y optimización para motores de búsqueda
+ * type:   service
+ * tags:   [angular, service, seo, meta, title, keywords]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ */
 import { Injectable, inject } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 

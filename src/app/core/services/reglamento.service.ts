@@ -1,5 +1,15 @@
-/** ───────────────────────────────────────────────
- *  ReglamentoService
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  svc-003
+ * title:  REGLAMENTO_SERVICE — Lógica de negocio del Reglamento Nacional
+ * type:   service
+ * tags:   [angular, service, regulations, full-text, search, articles]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ *
+ * ReglamentoService
  *
  *  Motor de consultas para el sistema de reglamentos
  *  trazables. Proporciona:

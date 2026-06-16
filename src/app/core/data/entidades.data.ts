@@ -1,8 +1,18 @@
-/** ───────────────────────────────────────────────
- *  CONSTANTE: Entidades Federativas de México
- *  Incluye los 32 estados con todos sus municipios
- *  Fuente: INEGI (Marco Geoestadístico)
- *  ─────────────────────────────────────────────── */
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  data-001
+ * title:  MEXICO — Entidades Federativas de México (32 estados + municipios)
+ * type:   data
+ * tags:   [angular, data, mexico, states, municipalities]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ * 
+ * CONSTANTE: Entidades Federativas de México
+ * Incluye los 32 estados con todos sus municipios
+ * Fuente: INEGI (Marco Geoestadístico)
+ */
 import type { Pais, Estado } from '../models/entidad';
 
 // ═══════════════════════════════════════════════

@@ -1,3 +1,14 @@
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  root-001
+ * title:  APP — Componente raíz de la aplicación
+ * type:   root
+ * tags:   [angular, root, component, shell]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ */
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Topbar } from './layout/topbar/topbar';
