@@ -80,40 +80,35 @@
                       }
                     </div>
 
-                    <!-- Pie: Telegram + Artículos -->
-                    <div class="mt-4 pt-3 border-t border-default flex items-center justify-between gap-4">
-                      <div class="flex flex-wrap items-center gap-2 text-[10px]">
-                        @if (org.telegramUrl) {
-                          <a [href]="org.telegramUrl" target="_blank" rel="noopener noreferrer"
-                             class="bg-[#229ED9]/10 hover:bg-[#229ED9] hover:text-white text-[#229ED9] font-bold px-2.5 py-1 rounded-lg transition flex items-center gap-1">
-                            <span>✈️</span>
-                            <span>Telegram</span>
-                          </a>
-                        } @else {
-                          <span class="text-faint flex items-center gap-1">🔒 Sin enlace</span>
-                        }
-                        @let redesComision = getRedesComision(org.id);
+                    <!-- Pie: Redes Sociales, Contacto y Referencias -->
+                    <div class="mt-4 pt-3 border-t border-default flex flex-wrap items-center justify-between gap-3">
+                      <div class="flex flex-wrap items-center gap-1.5">
+                        @let redesComision = getRedesComisionCompleto(org.id);
                         @if (redesComision.length > 0) {
                           @for (red of redesComision; track red.url) {
                             <a [href]="red.url" target="_blank" rel="noopener noreferrer"
-                               class="bg-migala/10 hover:bg-migala hover:text-white text-migala font-bold px-2.5 py-1 rounded-lg transition flex items-center gap-1 text-[10px]">
-                               <img [src]="red.icono" [alt]="red.nombre"
-                                    class="w-3.5 h-3.5 object-contain"
-                                    onerror="this.style.display='none'">
-                              <span>{{ red.nombre }}</span>
+                               [class]="'inline-flex items-center gap-1.5 px-2 py-1 rounded-lg border text-[10px] font-semibold transition-all duration-200 ' + (tipoBgClass[red.tipo] ?? 'bg-neutral-500/10 hover:bg-neutral-500 text-neutral-400 hover:text-white border-neutral-500/20')"
+                               [title]="(red.descripcion ?? red.nombre) + ' — ' + red.url">
+                              <img [src]="red.icono" [alt]="red.nombre"
+                                   class="w-4 h-4 object-contain shrink-0"
+                                   onerror="this.style.display='none'">
+                              <span class="leading-none">{{ red.nombre }}</span>
                             </a>
                           }
                         } @else {
-                          <span class="text-faint flex items-center gap-1" title="Redes sociales pendientes de asignar">🔴 Pendiente</span>
+                          <span class="text-[10px] text-faint flex items-center gap-1.5 px-2 py-1 rounded-lg border border-dashed border-neutral-700/50 bg-neutral-500/5">
+                            <span class="text-neutral-600 text-xs">◎</span>
+                            Sin contacto registrado
+                          </span>
                         }
                         @if (org.articulosReferencia.length > 0) {
-                          <span class="text-faint font-mono">
+                          <span class="text-[10px] text-faint font-mono flex items-center gap-1 px-2 py-1 rounded-lg bg-neutral-500/5 border border-default/50">
                             📜 {{ org.articulosReferencia.length }} ref(s)
                           </span>
                         }
                       </div>
                       @if (org.relaciones.length > 0) {
-                        <span class="text-[9px] text-faint">
+                        <span class="text-[10px] text-faint flex items-center gap-1 px-2 py-1 rounded-lg bg-neutral-500/5 border border-default/50 shrink-0">
                           🔗 {{ org.relaciones.length }} relación(es)
                         </span>
                       }

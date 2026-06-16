@@ -19,7 +19,14 @@ export class ArchivoDirectorios {
   @Input({ required: true }) getTipoOrganoLabel!: (tipo: string) => string;
   @Input({ required: true }) getTipoOrganoBadgeClass!: (tipo: string) => string;
   @Input({ required: true }) getTipoOrganoIcon!: (tipo: string) => string;
-  @Input({ required: true }) getRedesComision!: (orgId: string) => RedComision[];
+  @Input({ required: true }) getRedesComisionCompleto!: (orgId: string) => RedComision[];
   @Input({ required: true }) getEjeLabel!: (ejeId: string) => string;
   @Input({ required: true }) clearFilters!: () => void;
+
+  /** Clases de fondo por tipo de red */
+  protected readonly tipoBgClass: Partial<Record<string, string>> = {
+    social:   'bg-cyan-500/10 hover:bg-cyan-500 text-cyan-400 hover:text-white border-cyan-500/20',
+    contacto: 'bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-white border-emerald-500/20',
+    canal:    'bg-purple-500/10 hover:bg-purple-500 text-purple-400 hover:text-white border-purple-500/20',
+  };
 }
