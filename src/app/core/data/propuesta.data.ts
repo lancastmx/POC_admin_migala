@@ -79,14 +79,18 @@ export const PROPUESTA_ITEMS: PropuestaItem[] = [
     seccion: 'Justificación',
     nombre: '¿En qué consiste y cuál es el fin? (Justificación)',
     icon: '💡',
-    detalle: 'El reglamento nacional exige un espacio de transparencia (Notion, Reglamento interno o Página web) para consolidar y reconocer formalmente a las comisiones locales. Este boilerplate democratiza el acceso a tecnología premium, permitiendo que comisiones locales cumplan con estos requisitos de forma autónoma, sin costo y de manera soberana.',
+    detalle: 'El Reglamento Nacional del Proyecto Migala establece en sus Artículos 158 y 159 que toda comisión local debe contar con un espacio de transparencia —ya sea un Notion, un reglamento interno publicado o una página web— para poder ser consolidada y reconocida formalmente. Sin embargo, en la práctica, la mayoría de las comisiones estatales y temáticas no cuentan con los recursos técnicos ni económicos para desarrollar un sitio web propio, y terminan usando soluciones improvisadas (carpetas de Drive, grupos de Telegram, documentos sueltos) que no cumplen cabalmente con el estándar de transparencia exigido. Esta propuesta resuelve ese problema ofreciendo una plataforma completa, lista para usar, que cualquier comisión puede adoptar sin costo y sin depender de proveedores externos. El fin último es que cada órgano local pueda publicar y administrar su información de manera autónoma, profesional y estandarizada, fortaleciendo la rendición de cuentas, la cohesión organizativa y la confianza de la militancia y la ciudadanía en general.',
     fundamento: 'Art. 159, fracc. 4',
     detallesExtra: [
-      { key: 'Foco Principal', val: 'Cumplimiento de requisitos de consolidación (Artículos 158 y 159 del Reglamento Nacional)' },
-      { key: 'Soberanía Digital', val: 'Gestión local autónoma de minutas, finanzas y reglamentos (sin dependencia de grandes plataformas)' },
-      { key: 'Estandarización', val: 'Mantener la identidad visual y estándares del Proyecto Migala en todas las comisiones' },
-      { key: 'Problema que Resuelve', val: 'Actualmente cada comisión local no tiene un espacio digital propio estandarizado, lo que dificulta la transparencia, la rendición de cuentas y la cohesión organizativa.' },
-      { key: 'Diferenciador', val: 'Código 100% abierto, autogestionable, sin costo de licencias ni suscripciones' }
+      { key: 'Foco Principal', val: 'Cumplimiento de requisitos de consolidación (Artículos 158 y 159 del Reglamento Nacional). Sin un espacio de transparencia digital, una comisión no puede ser reconocida formalmente.' },
+      { key: 'Problema Concreto', val: 'Hoy, las comisiones usan grupos de Telegram, carpetas de Google Drive, documentos de Word sueltos o paginas de Facebook para publicar su información. Esto dispersa los datos, dificulta el acceso y no cumple con el estándar mínimo de transparencia que exige el reglamento.' },
+      { key: 'Soberanía Digital', val: 'Cada comisión gestiona sus propios datos en su propia instancia del portal, sin depender de grandes plataformas tecnológicas, sin ceder información a terceros y sin arriesgar la privacidad de sus afiliados.' },
+      { key: 'Estandarización', val: 'Todas las comisiones comparten la misma estructura visual y de navegación, lo que facilita que cualquier afiliado o ciudadano sepa exactamente dónde encontrar la información, sin importar de qué estado o comisión se trate.' },
+      { key: 'Rendición de Cuentas', val: 'Al tener un portal público y estructurado, cada comisión puede mostrar de forma clara y permanente sus integrantes, sus minutas, sus finanzas y sus acuerdos, fortaleciendo la confianza de la militancia.' },
+      { key: 'Reducción de Carga Operativa', val: 'Actualmente los enlaces locales pierden horas respondiendo consultas básicas (\"¿quiénes integran la comisión?\", \"¿cuándo es la próxima reunión?\"). Con el portal, esa información está disponible 24/7 sin intervención manual.' },
+      { key: 'Arquitectura Abierta', val: 'Código 100% abierto (MIT). Cualquier comisión puede auditar el código, proponer mejoras o adaptarlo a sus necesidades particulares sin pedir permiso a nadie.' },
+      { key: 'Sin Costo', val: 'No hay licencias que pagar, ni suscripciones mensuales, ni costos de desarrollo base. El unico gasto posible es el dominio propio si la comisión decide no usar el subdominio gratuito.' },
+      { key: 'Visión a Largo Plazo', val: 'Este boilerplate sienta las bases para un ecosistema digital uniforme en todo Proyecto Migala: desde una comisión estatal pequeña hasta la Coordinación Nacional, todos hablando el mismo lenguaje tecnológico y organizativo.' }
     ]
   },
   {
