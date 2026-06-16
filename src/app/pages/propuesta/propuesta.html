@@ -7,19 +7,57 @@
 <!-- Main Container -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
   
-  <!-- Info Introductoria -->
-  <div class="bg-surface border border-default rounded-3xl p-6 md:p-8 mb-10 space-y-4 shadow-2xs">
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-      <div class="space-y-1.5 flex-1">
+  <!-- Info Introductoria: Fundamento Reglamentario -->
+  <div class="bg-surface border border-default rounded-3xl p-6 md:p-8 mb-10 space-y-5 shadow-2xs">
+    <div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
+      <div class="space-y-3 flex-1">
         <div class="inline-flex items-center space-x-2 bg-migala/10 text-migala border border-migala/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
-          📋 Artículo 159
+          ⚖️ Capítulo III — Artículos 157, 158 y 159
         </div>
         <h2 class="text-lg md:text-xl font-extrabold text-default tracking-tight">
-          Estructura de Presentación de Proyectos
+          Fundamento Reglamentario
         </h2>
-        <p class="text-muted text-xs leading-relaxed text-justify font-light">
-          El Reglamento del Proyecto Migala establece que cualquier propuesta para generar o modificar puntos en la ruta crítica, planes o actividades, debe cumplir con un formato de 10 puntos esenciales. A continuación se detalla la propuesta formal para **este mismo sistema de código (POC_admin_migala)**.
-        </p>
+        
+        <!-- Artículo 157 -->
+        <div class="bg-neutral-500/5 border-l-4 border-migala/40 rounded-r-xl p-4 space-y-1">
+          <span class="text-[10px] font-bold text-migala uppercase tracking-widest">Artículo 157.-</span>
+          <p class="text-muted text-xs leading-relaxed font-light italic">
+            "Los proyectos son el motor del proyecto migala, son el sistema por el cual los participantes pueden incidir principalmente."
+          </p>
+        </div>
+        
+        <!-- Artículo 158 -->
+        <div class="bg-neutral-500/5 border-l-4 border-migala/40 rounded-r-xl p-4 space-y-1">
+          <span class="text-[10px] font-bold text-migala uppercase tracking-widest">Artículo 158.-</span>
+          <p class="text-muted text-xs leading-relaxed font-light italic">
+            "Las propuestas deben de ser presentadas en un documento en formato abierto y editable a través de un medio electrónico, con el fin de que queden archivadas, además de facilitar el proceso al Comité de Gestión de Proyectos."
+          </p>
+          <div class="flex items-center gap-1.5 mt-1">
+            <span class="text-[10px] text-migala">✓</span>
+            <span class="text-[9px] text-muted font-medium">Cumplido: documento Markdown abierto + plataforma web editable</span>
+          </div>
+        </div>
+
+        <!-- Artículo 159 -->
+        <div class="bg-neutral-500/5 border-l-4 border-migala/40 rounded-r-xl p-4 space-y-2">
+          <span class="text-[10px] font-bold text-migala uppercase tracking-widest">Artículo 159.-</span>
+          <p class="text-muted text-xs leading-relaxed font-light italic">
+            "Las propuestas sirven para generar y modificar puntos en la ruta crítica, así como planes, acuerdos, proyectos y actividades dentro del Proyecto Migala; deberán contener mínimo lo siguiente:"
+          </p>
+          <ol class="list-decimal list-inside text-xs text-sub space-y-0.5 font-light pl-1">
+            <li>Nombre de la propuesta.</li>
+            <li>Nombre de la persona que propone.</li>
+            <li>Descripción de la propuesta.</li>
+            <li>¿En qué consiste?, ¿Cuál es el fin? (justificación).</li>
+            <li>¿A quién o quiénes va dirigido?.</li>
+            <li>¿Qué recursos se necesitan? (RRHH, materiales).</li>
+            <li>¿Cuál sería la afluencia estimada de personas?.</li>
+            <li>¿En qué lugar se llevará a cabo?.</li>
+            <li>¿Cuál será la fecha y la duración? y en caso de llevarse su elaboración en distintos días, agregar cronograma con las fechas.</li>
+            <li>Medio para comunicarse (Correo electrónico, Telegram, WhatsApp, Discord).</li>
+          </ol>
+        </div>
+
       </div>
       <a href="PROPUESTA_POC_TRANSPARENCIA.md" target="_blank"
          class="bg-migala hover:bg-migala-dark text-white text-xs font-bold py-3 px-6 rounded-xl transition duration-200 cursor-pointer shadow-xs self-start md:self-center flex items-center gap-1.5 shrink-0">
@@ -43,8 +81,11 @@
                 [class.text-sub]="activeTabId() !== item.id"
                 [class.border-default]="activeTabId() !== item.id"
                 [class.hover:border-migala/40]="activeTabId() !== item.id">
-          <span class="mr-1 opacity-70 font-mono">{{ item.id }}</span>
+          <span class="mr-0.5 opacity-70 font-mono">{{ item.id }}</span>
           {{ item.seccion }}
+          @if (item.fundamento) {
+            <span class="ml-1.5 text-[8px] opacity-60 font-mono">· {{ item.fundamento }}</span>
+          }
         </button>
       }
     </div>
@@ -70,13 +111,18 @@
                   [class.text-sub]="activeTabId() !== item.id"
                   [class.hover:bg-neutral-500/5]="activeTabId() !== item.id">
             
-            <div class="flex items-center space-x-3">
-              <span class="text-xs font-mono opacity-50 font-bold"
-                    [class.text-migala]="activeTabId() === item.id">
-                {{ item.id }}
-              </span>
-              <span class="text-xs tracking-wide select-none">{{ item.nombre }}</span>
-            </div>
+             <div class="flex items-center space-x-3 min-w-0">
+               <span class="text-xs font-mono opacity-50 font-bold shrink-0"
+                     [class.text-migala]="activeTabId() === item.id">
+                 {{ item.id }}
+               </span>
+               <div class="min-w-0 flex flex-col">
+                 <span class="text-xs tracking-wide select-none truncate">{{ item.nombre }}</span>
+                 @if (item.fundamento) {
+                   <span class="text-[9px] text-faint font-mono mt-0.5">{{ item.fundamento }}</span>
+                 }
+               </div>
+             </div>
             
             <span class="text-sm select-none opacity-80 group-hover:scale-110 transition-transform">{{ item.icon }}</span>
           </button>
@@ -91,9 +137,16 @@
       <div class="space-y-6">
         <div class="flex items-start justify-between border-b border-default pb-5 gap-4">
           <div class="space-y-1">
-            <span class="text-[10px] font-mono font-bold text-migala uppercase tracking-widest">
-              Requisito {{ activeItem().id }} de {{ totalItems() }}
-            </span>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-[10px] font-mono font-bold text-migala uppercase tracking-widest">
+                Requisito {{ activeItem().id }} de {{ totalItems() }}
+              </span>
+              @if (activeItem().fundamento) {
+                <span class="text-[9px] font-mono font-medium bg-migala/10 text-migala border border-migala/20 px-2 py-0.5 rounded-full">
+                  {{ activeItem().fundamento }}
+                </span>
+              }
+            </div>
             <h2 class="text-base md:text-xl font-extrabold text-default tracking-tight leading-snug">
               {{ activeItem().nombre }}
             </h2>
@@ -136,8 +189,13 @@
 
       <!-- Navigation Actions -->
       <div class="mt-12 pt-6 border-t border-default flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div class="text-[10px] text-faint font-medium">
-          Artículo 159 • Propuesta Oficial
+        <div class="text-[10px] text-faint font-medium flex items-center gap-1.5">
+          <span>⚖️</span>
+          @if (activeItem().fundamento) {
+            <span>{{ activeItem().fundamento }} · Cumplimiento Reglamentario</span>
+          } @else {
+            <span>Art. 157–159 · Propuesta Oficial</span>
+          }
         </div>
         
         <div class="flex items-center space-x-3 self-end sm:self-center">

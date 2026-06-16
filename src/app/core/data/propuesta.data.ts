@@ -21,6 +21,8 @@ export interface PropuestaItem {
   seccion: string;
   detalle: string;
   detallesExtra?: { key: string; val: string }[];
+  /** Artículo(s) del reglamento que respaldan este requisito */
+  fundamento?: string;
 }
 
 export const PROPUESTA_ITEMS: PropuestaItem[] = [
@@ -30,6 +32,7 @@ export const PROPUESTA_ITEMS: PropuestaItem[] = [
     nombre: 'Nombre de la propuesta',
     icon: '🏷️',
     detalle: 'Plantilla Base Reutilizable (Boilerplate) de Transparencia y Auto-Administración para Comisiones Estatales, Temáticas y Grupos Operativos (Nombre en código: POC_admin_migala).',
+    fundamento: 'Art. 159, fracc. 1',
     detallesExtra: [
       { key: 'Nombre del Software', val: 'POC_admin_migala' },
       { key: 'Propósito', val: 'Boilerplate / Plantilla Base de Transparencia' },
@@ -42,6 +45,7 @@ export const PROPUESTA_ITEMS: PropuestaItem[] = [
     nombre: 'Nombre de la persona que propone',
     icon: '👤',
     detalle: 'Desarrollado de forma abierta por miembros de Proyecto Migala para capacitar y dar soberanía tecnológica a cada órgano local de la organización.',
+    fundamento: 'Art. 159, fracc. 2',
     detallesExtra: [
       { key: 'GitHub Proponente', val: 'https://github.com/lancastmx' },
       { key: 'Eje de Participación', val: 'Comisión de Informática y Tecnología' },
@@ -54,6 +58,7 @@ export const PROPUESTA_ITEMS: PropuestaItem[] = [
     nombre: 'Descripción de la propuesta',
     icon: '📝',
     detalle: 'Un boilerplate modular en Angular 21+, Tailwind CSS v4 y Signals listo para desplegar. Permite a cualquier Comisión Estatal o Temática crear y autoadministrar su propio portal de transparencia simplemente editando archivos JSON/TypeScript de configuración.',
+    fundamento: 'Art. 159, fracc. 3',
     detallesExtra: [
       { key: 'Tecnologías Clave', val: 'Angular 21+, Tailwind CSS v4, Signals' },
       { key: 'Componentes Core', val: 'Visualizador de Reglamentos, Lector de Manifiesto y Biblioteca de Archivos' },
@@ -66,6 +71,7 @@ export const PROPUESTA_ITEMS: PropuestaItem[] = [
     nombre: '¿En qué consiste y cuál es el fin? (Justificación)',
     icon: '💡',
     detalle: 'El reglamento nacional exige un espacio de transparencia (Notion, Reglamento interno o Página web) para consolidar y reconocer formalmente a las comisiones locales. Este boilerplate democratiza el acceso a tecnología premium, permitiendo que comisiones locales cumplan con estos requisitos de forma autónoma, sin costo y de manera soberana.',
+    fundamento: 'Art. 159, fracc. 4',
     detallesExtra: [
       { key: 'Foco Principal', val: 'Cumplimiento de requisitos de consolidación (Artículos 158 y 159)' },
       { key: 'Soberanía Digital', val: 'Gestión local autónoma de minutas, finanzas y reglamentos' },
@@ -78,6 +84,7 @@ export const PROPUESTA_ITEMS: PropuestaItem[] = [
     nombre: '¿A quién o quiénes va dirigido?',
     icon: '👥',
     detalle: 'A todas las Comisiones Estatales (CE), Comisiones Temáticas (CT) y Grupos Operativos (GO) que requieran auto-administrar su información, y a los afiliados/ciudadanos interesados en auditar cada nodo local.',
+    fundamento: 'Art. 159, fracc. 5',
     detallesExtra: [
       { key: 'Administradores Locales', val: 'Enlaces de comunicación y archivo de cada comisión' },
       { key: 'Lectores Locales', val: 'Afiliados y simpatizantes de cada entidad o grupo' },
@@ -90,6 +97,7 @@ export const PROPUESTA_ITEMS: PropuestaItem[] = [
     nombre: '¿Qué recursos se necesitan? (RRHH y Materiales)',
     icon: '🛠️',
     detalle: 'Recursos Humanos: 1 o 2 desarrolladores para soporte y mantenimiento del core; 1 enlace de cada comisión local para configurar sus datos. Recursos Materiales: Repositorio plantilla en GitHub y hosting estático gratuito (Firebase Hosting o GitHub Pages).',
+    fundamento: 'Art. 159, fracc. 6',
     detallesExtra: [
       { key: 'Soporte del Core', val: 'Desarrolladores voluntarios de Informática Nacional' },
       { key: 'Hosting y Dominio', val: 'Gratuitos y autogestionados por cada comisión local' },
@@ -102,6 +110,7 @@ export const PROPUESTA_ITEMS: PropuestaItem[] = [
     nombre: '¿Cuál sería la afluencia estimada de personas?',
     icon: '📈',
     detalle: 'Adopción proyectada en las 32 Comisiones Estatales, las 6 Comisiones Temáticas y múltiples grupos operativos, llegando potencialmente a miles de afiliados locales consultando sus portales de manera directa.',
+    fundamento: 'Art. 159, fracc. 7',
     detallesExtra: [
       { key: 'Comisiones Objetivo', val: '32 comisiones estatales y 6 temáticas' },
       { key: 'Usuarios Finales', val: 'Toda la militancia y simpatizantes locales en sus respectivos territorios' },
@@ -114,6 +123,7 @@ export const PROPUESTA_ITEMS: PropuestaItem[] = [
     nombre: 'En qué lugar se llevará a cabo',
     icon: '🌐',
     detalle: 'Implementación virtual y distribuida a nivel nacional. Cada órgano o comisión local clona, configura y aloja su copia del portal de manera autónoma en la nube.',
+    fundamento: 'Art. 159, fracc. 8',
     detallesExtra: [
       { key: 'Desarrollo del Core', val: 'Esfuerzo colaborativo en línea (GitHub)' },
       { key: 'Alojamiento', val: 'Servidores cloud con despliegues independientes y autónomos' },
@@ -126,6 +136,7 @@ export const PROPUESTA_ITEMS: PropuestaItem[] = [
     nombre: '¿Cuál será la fecha y la duración?',
     icon: '📅',
     detalle: 'Fase 1 (POC del Boilerplate): Completada. Fase 2 (Prueba Piloto): Implementación en 2 comisiones estatales piloto (2 semanas). Fase 3 (Lanzamiento Nacional): Despliegue masivo en Julio de 2026.',
+    fundamento: 'Art. 159, fracc. 9',
     detallesExtra: [
       { key: 'Fase 1: POC funcional', val: 'Completada (con suite de tests integrados)' },
       { key: 'Fase 2: Piloto', val: '2 comisiones locales piloto para validación y manuales' },
@@ -138,6 +149,7 @@ export const PROPUESTA_ITEMS: PropuestaItem[] = [
     nombre: 'Medio para comunicarse',
     icon: '✉️',
     detalle: 'Canales del proponente y soporte del boilerplate para guiar a las comisiones locales en su configuración y despliegue autónomo.',
+    fundamento: 'Art. 159, fracc. 10',
     detallesExtra: [
       { key: 'Telegram', val: 't.me/Lancast5' },
       { key: 'GitHub', val: 'https://github.com/lancastmx' },
