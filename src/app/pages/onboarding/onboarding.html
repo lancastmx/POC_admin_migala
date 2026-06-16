@@ -1,0 +1,282 @@
+<migala-page-banner
+  title="Bienvenida y Consolidación"
+  description="Guía paso a paso para que tu comisión cumpla con los requisitos del Reglamento Nacional y se consolide formalmente."
+  variant="migala">
+</migala-page-banner>
+
+<!-- Main Container -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
+
+  <!-- ─── INTRO ─────────────────────────────────────────────── -->
+  <div class="bg-surface border border-default rounded-3xl p-6 md:p-8 space-y-4 shadow-2xs">
+    <div class="inline-flex items-center space-x-2 bg-migala/10 text-migala border border-migala/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
+      🏁 Primeros Pasos
+    </div>
+    <h2 class="text-xl md:text-2xl font-extrabold text-default tracking-tight">
+      ¿Tu comisión quiere consolidarse?
+    </h2>
+    <p class="text-muted text-xs sm:text-sm leading-relaxed font-light max-w-3xl">
+      El Reglamento Nacional establece los requisitos mínimos que toda comisión debe cumplir
+      para ser reconocida formalmente. Usa esta guía para saber qué documentos necesitas,
+      qué pasos seguir y cómo usar este portal para cumplir con todo.
+    </p>
+    <div class="flex flex-wrap gap-2 pt-1">
+      <a routerLink="/reglamento"
+         class="text-[11px] font-bold text-migala hover:text-migala-dark border border-migala/20 hover:border-migala/40 bg-migala/5 px-3.5 py-1.5 rounded-full transition flex items-center gap-1">
+        <span>📜</span> Ver Reglamento Nacional
+      </a>
+      <a routerLink="/ruta-critica"
+         class="text-[11px] font-bold text-migala hover:text-migala-dark border border-migala/20 hover:border-migala/40 bg-migala/5 px-3.5 py-1.5 rounded-full transition flex items-center gap-1">
+        <span>🗺️</span> Ver Ruta Crítica Nacional
+      </a>
+      <a routerLink="/archivo"
+         class="text-[11px] font-bold text-migala hover:text-migala-dark border border-migala/20 hover:border-migala/40 bg-migala/5 px-3.5 py-1.5 rounded-full transition flex items-center gap-1">
+        <span>📂</span> Explorar Archivo
+      </a>
+    </div>
+  </div>
+
+  <!-- ─── NAVEGACIÓN DE SECCIONES ──────────────────────────── -->
+  <div class="flex flex-wrap gap-2">
+    @for (s of secciones; track s.key) {
+      <button (click)="selectSeccion(s.key)"
+              class="px-4 py-2.5 rounded-xl text-xs font-bold border transition-all duration-200 shadow-2xs flex items-center gap-1.5 cursor-pointer"
+              [class.bg-migala]="activeSeccion() === s.key"
+              [class.text-white]="activeSeccion() === s.key"
+              [class.border-migala]="activeSeccion() === s.key"
+              [class.bg-surface]="activeSeccion() !== s.key"
+              [class.text-sub]="activeSeccion() !== s.key"
+              [class.border-default]="activeSeccion() !== s.key"
+              [class.hover:border-migala/40]="activeSeccion() !== s.key">
+        <span>{{ s.icon }}</span>
+        <span>{{ s.label }}</span>
+      </button>
+    }
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════ -->
+  <!-- SECCIÓN 1: CHECKLIST POR COMISIÓN                      -->
+  <!-- ════════════════════════════════════════════════════════ -->
+  @if (activeSeccion() === 'checklist') {
+    <div class="space-y-6">
+      <!-- Selector de tipo -->
+      <div class="flex flex-wrap gap-2">
+        @for (ct of comisionesTipos; track ct.tipo) {
+          <button (click)="selectedTipo.set(ct.tipo)"
+                  class="px-5 py-3 rounded-2xl text-sm font-bold border-2 transition-all duration-200 cursor-pointer flex items-center gap-2 min-w-[160px]"
+                  [class.bg-migala]="selectedTipo() === ct.tipo"
+                  [class.text-white]="selectedTipo() === ct.tipo"
+                  [class.border-migala]="selectedTipo() === ct.tipo"
+                  [class.bg-surface]="selectedTipo() !== ct.tipo"
+                  [class.text-default]="selectedTipo() !== ct.tipo"
+                  [class.border-default]="selectedTipo() !== ct.tipo"
+                  [class.hover:border-migala/40]="selectedTipo() !== ct.tipo">
+            <span class="text-xs font-mono opacity-70">{{ ct.siglasLabel }}</span>
+            <span>{{ ct.titulo }}</span>
+          </button>
+        }
+      </div>
+
+      <!-- Info + checklist -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <!-- Columna: Descripción del tipo -->
+        <div class="lg:col-span-4 bg-surface border border-default rounded-3xl p-5 shadow-2xs sticky top-6 space-y-3">
+          <div class="inline-flex items-center space-x-1.5"
+               [class.text-migala]="selectedComision().color === 'migala'"
+               [class.text-teal-600]="selectedComision().color === 'teal'"
+               [class.text-amber-600]="selectedComision().color === 'amber'">
+            <span class="text-[10px] font-bold uppercase tracking-widest">{{ selectedComision().articulos }}</span>
+            <span class="text-xs">·</span>
+            <span class="text-[10px] font-mono font-bold">{{ selectedComision().siglasLabel }}</span>
+          </div>
+          <h3 class="text-lg font-extrabold text-default">{{ selectedComision().titulo }}</h3>
+          <p class="text-xs text-muted leading-relaxed font-light">{{ selectedComision().descripcion }}</p>
+
+          <!-- Barra de progreso -->
+          <div class="pt-2 space-y-1.5">
+            <div class="flex items-center justify-between text-[10px]">
+              <span class="font-bold text-default">Progreso</span>
+              <span class="font-mono font-bold"
+                    [class.text-green-600]="todosCompletados()"
+                    [class.text-migala]="!todosCompletados()">
+                {{ progreso() }}%
+              </span>
+            </div>
+            <div class="w-full h-1.5 bg-neutral-500/10 rounded-full overflow-hidden">
+              <div class="h-full rounded-full transition-all duration-500"
+                   [style.width.%]="progreso()"
+                   [class.bg-green-500]="todosCompletados()"
+                   [class.bg-migala]="!todosCompletados()">
+              </div>
+            </div>
+            @if (todosCompletados()) {
+              <div class="flex items-center gap-1.5 text-[10px] text-green-600 font-bold pt-1">
+                <span>🎉</span>
+                <span>¡Cumples con todos los requisitos del {{ selectedComision().articulos }}!</span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Columna: Lista de requisitos -->
+        <div class="lg:col-span-8 space-y-3">
+          @for (req of selectedComision().requisitos; track req.id) {
+            <div class="bg-surface border border-default rounded-2xl p-4 shadow-2xs transition-all duration-200"
+                 [class.border-green-300]="completados().has(req.id)"
+                 [class.bg-green-500/5]="completados().has(req.id)">
+              <div class="flex items-start gap-3">
+                <!-- Checkbox -->
+                <button (click)="toggleRequisito(req.id)"
+                        class="mt-0.5 shrink-0 w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all duration-150 cursor-pointer"
+                        [class.bg-green-500]="completados().has(req.id)"
+                        [class.border-green-500]="completados().has(req.id)"
+                        [class.border-default]="!completados().has(req.id)">
+                  @if (completados().has(req.id)) {
+                    <span class="text-white text-[11px] font-bold">✓</span>
+                  }
+                </button>
+                <!-- Contenido -->
+                <div class="min-w-0 flex-1">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="text-base">{{ req.icon }}</span>
+                    <span class="text-sm font-semibold text-default"
+                          [class.line-through]="completados().has(req.id)"
+                          [class.text-muted]="completados().has(req.id)">
+                      {{ req.texto }}
+                    </span>
+                    @if (req.articulo) {
+                      <span class="text-[9px] font-mono text-faint bg-neutral-500/5 border border-default/40 px-1.5 py-0.5 rounded">
+                        {{ req.articulo }}
+                      </span>
+                    }
+                  </div>
+                  <!-- Documentos asociados -->
+                  @if (req.documentos && req.documentos.length > 0) {
+                    <div class="mt-2 pl-1 space-y-1">
+                      <span class="text-[9px] font-bold text-faint uppercase tracking-wider">Documentos requeridos:</span>
+                      <ul class="space-y-0.5">
+                        @for (doc of req.documentos; track doc) {
+                          <li class="flex items-center gap-1.5 text-[11px] text-sub font-light">
+                            <span class="text-[9px] text-faint">└</span>
+                            <span>📄 {{ doc }}</span>
+                          </li>
+                        }
+                      </ul>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- ════════════════════════════════════════════════════════ -->
+  <!-- SECCIÓN 2: CATÁLOGO DE DOCUMENTOS                      -->
+  <!-- ════════════════════════════════════════════════════════ -->
+  @if (activeSeccion() === 'documentos') {
+    <div class="space-y-5">
+      <div class="bg-surface border border-default rounded-2xl p-5 shadow-2xs">
+        <h3 class="text-sm font-extrabold text-default mb-1">📋 Catálogo de Documentos Básicos</h3>
+        <p class="text-xs text-muted font-light">
+          Estos son los documentos que toda comisión debe producir y mantener actualizados,
+          según el Reglamento Nacional. Los obligatorios aplican a todos los tipos de comisión.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        @for (doc of catalogoDocumentos; track doc.id) {
+          <div class="bg-surface border border-default rounded-2xl p-4 shadow-2xs flex flex-col gap-2.5 transition hover:shadow-xs hover:border-migala/20">
+            <div class="flex items-start justify-between">
+              <span class="text-xl">{{ doc.icon }}</span>
+              @if (doc.obligatorio) {
+                <span class="text-[8px] font-bold text-rose-600 bg-rose-500/10 border border-rose-200 px-1.5 py-0.5 rounded-full uppercase tracking-wider">
+                  Obligatorio
+                </span>
+              } @else {
+                <span class="text-[8px] font-bold text-faint bg-neutral-500/10 border border-default/40 px-1.5 py-0.5 rounded-full uppercase tracking-wider">
+                  Opcional
+                </span>
+              }
+            </div>
+            <div class="space-y-1 flex-1">
+              <h4 class="text-sm font-bold text-default">{{ doc.nombre }}</h4>
+              <p class="text-[11px] text-muted leading-relaxed font-light">{{ doc.descripcion }}</p>
+            </div>
+            <div class="flex flex-wrap gap-1">
+              @for (a of doc.aplica; track a) {
+                <span class="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded"
+                      [class.bg-migala/10]="a === 'estatal'"
+                      [class.text-migala]="a === 'estatal'"
+                      [class.bg-teal-500/10]="a === 'tematica'"
+                      [class.text-teal-600]="a === 'tematica'"
+                      [class.bg-amber-500/10]="a === 'transversal'"
+                      [class.text-amber-600]="a === 'transversal'">
+                  {{ a === 'estatal' ? 'CE' : a === 'tematica' ? 'CT' : 'GT' }}
+                </span>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- ════════════════════════════════════════════════════════ -->
+  <!-- SECCIÓN 3: PROCESO PASO A PASO                         -->
+  <!-- ════════════════════════════════════════════════════════ -->
+  @if (activeSeccion() === 'proceso') {
+    <div class="space-y-5">
+      <div class="bg-surface border border-default rounded-2xl p-5 shadow-2xs">
+        <h3 class="text-sm font-extrabold text-default mb-1">🔷 Proceso de Consolidación</h3>
+        <p class="text-xs text-muted font-light">
+          Sigue estos pasos en orden para que tu comisión quede formalmente consolidada.
+          Cada paso incluye una estimación de duración y enlaces a las herramientas disponibles.
+        </p>
+      </div>
+
+      <div class="space-y-0">
+        @for (paso of procesoConsolidacion; track paso.id; let idx = $index) {
+          <div class="flex items-start gap-4 group">
+            <!-- Timeline: número + línea -->
+            <div class="flex flex-col items-center shrink-0 pt-1">
+              <span class="w-8 h-8 rounded-full bg-migala text-white text-xs font-bold flex items-center justify-center shadow-xs">
+                {{ idx + 1 }}
+              </span>
+              @if (idx < procesoConsolidacion.length - 1) {
+                <span class="w-0.5 flex-1 bg-migala/20 mt-1.5"></span>
+              }
+            </div>
+            <!-- Contenido -->
+            <div class="pb-8 min-w-0 flex-1 bg-surface border border-default rounded-2xl p-5 shadow-2xs group-hover:border-migala/20 transition">
+              <div class="flex items-start justify-between gap-4">
+                <div class="space-y-1 flex-1">
+                  <div class="flex items-center gap-2">
+                    <span class="text-lg">{{ paso.icon }}</span>
+                    <h4 class="text-sm font-extrabold text-default">{{ paso.titulo }}</h4>
+                  </div>
+                  <p class="text-xs text-muted leading-relaxed font-light">{{ paso.descripcion }}</p>
+                </div>
+                @if (paso.duracion) {
+                  <span class="shrink-0 text-[9px] font-mono font-bold text-faint bg-neutral-500/5 border border-default/30 px-2 py-1 rounded-full whitespace-nowrap">
+                    ⏱ {{ paso.duracion }}
+                  </span>
+                }
+              </div>
+              @if (paso.enlace) {
+                <a [routerLink]="paso.enlace.path"
+                   class="inline-flex items-center gap-1 mt-3 text-[10px] font-bold text-migala hover:text-migala-dark border border-migala/20 hover:border-migala/40 bg-migala/5 px-3 py-1.5 rounded-full transition">
+                  <span>🔗</span>
+                  <span>{{ paso.enlace.label }}</span>
+                </a>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+</div>

@@ -13,6 +13,7 @@ import { MenuItem } from './menu-item';
 
 export const TOP_MENU: MenuItem[] = [
   { label: 'Inicio', route: '/', exact: true },
+  { label: 'Bienvenida', route: '/bienvenida', lines: ['Bienve', 'nida'] },
   { label: 'Reglamentos', route: '/reglamento' },
   { label: 'Manifiesto', route: '/manifiesto' },
   { label: 'Ruta Crítica', route: '/ruta-critica', lines: ['Ruta', 'Crítica'] },
