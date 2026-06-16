@@ -82,7 +82,7 @@
                               <a [href]="node.org.telegramUrl" target="_blank" rel="noopener noreferrer"
                                  class="text-migala hover:bg-migala hover:text-white bg-migala/10 text-[10px] px-2 py-0.5 rounded-md transition flex items-center gap-1 flex-shrink-0 cursor-pointer"
                                  title="Unirse a Telegram">
-                                <span>✈️</span>
+                                <img src="assets/icons/telegram.svg" alt="Telegram" class="w-3.5 h-3.5 object-contain">
                               </a>
                             }
                             @if (node.children.length === 0 && !node.org.telegramUrl) {
@@ -119,8 +119,8 @@
                                     @if (child.children.length === 0 && child.org.telegramUrl) {
                                       <a [href]="child.org.telegramUrl" target="_blank" rel="noopener noreferrer"
                                          class="text-migala hover:bg-migala hover:text-white bg-migala/10 text-[10px] px-2 py-0.5 rounded-md transition flex items-center gap-1 flex-shrink-0 cursor-pointer"
-                                         title="Unirse a Telegram">
-                                        <span>✈️</span>
+                                          title="Unirse a Telegram">
+                                        <img src="assets/icons/telegram.svg" alt="Telegram" class="w-3.5 h-3.5 object-contain">
                                       </a>
                                     }
                                     @if (child.children.length === 0 && !child.org.telegramUrl) {
@@ -154,11 +154,11 @@
                                             @if (grandchild.children.length === 0 && grandchild.org.telegramUrl) {
                                               <a [href]="grandchild.org.telegramUrl" target="_blank" rel="noopener noreferrer"
                                                  class="text-migala hover:bg-migala hover:text-white bg-migala/10 text-[10px] px-2 py-0.5 rounded-md transition flex items-center gap-1 flex-shrink-0 cursor-pointer"
-                                                 title="Unirse a Telegram">
-                                                <span>✈️</span>
-                                              </a>
-                                            }
-                                            @if (grandchild.children.length === 0 && !grandchild.org.telegramUrl) {
+                                                  title="Unirse a Telegram">
+                                                 <img src="assets/icons/telegram.svg" alt="Telegram" class="w-3.5 h-3.5 object-contain">
+                                               </a>
+                                             }
+                                             @if (grandchild.children.length === 0 && !grandchild.org.telegramUrl) {
                                               <span class="text-[10px] text-faint flex-shrink-0" title="Sin enlace público">🔒</span>
                                             }
                                           </div>
@@ -177,9 +177,9 @@
                                                   @if (ggchild.org.telegramUrl) {
                                                     <a [href]="ggchild.org.telegramUrl" target="_blank" rel="noopener noreferrer"
                                                        class="text-migala hover:bg-migala hover:text-white bg-migala/10 text-[10px] px-2 py-0.5 rounded-md transition flex items-center gap-1 flex-shrink-0 cursor-pointer"
-                                                       title="Unirse a Telegram">
-                                                      <span>✈️</span>
-                                                    </a>
+                                                        title="Unirse a Telegram">
+                                                       <img src="assets/icons/telegram.svg" alt="Telegram" class="w-3.5 h-3.5 object-contain">
+                                                     </a>
                                                   } @else {
                                                     <span class="text-[10px] text-faint flex-shrink-0" title="Sin enlace público">🔒</span>
                                                   }

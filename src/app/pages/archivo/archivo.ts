@@ -349,7 +349,7 @@ export class Archivo implements OnInit, OnDestroy {
   // ─── Estado de expansión de nodos en el árbol ───
   protected readonly expandedTreeNodes = signal<Set<string>>(new Set());
 
-  protected toggleTreeNode(nodeId: string): void {
+  protected toggleTreeNode = (nodeId: string): void => {
     this.expandedTreeNodes.update(s => {
       const next = new Set(s);
       if (next.has(nodeId)) {
@@ -359,11 +359,11 @@ export class Archivo implements OnInit, OnDestroy {
       }
       return next;
     });
-  }
+  };
 
-  protected isTreeNodeExpanded(nodeId: string): boolean {
+  protected isTreeNodeExpanded = (nodeId: string): boolean => {
     return this.expandedTreeNodes().has(nodeId);
-  }
+  };
 
   constructor() {
     const seo = SEO_DATA['archivo'];
@@ -429,11 +429,20 @@ export class Archivo implements OnInit, OnDestroy {
 
   // ─── Métodos de Utilidad ─────────────────────
 
-  protected selectCategory(catId: string): void {
+  protected selectCategory = (catId: string): void => {
     this.selectedCategory.set(catId);
-  }
+    // Resetear filtros al cambiar de categoría para evitar que
+    // filtros viejos (eje, subsección, estado) dejen sin resultados
+    // la vista de documentos u otras categorías
+    this.selectedEje.set('todos');
+    this.selectedFormat.set('todos');
+    this.searchQuery.set('');
+    this.selectedSubseccion.set('todos');
+    this.selectedEstado.set('todos');
+    this.estadosSubmenuExpanded.set(false);
+  };
 
-  protected clearFilters(): void {
+  protected clearFilters = (): void => {
     this.selectedCategory.set('todos');
     this.selectedEje.set('todos');
     this.selectedFormat.set('todos');
@@ -441,60 +450,60 @@ export class Archivo implements OnInit, OnDestroy {
     this.selectedSubseccion.set('todos');
     this.selectedEstado.set('todos');
     this.estadosSubmenuExpanded.set(false);
-  }
+  };
 
-  protected getCategoryLabel(catId: string): string {
+  protected getCategoryLabel = (catId: string): string => {
     const cat = this.categorias.find(c => c.id === catId);
     return cat ? cat.label : catId;
-  }
+  };
 
-  protected getEjeLabel(ejeId: string): string {
+  protected getEjeLabel = (ejeId: string): string => {
     const eje = this.ejes.find(e => e.id === ejeId);
     return eje ? eje.label : ejeId;
-  }
+  };
 
-  protected toggleEje(ejeId: string): void {
+  protected toggleEje = (ejeId: string): void => {
     const key = ejeId as keyof EjesExpansionState;
     this.expandedEjes.update(prev => ({
       ...prev,
       [key]: !prev[key]
     }));
-  }
+  };
 
-  protected selectSubseccion(subId: string, ejeId: string): void {
+  protected selectSubseccion = (subId: string, ejeId: string): void => {
     this.selectedSubseccion.set(subId);
     this.selectedEje.set(ejeId);
     this.selectedEstado.set('todos');
     if (this.selectedCategory() === 'inicio') {
       this.selectedCategory.set('todos');
     }
-  }
+  };
 
-  protected selectEstado(estadoId: string): void {
+  protected selectEstado = (estadoId: string): void => {
     this.selectedEstado.set(estadoId);
     this.selectedEje.set('estatal');
     this.selectedSubseccion.set('todos');
     if (this.selectedCategory() === 'inicio') {
       this.selectedCategory.set('todos');
     }
-  }
+  };
 
-  protected selectEjeSolo(ejeId: string): void {
+  protected selectEjeSolo = (ejeId: string): void => {
     this.selectedEje.set(ejeId);
     this.selectedSubseccion.set('todos');
     this.selectedEstado.set('todos');
     if (this.selectedCategory() === 'inicio') {
       this.selectedCategory.set('todos');
     }
-  }
+  };
 
-  protected selectEstadoFromPortal(estadoId: string): void {
+  protected selectEstadoFromPortal = (estadoId: string): void => {
     this.selectEstado(estadoId);
-  }
+  };
 
-  protected selectSubseccionFromPortal(subId: string, ejeId: string): void {
+  protected selectSubseccionFromPortal = (subId: string, ejeId: string): void => {
     this.selectSubseccion(subId, ejeId);
-  }
+  };
 
   private getComisionInfo(acronimo: string) {
     const op = this.portalesOperativos.find(p => p.acronimo === acronimo);

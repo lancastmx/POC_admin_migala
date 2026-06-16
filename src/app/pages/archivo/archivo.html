@@ -88,18 +88,20 @@
           [getCategoryLabel]="getCategoryLabel"
         ></migala-archivo-inicio>
       } @else {
-        <!-- Encabezado de Resultados -->
-        <div class="flex items-center justify-between text-xs text-muted">
-          <div>
-            Se encontraron <span class="font-bold text-default">{{ filteredDocumentos().length }}</span> documento(s)
-            @if (selectedCategory() !== 'todos' || selectedEje() !== 'todos' || selectedFormat() !== 'todos' || searchQuery()) {
-              bajo filtros activos
-            }
+        <!-- Encabezado de Resultados (solo para categorías documentales) -->
+        @if (selectedCategory() !== 'redes-sociales' && selectedCategory() !== 'ruta-critica' && selectedCategory() !== 'directorios' && selectedCategory() !== 'organigrama') {
+          <div class="flex items-center justify-between text-xs text-muted">
+            <div>
+              Se encontraron <span class="font-bold text-default">{{ filteredDocumentos().length }}</span> documento(s)
+              @if (selectedCategory() !== 'todos' || selectedEje() !== 'todos' || selectedFormat() !== 'todos' || searchQuery()) {
+                bajo filtros activos
+              }
+            </div>
+            <div class="hidden sm:block">
+              Mostrando: <span class="font-bold text-default">{{ getCategoryLabel(selectedCategory()) }}</span>
+            </div>
           </div>
-          <div class="hidden sm:block">
-            Mostrando: <span class="font-bold text-default">{{ getCategoryLabel(selectedCategory()) }}</span>
-          </div>
-        </div>
+        }
 
         @if (selectedCategory() === 'redes-sociales') {
           <migala-archivo-redes-sociales
@@ -144,15 +146,17 @@
           ></migala-archivo-directorios>
         }
 
-        <migala-archivo-documentos
-          [filteredDocumentos]="filteredDocumentos()"
-          [getFormatIcon]="getFormatIcon"
-          [getFormatBadgeClass]="getFormatBadgeClass"
-          [getFormatBadgeLabel]="getFormatBadgeLabel"
-          [getFormatAction]="getFormatAction"
-          [isMockUrl]="isMockUrl"
-          [clearFilters]="clearFilters"
-        ></migala-archivo-documentos>
+        @if (selectedCategory() !== 'redes-sociales' && selectedCategory() !== 'ruta-critica' && selectedCategory() !== 'directorios' && selectedCategory() !== 'organigrama') {
+          <migala-archivo-documentos
+            [filteredDocumentos]="filteredDocumentos()"
+            [getFormatIcon]="getFormatIcon"
+            [getFormatBadgeClass]="getFormatBadgeClass"
+            [getFormatBadgeLabel]="getFormatBadgeLabel"
+            [getFormatAction]="getFormatAction"
+            [isMockUrl]="isMockUrl"
+            [clearFilters]="clearFilters"
+          ></migala-archivo-documentos>
+        }
       }
 
     </main>
