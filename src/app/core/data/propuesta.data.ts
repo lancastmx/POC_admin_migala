@@ -23,6 +23,8 @@ export interface PropuestaItem {
   detallesExtra?: { key: string; val: string }[];
   /** Artículo(s) del reglamento que respaldan este requisito */
   fundamento?: string;
+  /** Cómo renderizar los detallesExtra: 'card-grid' (default) | 'timeline' */
+  layout?: 'card-grid' | 'timeline';
 }
 
 export const PROPUESTA_ITEMS: PropuestaItem[] = [
@@ -150,14 +152,36 @@ export const PROPUESTA_ITEMS: PropuestaItem[] = [
     seccion: 'Cronograma',
     nombre: '¿Cuál será la fecha y la duración?',
     icon: '📅',
-    detalle: 'Cronograma actualizado al 16/06/2026 — Hemos completado la fase de documentos básicos (lo que toda comisión debe tener: portada, afiliación, estructura, organigrama, reglamento, ruta crítica, propuesta y directorios). Sin embargo, la UI/UX de usuario logueado (dashboard personal, gestión de perfiles, roles y sesiones) y todo el backend (API REST o Firebase Functions, autenticación, base de datos) está todavía en desarrollo. Julio 2026 se ve optimista como fecha de lanzamiento general — la meta realista es tener un MVP funcional para septiembre-octubre 2026, y el despliegue nacional escalonado durante el primer trimestre de 2027.',
+    detalle: 'Cronograma actualizado al 16/06/2026 — Hemos completado la fase de documentos básicos (lo que toda comisión debe tener) y ahora arrancamos con la fase de desarrollo de backend, autenticación y dashboard de usuario. El plan está organizado por semanas para dar visibilidad y facilitar la contribución.',
+    layout: 'timeline',
     fundamento: 'Art. 159, fracc. 9',
     detallesExtra: [
-      { key: 'Fase 1: Documentos Básicos (POC estático)', val: 'Completada al 16/06/26 — Portada, afiliación, estructura, organigrama, reglamento, ruta crítica, propuesta, directorios y página de autenticación (template). Suite de tests incorporada.' },
-      { key: 'Fase 2: UI/UX de sesión y backend', val: 'EN DESARROLLO — Dashboard personal, perfiles por rol (admin/enlace/lector), gestión de archivos, registro de usuarios con verificación. Requiere: autenticación (OAuth/Firebase), base de datos en tiempo real, API de documentos.' },
-      { key: 'Fase 3: Piloto con 2 comisiones locales', val: 'Meta: Octubre 2026 — Despliegue de prueba con 2 comisiones estatales reales, manuales de uso, retroalimentación y ajustes.' },
-      { key: 'Fase 4: Lanzamiento nacional escalonado', val: 'Meta: 1er trimestre 2027 — Disponibilidad general del repositorio plantilla para cualquier comisión estatal/temática que desee adoptarlo.' },
-      { key: 'Hito alcanzado', val: '16/06/2026 — POC estático navegable con 8 secciones informativas completas' }
+      // ─── ✅ COMPLETADO (Semanas 1-24) ───────────────────────
+      { key: '✅', val: 'Completado — Semanas 1-24' },
+      { key: 'Portada, afiliación y estructura organizativa', val: '✅ Completado — Sem 1-8' },
+      { key: 'Organigrama interactivo', val: '✅ Completado — Sem 9' },
+      { key: 'Visualizador del Reglamento Nacional', val: '✅ Completado — Sem 10-12' },
+      { key: 'Ruta Crítica Nacional + Propuesta', val: '✅ Completado — Sem 13-16' },
+      { key: 'Directorios y Archivo (documentos por sección)', val: '✅ Completado — Sem 17-20' },
+      { key: 'Página de autenticación (template) + pulido general', val: '✅ Completado — Sem 21-24' },
+      // ─── 📋 SIGUIENTES SEMANAS ──────────────────────────────
+      { key: '📋', val: 'Objetivos Semanales — Q3-Q4 2026' },
+      { key: 'Semana 25 (15-21 Jun)', val: 'Diseñar wireframes del dashboard personal (roles: admin, enlace, lector)' },
+      { key: 'Semana 26 (22-28 Jun)', val: 'Configurar Firebase project + Firestore + Firebase Auth (email y Google OAuth)' },
+      { key: 'Semana 27 (29 Jun-5 Jul)', val: 'Implementar login, register y verificación de email. Proteger rutas con guards.' },
+      { key: 'Semana 28 (6-12 Jul)', val: 'Modelo de datos: Perfiles con roles. CRUD básico de usuarios desde admin.' },
+      { key: 'Semana 29 (13-19 Jul)', val: 'Dashboard admin: listar comisiones, asignar roles, ver métricas básicas.' },
+      { key: 'Semana 30 (20-26 Jul)', val: 'Dashboard enlace: subir/edit/eliminar documentos de su comisión.' },
+      { key: 'Semana 31 (27 Jul-2 Ago)', val: 'Dashboard lector: consultar documentos, filtrar por sección y tipo.' },
+      { key: 'Semana 32 (3-9 Ago)', val: 'Sistema de archivos: subida de PDF/imágenes a Firebase Storage.' },
+      { key: 'Semana 33 (10-16 Ago)', val: 'Buscador full-text + filtros combinados (sección, tipo, fecha, palabra clave).' },
+      { key: 'Semana 34 (17-23 Ago)', val: 'Notificaciones internas: actividad reciente, documentos nuevos por comisión.' },
+      { key: 'Semana 35 (24-30 Ago)', val: 'Pruebas unitarias y de integración (Vitest).' },
+      { key: 'Semana 36 (31 Ago-6 Sep)', val: 'QA interno: corregir bugs, pulir UI/UX responsive, validar flujos completos.' },
+      { key: 'Semana 37-40 (Sep-Oct)', val: 'Preparar piloto: manuales, seleccionar 2 comisiones, onboarding.' },
+      { key: 'Semana 41-44 (Oct-Nov)', val: 'Piloto con 2 comisiones reales. Retroalimentación y ajustes.' },
+      { key: 'Semana 45-52 (Nov-Dic)', val: 'Refinar según feedback, documentar APIs, preparar release.' },
+      { key: 'Q1 2027 (Ene-Mar)', val: 'Lanzamiento nacional escalonado. Repositorio plantilla disponible para todas las comisiones.' }
     ]
   },
   {
