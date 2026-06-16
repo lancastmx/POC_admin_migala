@@ -1,7 +1,16 @@
-/** ───────────────────────────────────────────────
- *  Constantes visuales y de dominio para el
- *  sistema de reglamentos trazables.
- *  ─────────────────────────────────────────────── */
+/**
+ * ─── Zettelkasten ─────────────────────────────────────────────────
+ * zk_id:  cfg-003
+ * title:  REGLAMENTO_CONSTANTS — Constantes visuales y de dominio
+ * type:   config
+ * tags:   [angular, config, regulations, constants, enums]
+ * author: lancast
+ * created: 2026-06-10
+ * updated: 2026-06-15
+ * ───────────────────────────────────────────────────────────────────
+ *
+ * Constantes visuales y de dominio para el sistema de reglamentos trazables.
+ */
 import type { EstatusReglamento, TipoRelacion } from '../models/reglamento-trazable';
 
 // ═══════════════════════════════════════════════
@@ -146,8 +155,73 @@ export const REGION_ORDER: string[] = [
 ];
 
 // ═══════════════════════════════════════════════
+//  TABS DE REGLAMENTO
+// ═══════════════════════════════════════════════
+
+export interface ReglamentoTab {
+  id: string;
+  name: string;
+  icon: string;
+}
+
+export const REGLAMENTO_TABS: ReglamentoTab[] = [
+  { id: 'nacional',      name: 'Nacional',              icon: '📜' },
+  { id: 'estatales',     name: 'Comisiones Estatales',  icon: '🗺️' },
+  { id: 'operativos',    name: 'Grupos Operativos',     icon: '⚙️' },
+  { id: 'tematicas',     name: 'Comisiones Temáticas',  icon: '🎯' },
+  { id: 'transversal',   name: 'Transversalidad',       icon: '🔄' },
+  { id: 'procedimental', name: 'Procedimientos',        icon: '📋' },
+  { id: 'disciplinario', name: 'Conductas y Sanciones', icon: '⚖️' },
+  { id: 'normativo',     name: 'Modificaciones',        icon: '📝' },
+];
+
+// ═══════════════════════════════════════════════
 //  HELPERS
 // ═══════════════════════════════════════════════
+
+// ═══════════════════════════════════════════════
+//  MAPA: LIST TYPE → CLASE CSS DEL MARKER
+// ═══════════════════════════════════════════════
+
+/** Clase Tailwind para el marcador de cada tipo de lista */
+export const LIST_TYPE_MARKER_CLASS: Partial<Record<'roman' | 'letter' | 'number' | 'bullet', string>> = {
+  roman:  'text-amber-400/70',
+  letter: 'text-cyan-400/70',
+  number: 'text-blue-400/70',
+  bullet: 'text-neutral-500/70',
+};
+
+/** Carácter por defecto para listas sin tipo */
+export const LIST_TYPE_DEFAULT_MARKER = '•';
+
+// ═══════════════════════════════════════════════
+//  MAPA: FRAGMENT TYPE → DATOS VISUALES
+// ═══════════════════════════════════════════════
+
+/** Icono + clase de contenedor para cada tipo de fragmento de artículo */
+export interface FragmentTypeVisual {
+  icon: string;
+  containerClass: string;
+  textClass: string;
+}
+
+export const FRAGMENT_TYPE_VISUAL: Record<string, FragmentTypeVisual> = {
+  paragraph: { icon: '', containerClass: '', textClass: 'text-neutral-300 leading-relaxed' },
+  listItem:  { icon: '', containerClass: 'flex gap-2 pl-4', textClass: 'text-neutral-300' },
+  condition: { icon: '⚠️', containerClass: 'flex gap-2 pl-4 py-1 bg-amber-500/5 border-l-2 border-amber-500/30 rounded-r-lg', textClass: 'text-amber-200/90' },
+  exception: { icon: '💡', containerClass: 'flex gap-2 pl-4 py-1 bg-blue-500/5 border-l-2 border-blue-500/30 rounded-r-lg', textClass: 'text-blue-200/90' },
+};
+
+// ═══════════════════════════════════════════════
+//  MAPA: PROGRESO → CLASE BARRA DE PROGRESO
+// ═══════════════════════════════════════════════
+
+/** Clase CSS para la barra de progreso según el valor */
+export function getProgresoBarClass(progreso: number): string {
+  if (progreso >= 100) return 'bg-emerald-500';
+  if (progreso > 0) return 'bg-amber-500';
+  return 'bg-neutral-700';
+}
 
 /** Genera un UUID v4 simple (para IDs de nodos) */
 export function uuid(): string {
