@@ -55,5 +55,10 @@ export const SEO_DATA: Record<string, SeoMetadata> = {
     title: 'Estructura Organizacional - Proyecto Migala',
     description: 'Explora la estructura organizacional del Proyecto Migala: organigrama interactivo, ejes, comisiones y procedimientos.',
     url: 'https://poc-admin-migala.web.app/estructura'
+  },
+  'ruta-critica': {
+    title: 'Ruta Crítica - Proyecto Migala',
+    description: 'Hoja de ruta estratégica para el registro como Partido Político Nacional. Consulta los documentos, fases, hitos y actividades críticas del Proyecto Migala.',
+    url: 'https://poc-admin-migala.web.app/ruta-critica'
   }
 };

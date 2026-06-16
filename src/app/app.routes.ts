@@ -25,6 +25,8 @@ export const routes: Routes = [
   { path: 'estructura', loadComponent: () => import('./pages/estructura/estructura').then(m => m.Estructura), title: 'Estructura y Gobernanza - Proyecto Migala' },
   { path: 'archivo', loadComponent: () => import('./pages/archivo/archivo').then(m => m.Archivo), title: 'Archivo - Proyecto Migala' },
   { path: 'propuesta', loadComponent: () => import('./pages/propuesta/propuesta').then(m => m.Propuesta), title: 'Propuesta de Proyecto - Proyecto Migala' },
+  { path: 'ruta-critica', loadComponent: () => import('./pages/ruta-critica/ruta-critica').then(m => m.RutaCritica), title: 'Ruta Crítica - Proyecto Migala' },
+  { path: 'auth', loadComponent: () => import('./pages/auth/auth').then(m => m.Auth), title: 'Iniciar Sesión - Proyecto Migala' },
   { path: 'privacidad', component: UnderConstruction, title: 'Aviso de Privacidad - Proyecto Migala' },
   { path: '**', component: PageNotFound, title: 'Página no Encontrada - Proyecto Migala' },
 ];

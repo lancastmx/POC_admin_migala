@@ -1,0 +1,143 @@
+<!-- ═══════════════════════════════════════════════════════════════
+     RUTA CRÍTICA NACIONAL — Plan de Trabajo 2026
+     ═══════════════════════════════════════════════════════════════ -->
+
+<migala-page-banner
+  title="RUTA CRÍTICA NACIONAL"
+  description="Plan Nacional de Trabajo 2026 — Versión Alfa"
+  variant="migala">
+</migala-page-banner>
+
+<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
+
+  <!-- 📌 Intro: Plan Nacional de Trabajo -->
+  <section class="bg-surface border border-default rounded-2xl p-6 md:p-8 space-y-4">
+    <div class="inline-flex items-center gap-2 bg-migala/10 text-migala border border-migala/20 px-3.5 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
+      📌 Plan Nacional de Trabajo
+    </div>
+    <h2 class="text-xl md:text-3xl font-extrabold tracking-tight text-default">
+      {{ data.titulo }} Nacional {{ data.periodo }}
+    </h2>
+    <p class="text-sub text-sm leading-relaxed text-justify font-light border-l-4 border-migala/40 pl-4">
+      {{ data.sobreNosotros }}
+    </p>
+  </section>
+
+  <!-- 📈 Balance 2025 -->
+  <section class="bg-brand-soft border border-brand-soft/80 rounded-2xl p-6 md:p-8 space-y-3">
+    <h3 class="text-xs font-extrabold text-migala uppercase tracking-wider flex items-center gap-2">
+      📈 Balance y Crecimiento 2025
+    </h3>
+    <p class="text-sm text-muted leading-relaxed text-justify font-light">
+      {{ data.resumen2025 }}
+    </p>
+  </section>
+
+  <!-- ⭐ Objetivos Principales -->
+  <section class="bg-surface border border-default rounded-2xl p-6 md:p-8 space-y-5">
+    <h3 class="text-sm font-extrabold uppercase tracking-widest text-default border-b border-default pb-2 flex items-center gap-2">
+      <span>⭐</span> Objetivos Principales 2026
+    </h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      @for (obj of getObjetivos('principal'); track obj.titulo) {
+        @if (obj.titulo === 'Formar a los miembros') {
+          @for (det of obj.detalles; track det.id) {
+            <div class="bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-800/40 rounded-2xl p-5 space-y-3">
+              <h4 class="text-xs font-extrabold uppercase tracking-wider text-amber-800 dark:text-amber-300 leading-snug">
+                {{ det.nombre }}
+              </h4>
+              <p class="text-[11px] text-muted leading-relaxed text-justify font-light">{{ det.detalle }}</p>
+            </div>
+          }
+        }
+      }
+    </div>
+  </section>
+
+  <!-- 🏛️ Coordinación General -->
+  <section class="bg-surface border border-default rounded-2xl p-6 md:p-8 space-y-4">
+    @for (obj of getObjetivos('principal'); track obj.titulo) {
+      @if (obj.titulo === 'Establecer la 1ra generación de la Coordinación General') {
+        <div class="flex items-start gap-3">
+          <span class="text-2xl">🏛️</span>
+          <div class="space-y-2 flex-1">
+            <h3 class="text-sm font-extrabold text-default">{{ obj.titulo }}</h3>
+            @for (det of obj.detalles; track det.id) {
+              <p class="text-sm text-muted leading-relaxed text-justify font-light">{{ det.detalle }}</p>
+            }
+          </div>
+        </div>
+      }
+    }
+  </section>
+
+  <!-- 🤝 Comisiones Estatales -->
+  <section class="bg-surface border border-default rounded-2xl p-6 md:p-8 space-y-4">
+    @for (obj of getObjetivos('principal'); track obj.titulo) {
+      @if (obj.titulo === 'Consolidar a las Comisiones Estatales') {
+        <div class="flex items-start gap-3">
+          <span class="text-2xl">🤝</span>
+          <div class="space-y-2 flex-1">
+            <h3 class="text-sm font-extrabold text-default">{{ obj.titulo }}</h3>
+            @for (det of obj.detalles; track det.id) {
+              <div class="bg-sub border border-default rounded-xl p-4">
+                <p class="text-xs text-muted leading-relaxed text-justify font-light">{{ det.detalle }}</p>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    }
+  </section>
+
+  <!-- ⚙️ Objetivos Secundarios -->
+  <section class="bg-surface border border-default rounded-2xl p-6 md:p-8 space-y-5">
+    <h3 class="text-sm font-extrabold uppercase tracking-widest text-default border-b border-default pb-2 flex items-center gap-2">
+      <span>⚙️</span> Objetivos Secundarios 2026
+    </h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      @for (obj of getObjetivos('secundario'); track obj.titulo) {
+        <div class="bg-cyan-50/50 dark:bg-cyan-950/20 border border-cyan-200/60 dark:border-cyan-800/40 rounded-2xl p-5 space-y-3">
+          <h4 class="text-xs font-extrabold uppercase tracking-wider text-cyan-800 dark:text-cyan-300">{{ obj.titulo }}</h4>
+          @for (det of obj.detalles; track det.id) {
+            <div class="flex items-start gap-2">
+              <span class="text-[10px] font-mono text-faint bg-neutral-500/10 px-1.5 py-0.5 rounded font-bold mt-0.5">{{ det.id }}</span>
+              <div>
+                <span class="text-xs font-bold text-default block">{{ det.nombre }}</span>
+                <p class="text-[11px] text-muted leading-relaxed text-justify font-light">{{ det.detalle }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- 🎯 Finalidad -->
+  <section class="bg-rose-50/50 dark:bg-rose-950/20 border border-rose-200/60 dark:border-rose-800/40 rounded-2xl p-6 md:p-8 space-y-3">
+    <div class="flex items-start gap-3">
+      <span class="text-2xl">🎯</span>
+      <div class="space-y-2">
+        <h3 class="text-sm font-extrabold tracking-widest uppercase text-rose-800 dark:text-rose-300">
+          {{ data.finalidad.titulo }}
+        </h3>
+        <h4 class="text-xs font-extrabold text-rose-600 dark:text-rose-400 uppercase tracking-wider">
+          {{ data.finalidad.subtitulo }}
+        </h4>
+        <p class="text-sm text-muted leading-relaxed text-justify font-light">
+          {{ data.finalidad.descripcion }}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="bg-sub border border-default rounded-2xl p-6 text-center">
+    <p class="text-xs text-dim leading-relaxed max-w-2xl mx-auto">
+      Este plan es parte del esfuerzo colectivo de Proyecto Migala.
+      Consulta los documentos oficiales en el
+      <a routerLink="/archivo" class="text-migala font-semibold hover:text-migala-dark transition">Archivo de Transparencia</a>.
+    </p>
+  </div>
+
+</main>
