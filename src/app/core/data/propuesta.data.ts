@@ -63,14 +63,15 @@ export const PROPUESTA_ITEMS: PropuestaItem[] = [
     seccion: 'Descripción',
     nombre: 'Descripción de la propuesta',
     icon: '📝',
-    detalle: 'Es una plantilla digital completamente armada —como un "molde" de página web— que permite a cualquier Comisión Estatal, Comisión Temática o Grupo Operativo tener su propio portal de transparencia en internet, sin necesidad de saber programar. Cada comisión solo escribe sus datos (quiénes la integran, sus documentos, su reglamento interno, actividades) en unos formatos sencillos, y la página se genera sola. Cualquier afiliado o ciudadano puede consultarla desde su celular o computadora.',
+    detalle: 'Es una plataforma web completa que proporciona la interfaz y la estructura de un portal de transparencia para cada Comisión Estatal, Comisión Temática o Grupo Operativo. La parte visible (frontend) ya está armada y lista para mostrar la información de cada comisión. Sin embargo, cada órgano local necesita un programador o mantenedor técnico que se encargue del despliegue, la configuración del backend (Node + TypeScript con API REST y GraphQL), la base de datos (Firebase) y el alojamiento del sitio. La ventaja es que no se parte de cero: la interfaz, los componentes y la lógica base ya están resueltos; el esfuerzo local se concentra en ponerlo en marcha y mantenerlo actualizado.',
     fundamento: 'Art. 159, fracc. 3',
     detallesExtra: [
-      { key: 'Tecnologías Clave', val: 'Angular 21+ (standalone), Tailwind CSS v4, Signals, Bun, Vitest' },
+      { key: 'Stack Frontend', val: 'Angular 21+ (standalone, Signals, OnPush), Tailwind CSS v4, Bun, Vitest' },
+      { key: 'Stack Backend', val: 'Node.js + TypeScript, API REST y GraphQL, Firebase (Auth + Firestore + Storage)' },
       { key: 'Componentes Existentes', val: 'Reglamento, Estructura, Archivo, Ruta Crítica, Propuesta, Directorio, Auth (template), Organigrama, Topbar' },
       { key: 'Componentes Pendientes', val: 'Dashboard de usuario, Gestor de perfiles, Roles y permisos (Admin/Enlace/Lector), CRUD de documentos, Panel de analíticas' },
-      { key: 'Personalización', val: 'Edición de datos locales en archivos .data.ts (sin necesidad de backend)' },
-      { key: 'Arquitectura', val: 'Componentes standalone con detección OnPush, servicios con Signals, lazy loading por ruta' }
+      { key: 'Personalización Local', val: 'Edición de datos de contenido en archivos .data.ts (textos, imágenes, documentos). No requiere backend para la parte estática.' },
+      { key: 'Arquitectura', val: 'Frontend standalone + Backend Node/TS desacoplado (principios hexagonal/clean architecture). Comunicación vía REST + GraphQL.' }
     ]
   },
   {
@@ -108,14 +109,16 @@ export const PROPUESTA_ITEMS: PropuestaItem[] = [
     seccion: 'Recursos',
     nombre: '¿Qué recursos se necesitan? (RRHH y Materiales)',
     icon: '🛠️',
-    detalle: 'Recursos Humanos: 1 o 2 desarrolladores para soporte y mantenimiento del core; 1 enlace de cada comisión local para configurar sus datos. Recursos Materiales: Repositorio plantilla en GitHub y hosting estático gratuito (Firebase Hosting o GitHub Pages).',
+    detalle: 'Recursos Humanos: Se requiere al menos 1 desarrollador o mantenedor técnico por comisión local para el despliegue, configuración del backend (Node + TypeScript con REST/GraphQL sobre Firebase) y mantenimiento del sitio. A nivel nacional, 2 o 3 desarrolladores mantienen el core (frontend + backend). Cada comisión designa también un enlace no técnico para cargar los datos de contenido (documentos, integrantes, noticias). Recursos Materiales: Repositorio en GitHub con la plantilla, cuenta gratuita de Firebase (Auth + Firestore + Storage) y servicio de hosting (Firebase Hosting, Cloudflare Pages, Vercel, etc.).',
     fundamento: 'Art. 159, fracc. 6',
     detallesExtra: [
-      { key: 'Soporte del Core', val: 'Desarrolladores voluntarios de la Comisión Nacional de Informática y Tecnología' },
-      { key: 'Hosting y Dominio', val: 'Gratuitos y autogestionados por cada comisión local (Firebase Free, GitHub Pages, Cloudflare)' },
-      { key: 'Facilidad de Uso', val: 'El enlace local solo edita archivos de datos (sin programar); la plantilla se despliega automáticamente' },
-      { key: 'DevOps', val: 'El repositorio incluye configuración de CI/CD (GitHub Actions) para despliegue automático al hacer push' },
-      { key: 'Documentación para Devs', val: 'README con instrucciones de desarrollo, testing y contribución. Estructura modular para añadir nuevas secciones' }
+      { key: 'Soporte del Core (Nacional)', val: 'Desarrolladores voluntarios de la Comisión Nacional de Informática y Tecnología — mantienen frontend y backend base' },
+      { key: 'Mantenedor Local', val: 'Cada comisión requiere 1 persona con conocimientos de Node/TypeScript, Git y Firebase para desplegar y mantener su portal' },
+      { key: 'Enlace de Contenido', val: '1 persona por comisión (perfil no técnico) encargada de mantener actualizados los documentos, integrantes y noticias' },
+      { key: 'Hosting y Dominio', val: 'Gratuitos y autogestionados por cada comisión local (Firebase Free, Cloudflare Pages, Vercel, GitHub Pages)' },
+      { key: 'DevOps', val: 'El repositorio incluye configuración de CI/CD (GitHub Actions) para despliegue automático al hacer push a la rama principal' },
+      { key: 'Stack Requerido (backend)', val: 'Node.js 20+, TypeScript, Firebase CLI, conocimiento de REST y GraphQL' },
+      { key: 'Stack Requerido (frontend)', val: 'Angular CLI, Bun, Tailwind CSS v4 — opcional para personalizar la interfaz' }
     ]
   },
   {
@@ -129,8 +132,9 @@ export const PROPUESTA_ITEMS: PropuestaItem[] = [
       { key: 'Comisiones Objetivo', val: '32 comisiones estatales y 6 temáticas' },
       { key: 'Usuarios Finales', val: 'Toda la militancia y simpatizantes locales en sus respectivos territorios' },
       { key: 'Impacto Organizativo', val: 'Descentralización real del acceso a la información' },
-      { key: 'Contribuidores Necesarios', val: '2-3 devs frontend (Angular), 1-2 devs backend (Firebase/Node), 1 diseñador UI/UX, 1 tester por comisión piloto' },
-      { key: 'Habilidades Valoradas', val: 'Angular 21+, Tailwind CSS v4, Firebase/Firestore, diseño de sistemas de diseño (design systems)' }
+      { key: 'Contribuidores Necesarios (Core)', val: '2-3 devs fullstack (Angular + Node/TS), 1 dev backend (Node/TS + REST + GraphQL), 1 diseñador UI/UX' },
+      { key: 'Mantenedores Locales', val: '1 programador por comisión (Node/TS + Git + Firebase) para desplegar y mantener su instancia' },
+      { key: 'Habilidades Valoradas', val: 'Angular 21+, Node.js + TypeScript, API REST/GraphQL, Firebase (Auth, Firestore, Storage), Tailwind CSS v4, Bun' }
     ]
   },
   {
@@ -138,7 +142,7 @@ export const PROPUESTA_ITEMS: PropuestaItem[] = [
     seccion: 'Ubicación',
     nombre: 'En qué lugar se llevará a cabo',
     icon: '🌐',
-    detalle: 'Implementación virtual y distribuida a nivel nacional. Cada órgano o comisión local clona, configura y aloja su copia del portal de manera autónoma en la nube.',
+    detalle: 'Implementación virtual y distribuida a nivel nacional. Cada órgano o comisión local clona el repositorio, configura su backend (Node + TypeScript + Firebase) y despliega su propio portal de manera autónoma. El equipo nacional mantiene el core centralizado, pero cada comisión es responsable de su propia instancia, sus datos y su disponibilidad.',
     fundamento: 'Art. 159, fracc. 8',
     detallesExtra: [
       { key: 'Desarrollo del Core', val: 'Esfuerzo colaborativo en línea vía GitHub — https://github.com/lancastmx/POC_admin_migala' },
