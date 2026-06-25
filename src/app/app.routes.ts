@@ -28,6 +28,7 @@ export const routes: Routes = [
   { path: 'ruta-critica', loadComponent: () => import('./pages/ruta-critica/ruta-critica').then(m => m.RutaCritica), title: 'Ruta Crítica - Proyecto Migala' },
   { path: 'bienvenida', loadComponent: () => import('./pages/onboarding/onboarding'), title: 'Bienvenida y Consolidación - Proyecto Migala' },
   { path: 'auth', loadComponent: () => import('./pages/auth/auth').then(m => m.Auth), title: 'Iniciar Sesión - Proyecto Migala' },
+  { path: 'asamblea', loadComponent: () => import('./pages/asamblea/asamblea').then(m => m.Asamblea), title: 'Asamblea Social - Proyecto Migala' },
   { path: 'privacidad', component: UnderConstruction, title: 'Aviso de Privacidad - Proyecto Migala' },
   { path: '**', component: PageNotFound, title: 'Página no Encontrada - Proyecto Migala' },
 ];

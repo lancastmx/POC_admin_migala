@@ -1,0 +1,253 @@
+<migala-page-banner title="Asamblea Social"
+  description="El espacio de convergencia, discusión y organización comunitaria."
+  variant="migala">
+</migala-page-banner>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    
+    <!-- Sidebar -->
+    <aside class="col-span-1 lg:col-span-4 flex flex-col gap-6 sticky top-6">
+      
+      <!-- Mi Perfil Card -->
+      <div class="bg-surface border border-default rounded-3xl p-6 shadow-2xs">
+        <h3 class="text-xs font-extrabold text-default tracking-wider uppercase mb-5">Mi Perfil</h3>
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-migala text-white flex items-center justify-center text-lg font-bold shadow-sm">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <div>
+            <div class="font-bold text-default text-sm">Usuario Activo</div>
+            <div class="text-xs text-sub">@usuario</div>
+          </div>
+        </div>
+        <div class="space-y-2 text-sm text-sub mt-4">
+          <div class="flex justify-between"><span>Publicaciones</span> <span class="font-bold text-default">42</span></div>
+          <div class="flex justify-between"><span>Respuestas</span> <span class="font-bold text-default">128</span></div>
+        </div>
+        <button class="mt-5 w-full bg-neutral-500/5 hover:bg-neutral-500/10 border border-default text-xs font-bold text-default py-2.5 rounded-xl transition duration-150 cursor-pointer">
+          Editar Perfil
+        </button>
+      </div>
+
+      <!-- Menú / Timelines -->
+      <div class="bg-surface border border-default rounded-3xl p-4 shadow-2xs">
+        <ul class="space-y-1">
+          <li>
+            <button class="w-full flex items-center justify-between px-3.5 py-3 rounded-2xl bg-brand-soft text-migala font-bold border-l-4 border-migala transition duration-150 group">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-bars text-lg opacity-80"></i>
+                <span class="text-sm tracking-wide">Timelines</span>
+              </div>
+              <i class="fa-solid fa-chevron-down text-[10px]"></i>
+            </button>
+          </li>
+          <li class="pt-2 mt-1 border-t border-default">
+            <button class="w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sub hover:bg-neutral-500/5 transition duration-150 group">
+              <i class="fa-solid fa-circle-info text-lg opacity-60 group-hover:opacity-100 transition-opacity"></i>
+              <span class="text-sm tracking-wide">Acerca de</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Features -->
+      <div class="bg-surface border border-default rounded-3xl p-6 shadow-2xs">
+        <h3 class="text-xs font-extrabold text-default tracking-wider uppercase mb-4">Características</h3>
+        <ul class="space-y-2.5 text-sm text-sub font-light">
+          <li class="flex items-start gap-2">
+            <span class="text-migala mt-0.5">•</span>
+            <span>Opciones de alcance personalizado</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-migala mt-0.5">•</span>
+            <span>Límite de caracteres: <span class="font-medium text-default">5000</span></span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-migala mt-0.5">•</span>
+            <span>Límite de subida: <span class="font-medium text-default">15.26 MiB</span></span>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Main Feed -->
+    <main class="col-span-1 lg:col-span-8 bg-surface border border-default rounded-3xl p-6 md:p-8 shadow-2xs min-h-[50vh] flex flex-col">
+      
+      <!-- Timeline Header -->
+      <div class="flex justify-between items-center pb-4 mb-6 border-b border-default">
+        <div class="flex items-center gap-2 cursor-pointer group">
+          <h2 class="text-lg md:text-xl font-extrabold text-default tracking-tight group-hover:text-migala transition-colors">Timeline Público</h2>
+          <i class="fa-solid fa-chevron-down text-xs text-sub mt-1"></i>
+        </div>
+        <div class="flex items-center gap-1.5 text-xs font-bold text-sub hover:text-default cursor-pointer transition-colors bg-neutral-500/5 px-3 py-1.5 rounded-full border border-default/50">
+          <span>Actualizado</span>
+          <i class="fa-solid fa-filter"></i>
+        </div>
+      </div>
+
+      <!-- Feed List -->
+      <div class="space-y-6">
+        
+        <!-- Post 1 -->
+        <article class="flex gap-4 pb-6 border-b border-default/50">
+          <div class="w-12 h-12 rounded-xl bg-neutral-800 text-white flex items-center justify-center text-xs font-extrabold shrink-0 shadow-sm">
+            A.S.
+          </div>
+          <div class="flex-grow min-w-0">
+            <div class="flex justify-between items-start mb-2">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="font-bold text-default text-sm">admin</span>
+                <span class="text-xs text-sub font-mono">@admin</span>
+                <i class="fa-solid fa-user-gear text-[10px] text-sub ml-1" title="Administrador"></i>
+              </div>
+              <div class="flex items-center gap-2.5 text-[10px] text-faint">
+                <span>hace 4d</span>
+                <i class="fa-solid fa-globe"></i>
+                <i class="fa-solid fa-square-plus hover:text-migala cursor-pointer transition-colors"></i>
+              </div>
+            </div>
+            <div class="text-sm text-default leading-relaxed whitespace-pre-line mb-3">
+              🤖 <a href="#" class="text-migala font-medium hover:underline">asamblea.social</a> todavía no manda correo ✉️ 🦧 ...próximamente 🦧
+            </div>
+            <div class="flex gap-6 text-sub text-xs">
+              <button class="flex items-center gap-1.5 hover:text-migala transition-colors"><i class="fa-solid fa-reply"></i></button>
+              <button class="flex items-center gap-1.5 hover:text-green-500 transition-colors"><i class="fa-solid fa-retweet"></i></button>
+              <button class="flex items-center gap-1.5 hover:text-yellow-500 transition-colors"><i class="fa-solid fa-star"></i></button>
+              <button class="flex items-center gap-1.5 hover:text-default transition-colors"><i class="fa-solid fa-ellipsis"></i></button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Post 2 -->
+        <article class="flex gap-4 pb-6 border-b border-default/50">
+          <div class="w-12 h-12 rounded-xl bg-neutral-200 flex items-center justify-center shrink-0 shadow-sm">
+            <i class="fa-solid fa-mask text-2xl text-neutral-500"></i>
+          </div>
+          <div class="flex-grow min-w-0">
+            <div class="flex justify-between items-start mb-1">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="font-bold text-default text-sm">jm</span>
+                <span class="text-xs text-sub font-mono">@jm</span>
+                <i class="fa-solid fa-user text-[10px] text-sub ml-1"></i>
+              </div>
+              <div class="flex items-center gap-2.5 text-[10px] text-faint">
+                <span>hace 4d</span>
+                <i class="fa-solid fa-globe"></i>
+                <i class="fa-solid fa-square-plus hover:text-migala cursor-pointer transition-colors"></i>
+              </div>
+            </div>
+            <div class="text-[11px] text-sub mb-2 flex items-center gap-1.5">
+              <i class="fa-solid fa-reply scale-x-[-1]"></i>
+              <span>Respondiendo a</span>
+              <a href="#" class="text-migala hover:underline">@admin</a>
+            </div>
+            <div class="text-sm text-default leading-relaxed whitespace-pre-line mb-3">
+              <a href="#" class="text-migala font-medium hover:underline">@admin</a> el progreso humano es la onda
+            </div>
+            <div class="flex gap-6 text-sub text-xs">
+              <button class="flex items-center gap-1.5 hover:text-migala transition-colors"><i class="fa-solid fa-reply"></i></button>
+              <button class="flex items-center gap-1.5 hover:text-green-500 transition-colors"><i class="fa-solid fa-retweet"></i></button>
+              <button class="flex items-center gap-1.5 text-yellow-500"><i class="fa-solid fa-star"></i> <span>1</span></button>
+              <button class="flex items-center gap-1.5 hover:text-default transition-colors"><i class="fa-solid fa-ellipsis"></i></button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Post 3 -->
+        <article class="flex gap-4 pb-6 border-b border-default/50">
+          <div class="w-12 h-12 rounded-xl bg-neutral-200 flex items-center justify-center shrink-0 shadow-sm">
+            <i class="fa-solid fa-mask text-2xl text-neutral-500"></i>
+          </div>
+          <div class="flex-grow min-w-0">
+            <div class="flex justify-between items-start mb-2">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="font-bold text-default text-sm">jm</span>
+                <span class="text-xs text-sub font-mono">@jm</span>
+                <i class="fa-solid fa-user text-[10px] text-sub ml-1"></i>
+              </div>
+              <div class="flex items-center gap-2.5 text-[10px] text-faint">
+                <span>hace 4d</span>
+                <i class="fa-solid fa-globe"></i>
+                <i class="fa-solid fa-square-plus hover:text-migala cursor-pointer transition-colors"></i>
+              </div>
+            </div>
+            <div class="text-sm text-default leading-relaxed whitespace-pre-line mb-3">
+              <a href="#" class="text-migala font-medium hover:underline">@admin</a> el progreso humano es la onda
+            </div>
+            
+            <!-- Embedded Inner Thread -->
+            <div class="bg-neutral-500/5 border border-default/50 rounded-2xl p-4 mb-4 flex gap-3 hover:border-default transition-colors cursor-pointer">
+              <div class="w-8 h-8 rounded-lg bg-neutral-800 text-white flex items-center justify-center text-[10px] font-bold shrink-0">
+                A.S.
+              </div>
+              <div class="flex-grow min-w-0">
+                <div class="flex justify-between items-center mb-1">
+                  <div class="flex items-center gap-1.5 text-xs">
+                    <span class="font-bold text-default">admin</span>
+                    <span class="text-sub font-mono">@admin</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-[10px] text-faint">
+                    <span>6d</span>
+                    <i class="fa-solid fa-globe"></i>
+                  </div>
+                </div>
+                <div class="text-[13px] text-sub leading-relaxed">
+                  ¡Brindemos las herramientas necesarias para el progreso humano!
+                </div>
+              </div>
+            </div>
+
+            <div class="flex gap-6 text-sub text-xs">
+              <button class="flex items-center gap-1.5 hover:text-migala transition-colors"><i class="fa-solid fa-reply"></i></button>
+              <button class="flex items-center gap-1.5 hover:text-green-500 transition-colors"><i class="fa-solid fa-retweet"></i></button>
+              <button class="flex items-center gap-1.5 text-yellow-500"><i class="fa-solid fa-star"></i> <span>1</span></button>
+              <button class="flex items-center gap-1.5 hover:text-default transition-colors"><i class="fa-solid fa-ellipsis"></i></button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Post 4 -->
+        <article class="flex gap-4">
+          <div class="w-12 h-12 rounded-xl bg-neutral-800 text-white flex items-center justify-center text-xs font-extrabold shrink-0 shadow-sm">
+            A.S.
+          </div>
+          <div class="flex-grow min-w-0">
+            <div class="flex justify-between items-start mb-2">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="font-bold text-default text-sm">admin</span>
+                <span class="text-xs text-sub font-mono">@admin</span>
+              </div>
+              <div class="flex items-center gap-2.5 text-[10px] text-faint">
+                <span>hace 4d</span>
+                <i class="fa-solid fa-globe"></i>
+                <i class="fa-solid fa-square-plus hover:text-migala cursor-pointer transition-colors"></i>
+              </div>
+            </div>
+            <div class="text-sm text-default leading-relaxed whitespace-pre-line mb-3">
+              ¡¡Mumble funciona!!
+              ¡¡Con tu usuario y password de <a href="#" class="text-migala font-medium hover:underline">asamblea.social</a>!!
+              <a href="https://mumble.asamblea.social/" target="_blank" class="text-migala font-medium hover:underline block my-1 bg-neutral-500/5 p-2 rounded-lg inline-block border border-default/30">https://mumble.asamblea.social/</a>
+              O desde tu cliente de Mumble a: <strong class="text-default font-bold">asamblea.social</strong>
+              Puerto (default) <code class="bg-neutral-500/10 px-1 py-0.5 rounded text-xs font-mono">6777</code>
+            </div>
+            
+            <!-- Reactions -->
+            <div class="inline-flex items-center gap-1.5 bg-neutral-500/5 border border-default/50 hover:border-default px-2.5 py-1 rounded-lg text-xs mb-3 cursor-pointer transition-colors shadow-3xs">
+              <span class="text-sm">🔥</span> <span class="font-bold text-sub">1</span>
+            </div>
+
+            <div class="flex gap-6 text-sub text-xs mt-1">
+              <button class="flex items-center gap-1.5 hover:text-migala transition-colors"><i class="fa-solid fa-reply"></i></button>
+              <button class="flex items-center gap-1.5 hover:text-green-500 transition-colors"><i class="fa-solid fa-retweet"></i></button>
+              <button class="flex items-center gap-1.5 text-yellow-500"><i class="fa-solid fa-star"></i> <span>1</span></button>
+              <button class="flex items-center gap-1.5 hover:text-default transition-colors"><i class="fa-solid fa-ellipsis"></i></button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </main>
+
+  </div>
+</div>
