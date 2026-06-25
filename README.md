@@ -28,7 +28,12 @@ Esta prueba de concepto tiene como objetivo desarrollar un **administrador de re
 
 ```bash
 # 1. Clonar el repositorio
-git clone <url-del-repositorio>
+# Vía HTTPS (Recomendado para la mayoría de usuarios):
+git clone https://github.com/lancastmx/POC_admin_migala.git
+
+# O vía SSH (Si tienes configuradas tus llaves SSH en GitHub):
+# git clone git@github.com:lancastmx/POC_admin_migala.git
+
 cd POC_admin_migala
 
 # 2. Instalar dependencias
