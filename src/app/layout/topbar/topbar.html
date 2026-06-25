@@ -55,8 +55,8 @@
   </div>
 
   <nav
-    class="lg:hidden absolute top-full left-0 w-full bg-surface border-b border-default shadow-lg z-50 overflow-hidden transition-all duration-300"
-    [style.max-height]="isMenuOpen() ? '500px' : '0'">
+    class="lg:hidden absolute top-full left-0 w-full bg-surface border-b border-default shadow-lg z-50 overflow-y-auto transition-all duration-300"
+    [style.max-height]="isMenuOpen() ? 'calc(100vh - 5rem)' : '0'">
     <div class="px-4 py-4 space-y-2 text-sm font-semibold text-muted tracking-wide">
       @for (item of menu; track item.route) {
       <a [routerLink]="item.route" routerLinkActive="text-migala border-l-4 border-migala pl-3"
