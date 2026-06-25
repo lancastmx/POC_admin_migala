@@ -1,19 +1,15 @@
-<migala-page-banner title="Asamblea Social"
-  description="El espacio de convergencia, discusión y organización comunitaria."
-  variant="migala">
-</migala-page-banner>
+<div class="max-w-7xl mx-auto px-0 lg:px-8 py-0 lg:py-12 pb-20 lg:pb-12">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 lg:gap-8 items-start">
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-    
     <!-- Sidebar -->
-    <aside class="col-span-1 lg:col-span-4 flex flex-col gap-6 sticky top-6">
-      
+    <aside class="hidden lg:flex col-span-1 lg:col-span-4 flex-col gap-6 sticky top-6">
+
       <!-- Mi Perfil Card -->
       <div class="bg-surface border border-default rounded-3xl p-6 shadow-2xs">
         <h3 class="text-xs font-extrabold text-default tracking-wider uppercase mb-5">Mi Perfil</h3>
         <div class="flex items-center gap-4 mb-4">
-          <div class="w-12 h-12 rounded-full bg-migala text-white flex items-center justify-center text-lg font-bold shadow-sm">
+          <div
+            class="w-12 h-12 rounded-full bg-migala text-white flex items-center justify-center text-lg font-bold shadow-sm">
             <i class="fa-solid fa-user"></i>
           </div>
           <div>
@@ -22,29 +18,87 @@
           </div>
         </div>
         <div class="space-y-2 text-sm text-sub mt-4">
-          <div class="flex justify-between"><span>Publicaciones</span> <span class="font-bold text-default">42</span></div>
-          <div class="flex justify-between"><span>Respuestas</span> <span class="font-bold text-default">128</span></div>
+          <div class="flex justify-between"><span>Publicaciones</span> <span class="font-bold text-default">42</span>
+          </div>
+          <div class="flex justify-between"><span>Respuestas</span> <span class="font-bold text-default">128</span>
+          </div>
         </div>
-        <button class="mt-5 w-full bg-neutral-500/5 hover:bg-neutral-500/10 border border-default text-xs font-bold text-default py-2.5 rounded-xl transition duration-150 cursor-pointer">
+        <button
+          class="mt-5 w-full bg-neutral-500/5 hover:bg-neutral-500/10 border border-default text-xs font-bold text-default py-2.5 rounded-xl transition duration-150 cursor-pointer">
           Editar Perfil
         </button>
       </div>
 
       <!-- Menú / Timelines -->
       <div class="bg-surface border border-default rounded-3xl p-4 shadow-2xs">
+        <div class="text-[10px] font-extrabold text-sub tracking-wider uppercase mb-3 px-3">Principal</div>
         <ul class="space-y-1">
           <li>
-            <button class="w-full flex items-center justify-between px-3.5 py-3 rounded-2xl bg-brand-soft text-migala font-bold border-l-4 border-migala transition duration-150 group">
+            <button
+              (click)="activeTab.set('general')"
+              [class]="activeTab() === 'general' ? 'w-full flex items-center justify-between px-3.5 py-3 rounded-2xl bg-brand-soft text-migala font-bold border-l-4 border-migala transition duration-150 group' : 'w-full flex items-center justify-between px-3.5 py-3 rounded-2xl text-sub hover:bg-neutral-500/5 border-l-4 border-transparent transition duration-150 group'">
               <div class="flex items-center gap-3">
-                <i class="fa-solid fa-bars text-lg opacity-80"></i>
-                <span class="text-sm tracking-wide">Timelines</span>
+                <i class="fa-solid fa-globe text-lg" [class.opacity-80]="activeTab() !== 'general'" [class.opacity-100]="activeTab() === 'general'"></i>
+                <span class="text-sm tracking-wide">Público General</span>
               </div>
-              <i class="fa-solid fa-chevron-down text-[10px]"></i>
             </button>
           </li>
+        </ul>
+
+        <div class="text-[10px] font-extrabold text-sub tracking-wider uppercase mb-2 mt-5 px-3">Mis Comisiones</div>
+        <ul class="space-y-1">
+          @for (comision of misComisiones; track comision.id) {
+          <li>
+            <button
+              (click)="activeTab.set(comision.id)"
+              [class]="activeTab() === comision.id ? 'w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl bg-brand-soft text-migala font-bold border-l-4 border-migala transition duration-150 group' : 'w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-sub hover:bg-neutral-500/5 border-l-4 border-transparent transition duration-150 group'">
+              <div class="flex items-center gap-3">
+                <i [class]="comision.icon + ' text-lg w-5 text-center'" [class.opacity-80]="activeTab() !== comision.id" [class.opacity-100]="activeTab() === comision.id"></i>
+                <span class="text-sm tracking-wide">{{ comision.nombre }}</span>
+              </div>
+            </button>
+          </li>
+          }
+        </ul>
+
+        <div class="text-[10px] font-extrabold text-sub tracking-wider uppercase mb-2 mt-5 px-3">Comisiones Temáticas</div>
+        <ul class="space-y-1">
+          @for (comision of comisionesTematicas; track comision.id) {
+          <li>
+            <button
+              (click)="activeTab.set(comision.id)"
+              [class]="activeTab() === comision.id ? 'w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl bg-brand-soft text-migala font-bold border-l-4 border-migala transition duration-150 group' : 'w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-sub hover:bg-neutral-500/5 border-l-4 border-transparent transition duration-150 group'">
+              <div class="flex items-center gap-3">
+                <i [class]="comision.icon + ' text-lg w-5 text-center'" [class.opacity-80]="activeTab() !== comision.id" [class.opacity-100]="activeTab() === comision.id"></i>
+                <span class="text-sm tracking-wide">{{ comision.nombre }}</span>
+              </div>
+            </button>
+          </li>
+          }
+        </ul>
+
+        <div class="text-[10px] font-extrabold text-sub tracking-wider uppercase mb-2 mt-5 px-3">Comisiones Estatales</div>
+        <ul class="space-y-1 max-h-48 overflow-y-auto scrollbar-thin scrollbar-thumb-default/20 scrollbar-track-transparent">
+          @for (comision of comisionesEstatales; track comision.id) {
+          <li>
+            <button
+              (click)="activeTab.set(comision.id)"
+              [class]="activeTab() === comision.id ? 'w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl bg-brand-soft text-migala font-bold border-l-4 border-migala transition duration-150 group' : 'w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-sub hover:bg-neutral-500/5 border-l-4 border-transparent transition duration-150 group'">
+              <div class="flex items-center gap-3">
+                <i [class]="comision.icon + ' text-lg w-5 text-center'" [class.opacity-80]="activeTab() !== comision.id" [class.opacity-100]="activeTab() === comision.id"></i>
+                <span class="text-sm tracking-wide">{{ comision.nombre }}</span>
+              </div>
+            </button>
+          </li>
+          }
+        </ul>
+
+        <ul class="space-y-1 mt-4">
           <li class="pt-2 mt-1 border-t border-default">
-            <button class="w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sub hover:bg-neutral-500/5 transition duration-150 group">
-              <i class="fa-solid fa-circle-info text-lg opacity-60 group-hover:opacity-100 transition-opacity"></i>
+            <button
+              (click)="activeTab.set('about')"
+              [class]="activeTab() === 'about' ? 'w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl bg-brand-soft text-migala font-bold border-l-4 border-migala transition duration-150 group' : 'w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sub hover:bg-neutral-500/5 border-l-4 border-transparent transition duration-150 group'">
+              <i class="fa-solid fa-circle-info text-lg" [class.opacity-60]="activeTab() !== 'about'" [class.opacity-100]="activeTab() === 'about'"></i>
               <span class="text-sm tracking-wide">Acerca de</span>
             </button>
           </li>
@@ -72,26 +126,52 @@
     </aside>
 
     <!-- Main Feed -->
-    <main class="col-span-1 lg:col-span-8 bg-surface border border-default rounded-3xl p-6 md:p-8 shadow-2xs min-h-[50vh] flex flex-col">
-      
+    <main
+      class="col-span-1 lg:col-span-8 bg-surface lg:border lg:border-default lg:rounded-3xl lg:p-8 shadow-none lg:shadow-2xs min-h-[50vh] flex flex-col">
+
+      @if (activeTab() !== 'about') {
       <!-- Timeline Header -->
-      <div class="flex justify-between items-center pb-4 mb-6 border-b border-default">
+      <div
+        class="flex justify-between items-center p-4 lg:px-0 lg:pb-4 lg:pt-0 mb-2 lg:mb-6 border-b lg:border-b border-default/30 lg:border-default bg-surface sticky top-0 z-10 lg:static">
         <div class="flex items-center gap-2 cursor-pointer group">
-          <h2 class="text-lg md:text-xl font-extrabold text-default tracking-tight group-hover:text-migala transition-colors">Timeline Público</h2>
+          <h2
+            class="text-lg md:text-xl font-extrabold text-default tracking-tight group-hover:text-migala transition-colors">
+            {{ activeTabTitle }}
+          </h2>
           <i class="fa-solid fa-chevron-down text-xs text-sub mt-1"></i>
         </div>
-        <div class="flex items-center gap-1.5 text-xs font-bold text-sub hover:text-default cursor-pointer transition-colors bg-neutral-500/5 px-3 py-1.5 rounded-full border border-default/50">
+        <div
+          class="flex items-center gap-1.5 text-xs font-bold text-sub hover:text-default cursor-pointer transition-colors bg-neutral-500/5 px-3 py-1.5 rounded-full border border-default/50">
           <span>Actualizado</span>
           <i class="fa-solid fa-filter"></i>
         </div>
       </div>
 
+      <!-- Create Post (Mobile/Desktop) -->
+      <div
+        class="flex items-center gap-3 p-4 lg:px-0 lg:pb-6 border-b-8 lg:border-b border-neutral-500/10 lg:border-default/50 bg-surface lg:mb-6">
+        <div
+          class="w-10 h-10 rounded-full bg-migala text-white flex items-center justify-center text-sm font-bold shadow-sm shrink-0">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <button
+          class="flex-grow bg-neutral-500/5 hover:bg-neutral-500/10 border border-default/80 rounded-full py-2.5 px-4 text-left text-sm text-sub font-medium transition-colors cursor-pointer">
+          ¿Qué estás pensando?
+        </button>
+        <button
+          class="w-10 h-10 flex items-center justify-center text-sub hover:text-default transition-colors cursor-pointer shrink-0">
+          <i class="fa-solid fa-image text-lg"></i>
+        </button>
+      </div>
+
       <!-- Feed List -->
       <div class="space-y-6">
-        
+
         <!-- Post 1 -->
-        <article class="flex gap-4 pb-6 border-b border-default/50">
-          <div class="w-12 h-12 rounded-xl bg-neutral-800 text-white flex items-center justify-center text-xs font-extrabold shrink-0 shadow-sm">
+        <article
+          class="flex gap-4 p-4 lg:p-0 pb-4 lg:pb-6 border-b-8 lg:border-b border-neutral-500/10 lg:border-default/50 bg-surface">
+          <div
+            class="w-12 h-12 rounded-xl bg-neutral-800 text-white flex items-center justify-center text-xs font-extrabold shrink-0 shadow-sm">
             A.S.
           </div>
           <div class="flex-grow min-w-0">
@@ -108,19 +188,25 @@
               </div>
             </div>
             <div class="text-sm text-default leading-relaxed whitespace-pre-line mb-3">
-              🤖 <a href="#" class="text-migala font-medium hover:underline">asamblea.social</a> todavía no manda correo ✉️ 🦧 ...próximamente 🦧
+              🤖 <a href="#" class="text-migala font-medium hover:underline">asamblea.social</a> todavía no manda correo
+              ✉️ 🦧 ...próximamente 🦧
             </div>
             <div class="flex gap-6 text-sub text-xs">
-              <button class="flex items-center gap-1.5 hover:text-migala transition-colors"><i class="fa-solid fa-reply"></i></button>
-              <button class="flex items-center gap-1.5 hover:text-green-500 transition-colors"><i class="fa-solid fa-retweet"></i></button>
-              <button class="flex items-center gap-1.5 hover:text-yellow-500 transition-colors"><i class="fa-solid fa-star"></i></button>
-              <button class="flex items-center gap-1.5 hover:text-default transition-colors"><i class="fa-solid fa-ellipsis"></i></button>
+              <button class="flex items-center gap-1.5 hover:text-migala transition-colors"><i
+                  class="fa-solid fa-reply"></i></button>
+              <button class="flex items-center gap-1.5 hover:text-green-500 transition-colors"><i
+                  class="fa-solid fa-retweet"></i></button>
+              <button class="flex items-center gap-1.5 hover:text-yellow-500 transition-colors"><i
+                  class="fa-solid fa-star"></i></button>
+              <button class="flex items-center gap-1.5 hover:text-default transition-colors"><i
+                  class="fa-solid fa-ellipsis"></i></button>
             </div>
           </div>
         </article>
 
         <!-- Post 2 -->
-        <article class="flex gap-4 pb-6 border-b border-default/50">
+        <article
+          class="flex gap-4 p-4 lg:p-0 pb-4 lg:pb-6 border-b-8 lg:border-b border-neutral-500/10 lg:border-default/50 bg-surface">
           <div class="w-12 h-12 rounded-xl bg-neutral-200 flex items-center justify-center shrink-0 shadow-sm">
             <i class="fa-solid fa-mask text-2xl text-neutral-500"></i>
           </div>
@@ -146,16 +232,21 @@
               <a href="#" class="text-migala font-medium hover:underline">@admin</a> el progreso humano es la onda
             </div>
             <div class="flex gap-6 text-sub text-xs">
-              <button class="flex items-center gap-1.5 hover:text-migala transition-colors"><i class="fa-solid fa-reply"></i></button>
-              <button class="flex items-center gap-1.5 hover:text-green-500 transition-colors"><i class="fa-solid fa-retweet"></i></button>
-              <button class="flex items-center gap-1.5 text-yellow-500"><i class="fa-solid fa-star"></i> <span>1</span></button>
-              <button class="flex items-center gap-1.5 hover:text-default transition-colors"><i class="fa-solid fa-ellipsis"></i></button>
+              <button class="flex items-center gap-1.5 hover:text-migala transition-colors"><i
+                  class="fa-solid fa-reply"></i></button>
+              <button class="flex items-center gap-1.5 hover:text-green-500 transition-colors"><i
+                  class="fa-solid fa-retweet"></i></button>
+              <button class="flex items-center gap-1.5 text-yellow-500"><i class="fa-solid fa-star"></i>
+                <span>1</span></button>
+              <button class="flex items-center gap-1.5 hover:text-default transition-colors"><i
+                  class="fa-solid fa-ellipsis"></i></button>
             </div>
           </div>
         </article>
 
         <!-- Post 3 -->
-        <article class="flex gap-4 pb-6 border-b border-default/50">
+        <article
+          class="flex gap-4 p-4 lg:p-0 pb-4 lg:pb-6 border-b-8 lg:border-b border-neutral-500/10 lg:border-default/50 bg-surface">
           <div class="w-12 h-12 rounded-xl bg-neutral-200 flex items-center justify-center shrink-0 shadow-sm">
             <i class="fa-solid fa-mask text-2xl text-neutral-500"></i>
           </div>
@@ -175,10 +266,12 @@
             <div class="text-sm text-default leading-relaxed whitespace-pre-line mb-3">
               <a href="#" class="text-migala font-medium hover:underline">@admin</a> el progreso humano es la onda
             </div>
-            
+
             <!-- Embedded Inner Thread -->
-            <div class="bg-neutral-500/5 border border-default/50 rounded-2xl p-4 mb-4 flex gap-3 hover:border-default transition-colors cursor-pointer">
-              <div class="w-8 h-8 rounded-lg bg-neutral-800 text-white flex items-center justify-center text-[10px] font-bold shrink-0">
+            <div
+              class="bg-neutral-500/5 border border-default/50 rounded-2xl p-4 mb-4 flex gap-3 hover:border-default transition-colors cursor-pointer">
+              <div
+                class="w-8 h-8 rounded-lg bg-neutral-800 text-white flex items-center justify-center text-[10px] font-bold shrink-0">
                 A.S.
               </div>
               <div class="flex-grow min-w-0">
@@ -199,17 +292,23 @@
             </div>
 
             <div class="flex gap-6 text-sub text-xs">
-              <button class="flex items-center gap-1.5 hover:text-migala transition-colors"><i class="fa-solid fa-reply"></i></button>
-              <button class="flex items-center gap-1.5 hover:text-green-500 transition-colors"><i class="fa-solid fa-retweet"></i></button>
-              <button class="flex items-center gap-1.5 text-yellow-500"><i class="fa-solid fa-star"></i> <span>1</span></button>
-              <button class="flex items-center gap-1.5 hover:text-default transition-colors"><i class="fa-solid fa-ellipsis"></i></button>
+              <button class="flex items-center gap-1.5 hover:text-migala transition-colors"><i
+                  class="fa-solid fa-reply"></i></button>
+              <button class="flex items-center gap-1.5 hover:text-green-500 transition-colors"><i
+                  class="fa-solid fa-retweet"></i></button>
+              <button class="flex items-center gap-1.5 text-yellow-500"><i class="fa-solid fa-star"></i>
+                <span>1</span></button>
+              <button class="flex items-center gap-1.5 hover:text-default transition-colors"><i
+                  class="fa-solid fa-ellipsis"></i></button>
             </div>
           </div>
         </article>
 
         <!-- Post 4 -->
-        <article class="flex gap-4">
-          <div class="w-12 h-12 rounded-xl bg-neutral-800 text-white flex items-center justify-center text-xs font-extrabold shrink-0 shadow-sm">
+        <article
+          class="flex gap-4 p-4 lg:p-0 pb-4 lg:pb-6 border-b-8 lg:border-b border-neutral-500/10 lg:border-default/50 bg-surface">
+          <div
+            class="w-12 h-12 rounded-xl bg-neutral-800 text-white flex items-center justify-center text-xs font-extrabold shrink-0 shadow-sm">
             A.S.
           </div>
           <div class="flex-grow min-w-0">
@@ -226,28 +325,82 @@
             </div>
             <div class="text-sm text-default leading-relaxed whitespace-pre-line mb-3">
               ¡¡Mumble funciona!!
-              ¡¡Con tu usuario y password de <a href="#" class="text-migala font-medium hover:underline">asamblea.social</a>!!
-              <a href="https://mumble.asamblea.social/" target="_blank" class="text-migala font-medium hover:underline block my-1 bg-neutral-500/5 p-2 rounded-lg inline-block border border-default/30">https://mumble.asamblea.social/</a>
+              ¡¡Con tu usuario y password de <a href="#"
+                class="text-migala font-medium hover:underline">asamblea.social</a>!!
+              <a href="https://mumble.asamblea.social/" target="_blank"
+                class="text-migala font-medium hover:underline block my-1 bg-neutral-500/5 p-2 rounded-lg inline-block border border-default/30">https://mumble.asamblea.social/</a>
               O desde tu cliente de Mumble a: <strong class="text-default font-bold">asamblea.social</strong>
               Puerto (default) <code class="bg-neutral-500/10 px-1 py-0.5 rounded text-xs font-mono">6777</code>
             </div>
-            
+
             <!-- Reactions -->
-            <div class="inline-flex items-center gap-1.5 bg-neutral-500/5 border border-default/50 hover:border-default px-2.5 py-1 rounded-lg text-xs mb-3 cursor-pointer transition-colors shadow-3xs">
+            <div
+              class="inline-flex items-center gap-1.5 bg-neutral-500/5 border border-default/50 hover:border-default px-2.5 py-1 rounded-lg text-xs mb-3 cursor-pointer transition-colors shadow-3xs">
               <span class="text-sm">🔥</span> <span class="font-bold text-sub">1</span>
             </div>
 
             <div class="flex gap-6 text-sub text-xs mt-1">
-              <button class="flex items-center gap-1.5 hover:text-migala transition-colors"><i class="fa-solid fa-reply"></i></button>
-              <button class="flex items-center gap-1.5 hover:text-green-500 transition-colors"><i class="fa-solid fa-retweet"></i></button>
-              <button class="flex items-center gap-1.5 text-yellow-500"><i class="fa-solid fa-star"></i> <span>1</span></button>
-              <button class="flex items-center gap-1.5 hover:text-default transition-colors"><i class="fa-solid fa-ellipsis"></i></button>
+              <button class="flex items-center gap-1.5 hover:text-migala transition-colors"><i
+                  class="fa-solid fa-reply"></i></button>
+              <button class="flex items-center gap-1.5 hover:text-green-500 transition-colors"><i
+                  class="fa-solid fa-retweet"></i></button>
+              <button class="flex items-center gap-1.5 text-yellow-500"><i class="fa-solid fa-star"></i>
+                <span>1</span></button>
+              <button class="flex items-center gap-1.5 hover:text-default transition-colors"><i
+                  class="fa-solid fa-ellipsis"></i></button>
             </div>
           </div>
         </article>
 
       </div>
+      }
+
+      @if (activeTab() === 'about') {
+      <div class="p-4 lg:p-0">
+        <h2 class="text-xl font-extrabold text-default mb-4">Acerca de la Asamblea Social</h2>
+        <p class="text-sub text-sm leading-relaxed mb-4">
+          La Asamblea Social es el espacio principal de convergencia, discusión y organización del Proyecto Migala. 
+          Aquí los miembros pueden interactuar de forma libre, proponer ideas y construir en comunidad, respetando siempre el Reglamento Nacional.
+        </p>
+        <div class="bg-brand-soft border border-migala/20 rounded-2xl p-5 text-sm text-migala mt-8">
+          <div class="flex items-center gap-3 mb-2">
+            <i class="fa-solid fa-bullhorn text-lg"></i>
+            <h3 class="font-bold text-base">Reglas de convivencia</h3>
+          </div>
+          <p class="mt-2 text-migala/80">Recuerda siempre mantener un ambiente de respeto, horizontalidad y apertura al diálogo constructivo. No se toleran actitudes de discriminación o violencia.</p>
+        </div>
+      </div>
+      }
     </main>
 
   </div>
 </div>
+
+<!-- Mobile Bottom Navigation (Visible solo en móvil) -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 bg-surface border-t border-default lg:hidden flex justify-around items-center px-2 py-3 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] pb-[calc(env(safe-area-inset-bottom)+0.75rem)]">
+  <!-- General -->
+  <button (click)="activeTab.set('general')" 
+          class="flex flex-col items-center justify-center w-12 h-10 transition-colors"
+          [class.text-migala]="activeTab() === 'general'"
+          [class.text-sub]="activeTab() !== 'general'">
+    <i class="fa-solid fa-house text-xl mb-1"></i>
+  </button>
+  
+  <!-- Comisiones Suscritas -->
+  @for (comision of misComisiones; track comision.id) {
+    <button (click)="activeTab.set(comision.id)" 
+            class="flex flex-col items-center justify-center w-12 h-10 transition-colors"
+            [class.text-migala]="activeTab() === comision.id"
+            [class.text-sub]="activeTab() !== comision.id">
+      <i [class]="comision.icon + ' text-xl mb-1'"></i>
+    </button>
+  }
+  
+  <!-- About -->
+  <button (click)="activeTab.set('about')" 
+          class="flex flex-col items-center justify-center w-12 h-10 transition-colors"
+          [class.text-migala]="activeTab() === 'about'"
+          [class.text-sub]="activeTab() !== 'about'">
+    <i class="fa-solid fa-circle-info text-xl mb-1"></i>
+  </button>
+</nav>
